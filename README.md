@@ -104,7 +104,7 @@ data = [
     {"d": "2024-01-04", "c": 105.0},
 ]
 
-renderer = SparklineRenderer(width=96, height=24)
+renderer = SparklineRenderer(width=96, height=32)
 svg = renderer.render(data)
 print(svg)  # Returns SVG string
 ```

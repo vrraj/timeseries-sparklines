@@ -10,7 +10,7 @@ class SparklineRenderer:
     def __init__(
         self,
         width: int = 96,
-        height: int = 24,
+        height: int = 32,
         stroke_width: float = 1.8,
         baseline_color: str = "rgba(148,163,184,0.35)",
         up_color: str = "#12b76a",

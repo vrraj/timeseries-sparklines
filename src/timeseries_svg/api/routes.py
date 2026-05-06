@@ -90,7 +90,7 @@ def create_app() -> FastAPI:
         
         # Generate examples
         sparkline_data = [100.0, 102.5, 101.2, 105.0, 103.8, 107.0, 103, 100, 90, 95, 99, 105, 106, 100, 110, 105, 95, 117, 118, 120, 128, 130, 120, 117, 118, 116, 125, 130, 134]
-        sparkline_renderer = SparklineRenderer()
+        sparkline_renderer = SparklineRenderer(width=200, height=64)
         sparkline_svg = sparkline_renderer.render(sparkline_data)
         
         chart_data = [

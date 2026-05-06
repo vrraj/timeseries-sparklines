@@ -8,8 +8,8 @@ class SparklineRequest(BaseModel):
     """Request model for sparkline rendering."""
     
     data: Any = Field(..., description="Time series data in any supported format")
-    width: int = Field(96, description="SVG width in pixels")
-    height: int = Field(32, description="SVG height in pixels")
+    width: int = Field(200, description="SVG width in pixels")
+    height: int = Field(64, description="SVG height in pixels")
     stroke_width: float = Field(1.8, description="Line stroke width")
     baseline_color: str = Field("rgba(148,163,184,0.35)", description="Baseline color")
     up_color: str = Field("#12b76a", description="Upward trend color")

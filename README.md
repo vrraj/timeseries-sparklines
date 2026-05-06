@@ -11,20 +11,28 @@ The library is data-agnostic - it doesn't store data. Your application manages t
 The frontend simply displays the returned SVG markup. No browser-side chart initialization, canvas lifecycle management, or frontend charting runtime is required.
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Your Application                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│  1. Backend fetches data from your source                        │
-│     (PostgreSQL, external API, in-memory cache, etc.)             │
-│                                                                   │
-│  2. Backend calls timeseries-sparklines renderer with data        │
-│                                                                   │
-│  3. Renderer returns SVG string                                  │
-│                                                                   │
-│  4. Backend sends SVG to frontend                                │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
+┌──────────────────────┐
+│   Data Source         │
+│ DB / API / Cache      │
+└──────────┬───────────┘
+           │ raw time-series data
+           ▼
+┌──────────────────────┐
+│   Your Backend        │
+│ fetch + prepare data  │
+└──────────┬───────────┘
+           │ normalized input
+           ▼
+┌──────────────────────┐
+│ timeseries-sparklines │
+│ server-side renderer  │
+└──────────┬───────────┘
+           │ SVG string
+           ▼
+┌──────────────────────┐
+│   Browser / UI        │
+│ displays SVG markup   │
+└──────────────────────┘
 ```
 
 **Example:**

@@ -14,6 +14,19 @@ Need to add **real-time sparklines** or **slicable time-series charts** to your 
 
 It is designed for SSR-first applications, dashboards, watchlists, Agentic systems, and real-time monitoring interfaces where many lightweight charts need to be rendered without shipping a frontend charting library.
 
+### Backend Tool Harness for Agentic Visualization
+
+Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` can act as a backend tool harness that agents or orchestration layers call to turn retrieved or computed time-series data into embeddable SVG markup.
+
+A typical Agentic workflow:
+
+1. Retrieve raw time-series data from a database, API, cache, or vector-backed workflow.
+2. Slice the required window, such as `5D`, `1M`, `6M`, `1Y`, or a custom time range.
+3. Call `timeseries-sparklines` as the backend rendering tool to generate a pure SVG string with no frontend chart runtime or external plotting dependency.
+4. Embed the SVG into a dashboard, generated HTML view, report, notebook, or chat interface.
+
+Because the output is lightweight SVG text, the tool response can be cached, streamed, embedded, and rendered natively anywhere SVG/HTML is supported. Since SVG is text-based markup, it can also be passed through LLM workflows as lightweight visual context when needed.
+
 **[Quick Start →](#install)**
 
 ## Data Flow
@@ -156,15 +169,15 @@ async def get_sparkline(symbol: str):
     return Response(content=svg, media_type="image/svg+xml")
 ```
 
-### AI / Agentic System Integration
-Use as a visualization utility inside AI pipelines and agent systems. Ideal for:
+### Backend Tool Harness for AI / Agentic Systems
+Use as a backend rendering tool inside AI pipelines and agent systems. Ideal for:
 - LLM-generated visualizations
 - Agentic dashboard updates
 - Computed metric display
 - Embedded chart generation
 
 ```python
-# In an AI pipeline
+# In an AI / agentic tool pipeline
 data = agent.retrieve_time_series(symbol="AAPL", period="6M")
 svg = renderer.render(data, period="6M", title="AAPL 6M History")
 agent.embed_in_dashboard(svg)

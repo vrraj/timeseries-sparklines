@@ -1,9 +1,12 @@
-#Data Input Formats
+---
+layout: default
+title: "Usage Guide | Timeseries SVG"
+description: "Data input formats and usage examples for timeseries-svg library."
+---
 
+# Data Input Formats
 
 The timeseries-svg library automatically normalizes various input formats. Use the format that best matches your data source.
-
-[← Back to Interactive Test](/test-charts)
 
 ## List of Dicts (Standard Format)
 

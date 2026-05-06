@@ -1,10 +1,14 @@
 # timeseries-sparklines
 
-A general-purpose Python library for rendering time series data as SVG charts and sparklines. Accepts JSONB data from any source (realtime for sparklines or historical data) and produces clean, interactive SVG visualizations.
+A lightweight server-side SVG rendering engine for dense time-series sparklines and charts.
+
+Designed for SSR applications, dashboards, watchlists, agentic systems, and real-time monitoring interfaces where many lightweight charts may be rendered without shipping a frontend charting library.
 
 ## Data Flow
 
 The library is data-agnostic - it doesn't store data. Your application manages the data source.
+
+The frontend simply displays the returned SVG markup. No browser-side chart initialization, canvas lifecycle management, or frontend charting runtime is required.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -42,12 +46,13 @@ async def get_sparkline(request: SparklineRequest):
 
 - **Flexible data input**: Accepts multiple JSONB formats (list of dicts, list of lists, dict with date keys, or simple value lists)
 - **Sparkline rendering**: Compact sparkline charts for inline display
-- **Interactive charts**: Full time series charts with axis labels and grid lines
+- **Time series charts**: SVG charts with axis labels, grid lines, and period-based formatting
 - **Configurable styling**: Customizable colors, dimensions, and formatting
 - **Period-based slicing**: Auto-filters data to trading days (5D=5, 1M=21, 3M=63, 6M=126, 1Y=252)
 - **Segment coloring**: Color segments by open price for sparklines and charts
 - **Zero external dependencies**: Pure Python, no heavy plotting libraries required
 - **SVG output**: Lightweight, scalable vector graphics perfect for web embedding
+- **Dense dashboard rendering**: Optimized for rendering many sparklines on the same page with minimal frontend overhead
 
 ## Why Use This Library?
 
@@ -73,19 +78,34 @@ svg = renderer.render(data, period="1M", color_by_open=True)
 - **Segment coloring**: Color by open price automatically for trend visualization
 - **Zero dependencies**: Pure Python - no heavy charting libraries like matplotlib/plotly
 
-It's a rendering engine - you provide raw data, it gives you production-ready SVG. Focus on your application logic, not SVG math.
+It's a rendering engine - you provide raw time-series data, it returns production-ready SVG markup. Focus on your application logic, not coordinate scaling, SVG math, or chart rendering internals.
+
+## Why Server-Side SVG?
+
+`timeseries-sparklines` is optimized for:
+
+- SSR applications
+- Dense dashboard tables
+- Real-time watchlists
+- AI / agentic systems
+- Lightweight embedded charts
+- Monitoring and operational dashboards
+
+Unlike frontend charting libraries, the browser does not initialize chart instances or execute rendering logic. The backend returns deterministic SVG markup directly.
+
+This makes it practical to render many sparklines on the same page with minimal frontend overhead.
 
 ## Installation
 
 ```bash
-pip install timeseries-svg
+pip install timeseries-sparklines
 ```
 
 Or install from source:
 
 ```bash
-git clone https://github.com/yourusername/timeseries-svg.git
-cd timeseries-svg
+git clone https://github.com/yourusername/timeseries-sparklines.git
+cd timeseries-sparklines
 pip install -e .
 ```
 
@@ -94,7 +114,7 @@ pip install -e .
 ### Sparkline Example
 
 ```python
-from timeseries_svg import SparklineRenderer
+from timeseries_sparklines import SparklineRenderer
 
 # Input data can be in various formats
 data = [
@@ -112,7 +132,7 @@ print(svg)  # Returns SVG string
 ### Time Series Chart Example
 
 ```python
-from timeseries_svg import TimeSeriesChartRenderer
+from timeseries_sparklines import TimeSeriesChartRenderer
 
 # Historical price data
 data = [
@@ -249,7 +269,7 @@ renderer.render(data, period="1M")  # Use 1M label formatting
 Use the data normalization utilities directly if needed:
 
 ```python
-from timeseries_svg import normalize_timeseries_data, extract_values, extract_dates
+from timeseries_sparklines import normalize_timeseries_data, extract_values, extract_dates
 
 normalized = normalize_timeseries_data(data)
 values = extract_values(normalized)
@@ -263,6 +283,20 @@ dates = extract_dates(normalized)
 - **Analytics platforms**: Time series metrics and trends
 - **Trading applications**: Price history and technical indicators
 - **Any web application**: Lightweight SVG charts without heavy dependencies
+- **AI and agentic systems**: Generate embeddable SVG visualizations from retrieved or computed time-series data
+
+## AI / Agentic System Integration
+
+`timeseries-sparklines` can also be used as a visualization utility inside AI pipelines and agent systems.
+
+An orchestration layer or LLM can:
+
+- Retrieve time-series data
+- Compute or transform metrics
+- Call the renderer
+- Embed SVG output directly into dashboards, reports, chats, generated HTML, or monitoring interfaces
+
+Because the output is deterministic SVG markup, charts can be streamed, cached, embedded, and composed without frontend chart dependencies.
 
 ## Integration with Web Frameworks
 
@@ -270,7 +304,7 @@ dates = extract_dates(normalized)
 
 ```python
 from fastapi import FastAPI
-from timeseries_svg import SparklineRenderer
+from timeseries_sparklines import SparklineRenderer
 
 app = FastAPI()
 renderer = SparklineRenderer()
@@ -287,7 +321,7 @@ async def get_sparkline(symbol: str):
 
 ```python
 from flask import Flask, Response
-from timeseries_svg import TimeSeriesChartRenderer
+from timeseries_sparklines import TimeSeriesChartRenderer
 
 app = Flask(__name__)
 renderer = TimeSeriesChartRenderer()
@@ -336,7 +370,7 @@ def chart(symbol):
 
 ```python
 from fastapi import FastAPI, Response
-from timeseries_svg import SparklineRenderer
+from timeseries_sparklines import SparklineRenderer
 
 app = FastAPI()
 renderer = SparklineRenderer()

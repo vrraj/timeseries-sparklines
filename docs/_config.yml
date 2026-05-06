@@ -1,0 +1,50 @@
+# --- Site Metadata ---
+# --- Site Metadata & SEO Defaults ---
+title: "Timeseries SVG"
+tagline: "General-purpose time series SVG plotting library"
+description: "A lightweight Python library for rendering time series data as SVG charts and sparklines. Accepts JSONB data from any source and produces clean, interactive SVG visualizations."
+url: "https://vrraj.github.io"
+baseurl: "/timeseries-sparklines"
+
+defaults:
+  - scope:
+      path: "" # Applies to all files
+    values:
+      layout: "default"
+
+  - scope:
+      path: "index.md"
+    values:
+      title: "Timeseries SVG: Time Series Visualization"
+
+  - scope:
+      path: "api-reference.md"
+    values:
+      title: "API Reference | Timeseries SVG"
+      description: "Complete API documentation for SparklineRenderer, TimeSeriesChartRenderer, and data utilities."
+
+  - scope:
+      path: "deployment.md"
+    values:
+      title: "Deployment Guide | Timeseries SVG"
+      description: "Installation and deployment instructions for timeseries-svg package."
+
+# --- Theme Configuration ---
+theme: jekyll-theme-cayman
+show_downloads: true
+
+# --- Google Analytics (GA4) ---
+google_analytics: G-KBYFPBJ1MG
+
+# --- Plugins ---
+plugins:
+  - jekyll-seo-tag
+  - jekyll-gist
+
+# --- Build Settings ---
+markdown: kramdown
+highlighter: rouge
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor

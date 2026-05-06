@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>API Reference</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="api-reference">API Reference</h1>
+<p>Reference for programmatic usage, rendering parameters, and data normalization.</p>
+<p>This document provides the complete API reference for the timeseries-svg library, including class constructors, method signatures, parameter details, and common usage patterns.</p>
+<blockquote>
+<p><strong>New here?</strong> Start with the project overview on the home page: <strong><a href="https://vrraj.github.io/timeseries-sparklines/">timeseries-svg docs home</a></strong>.</p>
+<p><strong>Source + releases:</strong> GitHub repo and PyPI package are linked from the home page.</p>
+</blockquote>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#core-classes">Core Classes</a></li>
+<li><a href="#sparkline-renderer-api">Sparkline Renderer API</a></li>
+<li><a href="#chart-renderer-api">Chart Renderer API</a></li>
+<li><a href="#data-normalization-api">Data Normalization API</a></li>
+<li><a href="#common-usage-patterns">Common Usage Patterns</a></li>
+</ul>
+<hr>
+<h2 id="core-classes">Core Classes</h2>
+<h3 id="sparklinerenderer"><code>SparklineRenderer</code></h3>
+<p>Render compact sparkline SVG charts from time series data.</p>
+<pre><code class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SparklineRenderer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">
+        self,
+        width: <span class="hljs-built_in">int</span> = <span class="hljs-number">96</span>,
+        height: <span class="hljs-built_in">int</span> = <span class="hljs-number">32</span>,
+        stroke_width: <span class="hljs-built_in">float</span> = <span class="hljs-number">1.8</span>,
+        baseline_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;rgba(148,163,184,0.35)&quot;</span>,
+        up_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#12b76a&quot;</span>,
+        down_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#f04438&quot;</span>,
+        show_baseline: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">True</span>,
+        color_by_open: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">False</span>,
+    </span>)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td><code>int</code></td>
+<td>96</td>
+<td>SVG width in pixels</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>int</code></td>
+<td>32</td>
+<td>SVG height in pixels</td>
+</tr>
+<tr>
+<td><code>stroke_width</code></td>
+<td><code>float</code></td>
+<td>1.8</td>
+<td>Line stroke width</td>
+</tr>
+<tr>
+<td><code>baseline_color</code></td>
+<td><code>str</code></td>
+<td>&quot;rgba(148,163,184,0.35)&quot;</td>
+<td>Color for baseline reference line</td>
+</tr>
+<tr>
+<td><code>up_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#12b76a&quot;</td>
+<td>Color for upward trend</td>
+</tr>
+<tr>
+<td><code>down_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#f04438&quot;</td>
+<td>Color for downward trend</td>
+</tr>
+<tr>
+<td><code>show_baseline</code></td>
+<td><code>bool</code></td>
+<td>True</td>
+<td>Whether to show baseline reference line</td>
+</tr>
+<tr>
+<td><code>color_by_open</code></td>
+<td><code>bool</code></td>
+<td>False</td>
+<td>If True, color segments based on open price (first point)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="timeserieschartrenderer"><code>TimeSeriesChartRenderer</code></h3>
+<p>Render interactive time series chart SVGs with axis labels and grid lines.</p>
+<pre><code class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TimeSeriesChartRenderer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">
+        self,
+        width: <span class="hljs-built_in">int</span> = <span class="hljs-number">760</span>,
+        height: <span class="hljs-built_in">int</span> = <span class="hljs-number">320</span>,
+        margin: <span class="hljs-type">Optional</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>]] = <span class="hljs-literal">None</span>,
+        up_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#16a34a&quot;</span>,
+        down_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#dc2626&quot;</span>,
+        grid_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;rgba(148,163,184,0.35)&quot;</span>,
+        axis_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#94a3b8&quot;</span>,
+        label_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#64748b&quot;</span>,
+        tooltip_bg: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#ffffff&quot;</span>,
+        tooltip_border: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;rgba(148,163,184,0.45)&quot;</span>,
+        color_by_open: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">False</span>,
+    </span>)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td><code>int</code></td>
+<td>760</td>
+<td>SVG width in pixels</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>int</code></td>
+<td>320</td>
+<td>SVG height in pixels</td>
+</tr>
+<tr>
+<td><code>margin</code></td>
+<td><code>Dict[str, int]</code></td>
+<td>{top: 16, right: 20, bottom: 44, left: 58}</td>
+<td>Chart margins</td>
+</tr>
+<tr>
+<td><code>up_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#16a34a&quot;</td>
+<td>Color for upward trend</td>
+</tr>
+<tr>
+<td><code>down_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#dc2626&quot;</td>
+<td>Color for downward trend</td>
+</tr>
+<tr>
+<td><code>grid_color</code></td>
+<td><code>str</code></td>
+<td>&quot;rgba(148,163,184,0.35)&quot;</td>
+<td>Grid line color</td>
+</tr>
+<tr>
+<td><code>axis_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#94a3b8&quot;</td>
+<td>Axis line color</td>
+</tr>
+<tr>
+<td><code>label_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#64748b&quot;</td>
+<td>Axis label color</td>
+</tr>
+<tr>
+<td><code>tooltip_bg</code></td>
+<td><code>str</code></td>
+<td>&quot;#ffffff&quot;</td>
+<td>Tooltip background color</td>
+</tr>
+<tr>
+<td><code>tooltip_border</code></td>
+<td><code>str</code></td>
+<td>&quot;rgba(148,163,184,0.45)&quot;</td>
+<td>Tooltip border color</td>
+</tr>
+<tr>
+<td><code>color_by_open</code></td>
+<td><code>bool</code></td>
+<td>False</td>
+<td>If True, color segments based on open price (first point)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="sparkline-renderer-api">Sparkline Renderer API</h2>
+<h3 id="render"><code>render()</code></h3>
+<p>Render sparkline SVG from input data.</p>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">render</span>(<span class="hljs-params">self, data: <span class="hljs-type">Any</span>, **normalize_kwargs</span>) -&gt; <span class="hljs-built_in">str</span>
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td><code>Any</code></td>
+<td>✅</td>
+<td>Input data in any supported format (list, dict, etc.)</td>
+</tr>
+<tr>
+<td><code>date_key</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Key name for date in dict format (default: &quot;d&quot;)</td>
+</tr>
+<tr>
+<td><code>value_key</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Key name for value in dict format (default: &quot;c&quot;)</td>
+</tr>
+<tr>
+<td><code>date_format</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Optional strftime format for date parsing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>str</code> - SVG string</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+renderer = SparklineRenderer(width=<span class="hljs-number">96</span>, height=<span class="hljs-number">32</span>)
+
+<span class="hljs-comment"># Basic usage</span>
+data = [
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">100.0</span>},
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">102.5</span>},
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-03&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">101.2</span>},
+]
+svg = renderer.render(data)
+
+<span class="hljs-comment"># With custom keys</span>
+data = [
+    {<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">100.0</span>},
+    {<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">102.5</span>},
+]
+svg = renderer.render(data, date_key=<span class="hljs-string">&quot;date&quot;</span>, value_key=<span class="hljs-string">&quot;price&quot;</span>)
+
+<span class="hljs-comment"># With color by open</span>
+svg = renderer.render(data, color_by_open=<span class="hljs-literal">True</span>)
+</code></pre>
+<hr>
+<h2 id="chart-renderer-api">Chart Renderer API</h2>
+<h3 id="render-1"><code>render()</code></h3>
+<p>Render time series chart SVG with axis labels and grid lines.</p>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">render</span>(<span class="hljs-params">
+    self,
+    data: <span class="hljs-type">Any</span>,
+    period: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;1M&quot;</span>,
+    title: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    **normalize_kwargs
+</span>) -&gt; <span class="hljs-built_in">str</span>
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td><code>Any</code></td>
+<td>✅</td>
+<td>Input data in any supported format</td>
+</tr>
+<tr>
+<td><code>period</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Time period for label formatting (5D, 1M, 3M, 6M, 1Y)</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Optional chart title</td>
+</tr>
+<tr>
+<td><code>date_key</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Key name for date in dict format (default: &quot;d&quot;)</td>
+</tr>
+<tr>
+<td><code>value_key</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Key name for value in dict format (default: &quot;c&quot;)</td>
+</tr>
+<tr>
+<td><code>date_format</code></td>
+<td><code>str</code></td>
+<td>❌</td>
+<td>Optional strftime format for date parsing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Period Options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Description</th>
+<th>Trading Days</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5D</code></td>
+<td>Daily labels (weekday)</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>1M</code></td>
+<td>Weekly labels (month day)</td>
+<td>21</td>
+</tr>
+<tr>
+<td><code>3M</code></td>
+<td>Every 3 weeks (month day)</td>
+<td>63</td>
+</tr>
+<tr>
+<td><code>6M</code></td>
+<td>Monthly labels (month)</td>
+<td>126</td>
+</tr>
+<tr>
+<td><code>1Y</code></td>
+<td>Every 2 months (month)</td>
+<td>252</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>str</code> - SVG string</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> TimeSeriesChartRenderer
+
+renderer = TimeSeriesChartRenderer(width=<span class="hljs-number">760</span>, height=<span class="hljs-number">320</span>)
+
+<span class="hljs-comment"># Basic usage</span>
+data = [
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">150.0</span>},
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">152.5</span>},
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-03&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">151.0</span>},
+]
+svg = renderer.render(data, period=<span class="hljs-string">&quot;1M&quot;</span>, title=<span class="hljs-string">&quot;AAPL Price History&quot;</span>)
+
+<span class="hljs-comment"># With color by open</span>
+svg = renderer.render(data, period=<span class="hljs-string">&quot;5D&quot;</span>, color_by_open=<span class="hljs-literal">True</span>)
+</code></pre>
+<hr>
+<h2 id="data-normalization-api">Data Normalization API</h2>
+<h3 id="normalize_timeseries_data"><code>normalize_timeseries_data()</code></h3>
+<p>Normalize various JSONB input formats into a standard time series structure.</p>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">normalize_timeseries_data</span>(<span class="hljs-params">
+    data: <span class="hljs-type">Any</span>,
+    date_key: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;d&quot;</span>,
+    value_key: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;c&quot;</span>,
+    date_format: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>
+</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]]
+</code></pre>
+<p><strong>Supported Input Formats:</strong></p>
+<ol>
+<li><strong>List of dicts:</strong> <code>[{&quot;d&quot;: &quot;2024-01-01&quot;, &quot;c&quot;: 100.0}, ...]</code></li>
+<li><strong>List of lists:</strong> <code>[[&quot;2024-01-01&quot;, 100.0], ...]</code></li>
+<li><strong>Dict with date keys:</strong> <code>{&quot;2024-01-01&quot;: 100.0, ...}</code></li>
+<li><strong>List of values:</strong> <code>[100.0, 101.0, ...]</code> (dates auto-generated)</li>
+</ol>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td><code>Any</code></td>
+<td>-</td>
+<td>Input data in various formats</td>
+</tr>
+<tr>
+<td><code>date_key</code></td>
+<td><code>str</code></td>
+<td>&quot;d&quot;</td>
+<td>Key name for date in dict format</td>
+</tr>
+<tr>
+<td><code>value_key</code></td>
+<td><code>str</code></td>
+<td>&quot;c&quot;</td>
+<td>Key name for value in dict format</td>
+</tr>
+<tr>
+<td><code>date_format</code></td>
+<td><code>str</code></td>
+<td>None</td>
+<td>Optional strftime format for date parsing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>List[Dict[str, Any]]</code> - List of dicts with standardized &quot;date&quot; and &quot;value&quot; keys</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> normalize_timeseries_data
+
+<span class="hljs-comment"># List of dicts</span>
+data = [{<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">100.0</span>}]
+normalized = normalize_timeseries_data(data)
+<span class="hljs-comment"># Returns: [{&quot;date&quot;: &quot;2024-01-01&quot;, &quot;value&quot;: 100.0}]</span>
+
+<span class="hljs-comment"># List of lists</span>
+data = [[<span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-number">100.0</span>]]
+normalized = normalize_timeseries_data(data)
+<span class="hljs-comment"># Returns: [{&quot;date&quot;: &quot;2024-01-01&quot;, &quot;value&quot;: 100.0}]</span>
+
+<span class="hljs-comment"># Dict with date keys</span>
+data = {<span class="hljs-string">&quot;2024-01-01&quot;</span>: <span class="hljs-number">100.0</span>}
+normalized = normalize_timeseries_data(data)
+<span class="hljs-comment"># Returns: [{&quot;date&quot;: &quot;2024-01-01&quot;, &quot;value&quot;: 100.0}]</span>
+
+<span class="hljs-comment"># List of values</span>
+data = [<span class="hljs-number">100.0</span>, <span class="hljs-number">101.0</span>, <span class="hljs-number">102.0</span>]
+normalized = normalize_timeseries_data(data)
+<span class="hljs-comment"># Returns: [{&quot;date&quot;: &quot;day-0&quot;, &quot;value&quot;: 100.0}, {&quot;date&quot;: &quot;day-1&quot;, &quot;value&quot;: 101.0}, ...]</span>
+</code></pre>
+<h3 id="extract_values"><code>extract_values()</code></h3>
+<p>Extract just the values from normalized data.</p>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_values</span>(<span class="hljs-params">normalized_data: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> normalize_timeseries_data, extract_values
+
+data = [{<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">100.0</span>}, {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">102.5</span>}]
+normalized = normalize_timeseries_data(data)
+values = extract_values(normalized)
+<span class="hljs-comment"># Returns: [100.0, 102.5]</span>
+</code></pre>
+<h3 id="extract_dates"><code>extract_dates()</code></h3>
+<p>Extract just the dates from normalized data.</p>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_dates</span>(<span class="hljs-params">normalized_data: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> normalize_timeseries_data, extract_dates
+
+data = [{<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">100.0</span>}, {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">102.5</span>}]
+normalized = normalize_timeseries_data(data)
+dates = extract_dates(normalized)
+<span class="hljs-comment"># Returns: [&quot;2024-01-01&quot;, &quot;2024-01-02&quot;]</span>
+</code></pre>
+<hr>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-basic-sparkline-rendering">1. Basic Sparkline Rendering</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+renderer = SparklineRenderer(width=<span class="hljs-number">96</span>, height=<span class="hljs-number">32</span>)
+data = [
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">100.0</span>},
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">102.5</span>},
+    {<span class="hljs-string">&quot;d&quot;</span>: <span class="hljs-string">&quot;2024-01-03&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-number">101.2</span>},
+]
+svg = renderer.render(data)
+</code></pre>
+<h3 id="2-chart-with-period-slicing">2. Chart with Period Slicing</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> TimeSeriesChartRenderer
+
+renderer = TimeSeriesChartRenderer(width=<span class="hljs-number">760</span>, height=<span class="hljs-number">320</span>)
+data = get_historical_data()  <span class="hljs-comment"># Your data source</span>
+
+<span class="hljs-comment"># Show last 5 days</span>
+svg = renderer.render(data, period=<span class="hljs-string">&quot;5D&quot;</span>, title=<span class="hljs-string">&quot;5 Day Chart&quot;</span>)
+
+<span class="hljs-comment"># Show last month</span>
+svg = renderer.render(data, period=<span class="hljs-string">&quot;1M&quot;</span>, title=<span class="hljs-string">&quot;1 Month Chart&quot;</span>)
+
+<span class="hljs-comment"># Show last year</span>
+svg = renderer.render(data, period=<span class="hljs-string">&quot;1Y&quot;</span>, title=<span class="hljs-string">&quot;1 Year Chart&quot;</span>)
+</code></pre>
+<h3 id="3-color-by-open-price">3. Color by Open Price</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+renderer = SparklineRenderer(color_by_open=<span class="hljs-literal">True</span>)
+svg = renderer.render(data)
+<span class="hljs-comment"># Segments above open price are green, below are red</span>
+</code></pre>
+<h3 id="4-custom-data-keys">4. Custom Data Keys</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+renderer = SparklineRenderer()
+data = [
+    {<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2024-01-01&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">100.0</span>},
+    {<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2024-01-02&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">102.5</span>},
+]
+svg = renderer.render(data, date_key=<span class="hljs-string">&quot;date&quot;</span>, value_key=<span class="hljs-string">&quot;price&quot;</span>)
+</code></pre>
+<h3 id="5-simple-value-list">5. Simple Value List</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+renderer = SparklineRenderer()
+data = [<span class="hljs-number">100.0</span>, <span class="hljs-number">102.5</span>, <span class="hljs-number">101.2</span>, <span class="hljs-number">105.0</span>, <span class="hljs-number">103.8</span>]
+svg = renderer.render(data)
+<span class="hljs-comment"># Dates auto-generated as &quot;day-0&quot;, &quot;day-1&quot;, etc.</span>
+</code></pre>
+<h3 id="6-custom-styling">6. Custom Styling</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+renderer = SparklineRenderer(
+    width=<span class="hljs-number">120</span>,
+    height=<span class="hljs-number">40</span>,
+    stroke_width=<span class="hljs-number">2.0</span>,
+    up_color=<span class="hljs-string">&quot;#00ff00&quot;</span>,
+    down_color=<span class="hljs-string">&quot;#ff0000&quot;</span>,
+    baseline_color=<span class="hljs-string">&quot;#cccccc&quot;</span>,
+    show_baseline=<span class="hljs-literal">True</span>,
+)
+svg = renderer.render(data)
+</code></pre>
+<h3 id="7-integration-with-fastapi">7. Integration with FastAPI</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Response
+<span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> SparklineRenderer
+
+app = FastAPI()
+renderer = SparklineRenderer()
+
+<span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/sparkline&quot;</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_sparkline</span>(<span class="hljs-params">request: <span class="hljs-built_in">dict</span></span>):
+    data = request.get(<span class="hljs-string">&quot;data&quot;</span>)
+    svg = renderer.render(data, color_by_open=<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> Response(content=svg, media_type=<span class="hljs-string">&quot;image/svg+xml&quot;</span>)
+</code></pre>
+<h3 id="8-integration-with-flask">8. Integration with Flask</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, Response
+<span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> TimeSeriesChartRenderer
+
+app = Flask(__name__)
+renderer = TimeSeriesChartRenderer()
+
+<span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&quot;/chart/&lt;symbol&gt;&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">chart</span>(<span class="hljs-params">symbol</span>):
+    data = fetch_historical_data(symbol)
+    svg = renderer.render(data, period=<span class="hljs-string">&quot;1M&quot;</span>, title=<span class="hljs-string">f&quot;<span class="hljs-subst">{symbol}</span> Price History&quot;</span>)
+    <span class="hljs-keyword">return</span> Response(svg, mimetype=<span class="hljs-string">&quot;image/svg+xml&quot;</span>)
+</code></pre>
+<hr>
+<h2 id="parameter-stability">Parameter Stability</h2>
+<h3 id="stable-parameters">Stable Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Stability</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td>✅ Stable</td>
+<td>SVG width in pixels</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>✅ Stable</td>
+<td>SVG height in pixels</td>
+</tr>
+<tr>
+<td><code>stroke_width</code></td>
+<td>✅ Stable</td>
+<td>Line stroke width</td>
+</tr>
+<tr>
+<td><code>up_color</code></td>
+<td>✅ Stable</td>
+<td>Color for upward trend</td>
+</tr>
+<tr>
+<td><code>down_color</code></td>
+<td>✅ Stable</td>
+<td>Color for downward trend</td>
+</tr>
+<tr>
+<td><code>period</code></td>
+<td>✅ Stable</td>
+<td>Time period for chart labels (5D, 1M, 3M, 6M, 1Y)</td>
+</tr>
+<tr>
+<td><code>date_key</code></td>
+<td>✅ Stable</td>
+<td>Key name for date in dict format</td>
+</tr>
+<tr>
+<td><code>value_key</code></td>
+<td>✅ Stable</td>
+<td>Key name for value in dict format</td>
+</tr>
+<tr>
+<td><code>color_by_open</code></td>
+<td>✅ Stable</td>
+<td>If True, color segments based on open price</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Legend:</strong></p>
+<ul>
+<li>✅ <strong>Stable</strong>: Guaranteed interface, won't change</li>
+</ul>
+
+            
+            
+        </body>
+        </html>

@@ -299,7 +299,98 @@ def chart(symbol):
     return Response(svg, mimetype="image/svg+xml")
 ```
 
-### Frontend Integration Pattern
+### Data Polling Architecture
+
+**Important: timeseries-sparklines does NOT handle data fetching or polling.** It's a pure rendering engine. Your application manages:
+
+- **Data fetching** (database, external API, cache, etc.)
+- **Polling logic** (intervals, error handling, retries)
+- **Caching** (reduce load on data sources)
+- **Business logic** (data transformation, filtering)
+
+**Complete Data Flow:**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Your Application                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  1. Frontend polls YOUR data API every N seconds                │
+│     → fetch('/api/price-history?symbols=AAPL&period=5D')         │
+│                                                                   │
+│  2. YOUR backend fetches from YOUR data source                  │
+│     → PostgreSQL, external API, Redis cache, etc.                │
+│                                                                   │
+│  3. YOUR backend sends data to timeseries-sparklines             │
+│     → renderer.render(data)                                      │
+│                                                                   │
+│  4. timeseries-sparklines returns SVG                            │
+│     → YOUR backend returns SVG to frontend                       │
+│                                                                   │
+│  5. Frontend displays SVG                                        │
+│                                                                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Backend Integration Example:**
+
+```python
+from fastapi import FastAPI, Response
+from timeseries_svg import SparklineRenderer
+
+app = FastAPI()
+renderer = SparklineRenderer()
+
+@app.get("/api/stocks/sparkline")
+async def sparkline_api(symbols: str, period: str = "5D", db: Session = Depends(get_db)):
+    # Step 1: YOUR application fetches data from YOUR source
+    data = await get_price_history_from_db(db, symbols, period)
+    
+    # Step 2: Render with timeseries-sparklines
+    svg = renderer.render(data, color_by_open=True)
+    
+    # Step 3: Return SVG
+    return Response(content=svg, media_type="image/svg+xml")
+```
+
+**Frontend Polling Example:**
+
+```javascript
+// Poll YOUR backend for data + SVG
+setInterval(async () => {
+    const response = await fetch('/api/stocks/sparkline?symbols=AAPL&period=5D');
+    const svg = await response.text();
+    document.getElementById('sparkline-AAPL').innerHTML = svg;
+}, 30000); // Poll every 30 seconds
+```
+
+**Alternative: Separate Data and Rendering**
+
+```javascript
+// Poll for data separately
+setInterval(async () => {
+    const response = await fetch('/api/price-history?symbols=AAPL&period=5D');
+    const data = await response.json();
+    
+    // Send data to timeseries-sparklines API
+    const sparklineResponse = await fetch('http://localhost:9300/sparkline-raw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: data, color_by_open: true })
+    });
+    
+    const svg = await sparklineResponse.text();
+    document.getElementById('sparkline-AAPL').innerHTML = svg;
+}, 30000);
+```
+
+**Key Points:**
+- timeseries-sparklines is a **rendering service**, not a data service
+- You control polling frequency, error handling, retries
+- You implement caching strategies for your data
+- You decide when to refresh (on user action, on schedule, on WebSocket event)
+
+## Frontend Integration Pattern
 
 **Recommended Architecture:**
 

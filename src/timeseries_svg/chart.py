@@ -61,31 +61,76 @@ class TimeSeriesChartRenderer:
         self.plot_width = width - self.margin['left'] - self.margin['right']
         self.plot_height = height - self.margin['top'] - self.margin['bottom']
     
-    def _slice_data_by_period(self, values: List[float], dates: List[str], period: str) -> tuple:
+    def _slice_data_by_period(self, values: List[float], dates: List[str], period) -> tuple:
         """
-        Slice data based on period (trading days).
+        Slice data based on period using time-based windows.
         
         Args:
             values: List of values
             dates: List of dates
-            period: Time period (5D, 1M, 3M, 6M, 1Y)
+            period: Time period (5D, 1M, 3M, 6M, 1Y) or custom timedelta object
         
         Returns:
             Tuple of sliced (values, dates)
         """
-        period_days = {
-            '5D': 5,
-            '1M': 21,   # ~21 trading days per calendar month
-            '3M': 63,   # ~63 trading days for 3 months
-            '6M': 126,  # ~126 trading days for 6 months
-            '1Y': 252,  # ~252 trading days per year
+        from datetime import timedelta, datetime
+        
+        # Predefined period deltas
+        period_deltas = {
+            '5D': timedelta(days=5),
+            '1W': timedelta(weeks=1),
+            '2W': timedelta(weeks=2),
+            '1M': timedelta(days=30),
+            '3M': timedelta(days=90),
+            '6M': timedelta(days=180),
+            '1Y': timedelta(days=365),
         }
         
-        max_points = period_days.get(period, len(values))
-        if max_points >= len(values):
+        # Handle custom timedelta or predefined period string
+        if isinstance(period, timedelta):
+            delta = period
+        else:
+            delta = period_deltas.get(period)
+        
+        if delta is None:
             return values, dates
         
-        return values[-max_points:], dates[-max_points:]
+        if len(dates) == 0:
+            return values, dates
+        
+        # Parse the most recent date
+        try:
+            if 'T' in dates[-1]:
+                latest_date = datetime.fromisoformat(dates[-1].replace('Z', '+00:00'))
+            else:
+                parts = dates[-1].split('-')
+                latest_date = datetime(int(parts[0]), int(parts[1]), int(parts[2]))
+        except (ValueError, TypeError, IndexError):
+            return values, dates
+        
+        # Calculate cutoff date
+        cutoff_date = latest_date - delta
+        
+        # Filter data points within the time window
+        filtered_values = []
+        filtered_dates = []
+        
+        for date_str, value in zip(dates, values):
+            try:
+                if 'T' in date_str:
+                    current_date = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+                else:
+                    parts = date_str.split('-')
+                    current_date = datetime(int(parts[0]), int(parts[1]), int(parts[2]))
+                
+                if current_date >= cutoff_date:
+                    filtered_dates.append(date_str)
+                    filtered_values.append(value)
+            except (ValueError, TypeError, IndexError):
+                # Skip invalid dates
+                continue
+        
+        return filtered_values, filtered_dates
     
     def render(
         self,
@@ -250,7 +295,7 @@ class TimeSeriesChartRenderer:
         
         # Title if provided
         if title:
-            svg_parts.insert(0, f'<text x="{self.width / 2:.2f}" y="22" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="600">{title}</text>')
+            svg_parts.insert(0, f'<text x="{self.width / 2:.2f}" y="27" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="600">{title}</text>')
         
         return (
             f'<svg width="100%" height="{self.height}" viewBox="0 0 {self.width} {self.height}" '

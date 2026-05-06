@@ -170,13 +170,32 @@ def render(
 
 **Period Options:**
 
-| Period | Description | Trading Days |
-|--------|-------------|--------------|
-| `5D` | Daily labels (weekday) | 5 |
-| `1M` | Weekly labels (month day) | 21 |
-| `3M` | Every 3 weeks (month day) | 63 |
-| `6M` | Monthly labels (month) | 126 |
-| `1Y` | Every 2 months (month) | 252 |
+| Period | Description | Time Window |
+|--------|-------------|-------------|
+| `5D` | Daily labels (weekday) | 5 calendar days |
+| `1W` | Weekly labels | 7 calendar days |
+| `2W` | Bi-weekly labels | 14 calendar days |
+| `1M` | Weekly labels (month day) | 30 calendar days |
+| `3M` | Every 3 weeks (month day) | 90 calendar days |
+| `6M` | Monthly labels (month) | 180 calendar days |
+| `1Y` | Every 2 months (month) | 365 calendar days |
+
+**Custom Periods:**
+
+You can also pass a custom `timedelta` object for any time window:
+
+```python
+from datetime import timedelta
+
+# Custom 2-week period
+svg = renderer.render(data, period=timedelta(weeks=2))
+
+# Custom 45-day period
+svg = renderer.render(data, period=timedelta(days=45))
+
+# Custom 3-hour period (for intraday data)
+svg = renderer.render(data, period=timedelta(hours=3))
+```
 
 **Returns:** `str` - SVG string
 

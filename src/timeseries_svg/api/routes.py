@@ -153,12 +153,20 @@ def create_app() -> FastAPI:
                 <div id="chartOptions" style="display: none;">
                     <label for="period">Period:</label>
                     <select id="period">
-                        <option value="5D">5D</option>
-                        <option value="1M">1M</option>
-                        <option value="3M">3M</option>
-                        <option value="6M">6M</option>
-                        <option value="1Y">1Y</option>
+                        <option value="5D">5D (5 days)</option>
+                        <option value="1W">1W (1 week)</option>
+                        <option value="2W">2W (2 weeks)</option>
+                        <option value="1M">1M (30 days)</option>
+                        <option value="3M">3M (90 days)</option>
+                        <option value="6M">6M (180 days)</option>
+                        <option value="1Y">1Y (365 days)</option>
+                        <option value="custom">Custom (specify below)</option>
                     </select>
+                    
+                    <div id="customPeriod" style="display: none; margin-top: 8px;">
+                        <label for="customDays">Custom Period (days):</label>
+                        <input type="number" id="customDays" placeholder="Enter number of days" min="1">
+                    </div>
                     
                     <label for="title">Title (optional):</label>
                     <input type="text" id="title" placeholder="Chart Title">
@@ -186,9 +194,15 @@ def create_app() -> FastAPI:
             <script>
                 const chartTypeSelect = document.getElementById('chartType');
                 const chartOptions = document.getElementById('chartOptions');
+                const periodSelect = document.getElementById('period');
+                const customPeriodDiv = document.getElementById('customPeriod');
                 
                 chartTypeSelect.addEventListener('change', function() {{
                     chartOptions.style.display = this.value === 'chart' ? 'block' : 'none';
+                }});
+                
+                periodSelect.addEventListener('change', function() {{
+                    customPeriodDiv.style.display = this.value === 'custom' ? 'block' : 'none';
                 }});
                 
                 async function renderChart() {{
@@ -205,7 +219,17 @@ def create_app() -> FastAPI:
                     }}
                     
                     if (chartType === 'chart') {{
-                        body.period = document.getElementById('period').value;
+                        const periodValue = document.getElementById('period').value;
+                        if (periodValue === 'custom') {{
+                            const customDays = parseInt(document.getElementById('customDays').value);
+                            if (customDays && customDays > 0) {{
+                                body.period_days = customDays;
+                            }} else {{
+                                body.period = '1M'; // fallback
+                            }}
+                        }} else {{
+                            body.period = periodValue;
+                        }}
                         const title = document.getElementById('title').value;
                         if (title) body.title = title;
                     }}
@@ -362,6 +386,8 @@ def create_app() -> FastAPI:
     async def render_chart_raw(request: ChartRequest):
         """Render chart and return raw SVG (for direct embedding)."""
         try:
+            from datetime import timedelta
+            
             normalize_kwargs = {}
             if request.date_key:
                 normalize_kwargs["date_key"] = request.date_key
@@ -380,7 +406,12 @@ def create_app() -> FastAPI:
                 color_by_open=request.color_by_open,
             )
             
-            svg = renderer.render(request.data, period=request.period, title=request.title, **normalize_kwargs)
+            # Handle custom period_days
+            period = request.period
+            if request.period_days:
+                period = timedelta(days=request.period_days)
+            
+            svg = renderer.render(request.data, period=period, title=request.title, **normalize_kwargs)
             
             return Response(content=svg, media_type="image/svg+xml")
             

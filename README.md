@@ -12,26 +12,26 @@ The frontend simply displays the returned SVG markup. No browser-side chart init
 
 ```
 ┌──────────────────────┐
-│   Data Source         │
-│ DB / API / Cache      │
+│   Data Source        │
+│ DB / API / Cache     │
 └──────────┬───────────┘
-           │ raw time-series data
+           │ raw time-series data (JSONB)
            ▼
 ┌──────────────────────┐
-│   Your Backend        │
-│ fetch + prepare data  │
+│   Your Backend       │
+│ fetch + prepare data │
 └──────────┬───────────┘
-           │ normalized input
+           │ normalized input (list of dicts with 'date' and 'value' keys). OR (list of values)
            ▼
 ┌──────────────────────┐
-│ timeseries-sparklines │
-│ server-side renderer  │
+│ timeseries-sparklines│
+│ server-side renderer │
 └──────────┬───────────┘
            │ SVG string
            ▼
 ┌──────────────────────┐
-│   Browser / UI        │
-│ displays SVG markup   │
+│   Browser / UI       │
+│ displays SVG markup  │
 └──────────────────────┘
 ```
 

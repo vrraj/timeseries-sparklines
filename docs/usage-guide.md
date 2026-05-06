@@ -89,9 +89,9 @@ Common format for database JSONB storage - the library extracts the array automa
 
 ## Chart Examples by Period
 
-Chart data should match actual trading days per period:
+Chart data is filtered by time window from the most recent data point:
 
-### 5D (5 Trading Days)
+### 5D (5 Calendar Days)
 ```json
 [
   {"d": "2024-01-08", "c": 160},
@@ -102,7 +102,7 @@ Chart data should match actual trading days per period:
 ]
 ```
 
-### 1M (Actual Calendar Month - ~21 Trading Days)
+### 1M (30 Calendar Days)
 ```json
 [
   {"d": "2024-01-02", "c": 160},

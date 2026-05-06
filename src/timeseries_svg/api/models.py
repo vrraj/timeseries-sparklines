@@ -24,7 +24,8 @@ class ChartRequest(BaseModel):
     """Request model for chart rendering."""
     
     data: Any = Field(..., description="Time series data in any supported format")
-    period: str = Field("1M", description="Time period for label formatting (5D, 1M, 3M, 6M, 1Y)")
+    period: str = Field("1M", description="Time period for label formatting (5D, 1W, 2W, 1M, 3M, 6M, 1Y)")
+    period_days: Optional[int] = Field(None, description="Custom period in days (overrides period)")
     title: Optional[str] = Field(None, description="Chart title")
     width: int = Field(760, description="SVG width in pixels")
     height: int = Field(320, description="SVG height in pixels")

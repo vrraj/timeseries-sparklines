@@ -134,10 +134,9 @@ def create_app() -> FastAPI:
         <body>
             <a href="/" class="back">← Back to API</a>
             <a href="/usage-guide" class="back" style="margin-left: 20px;" target="_blank">Usage Guide</a>
-            <h1>Visual Test Page</h1>
+            <h1>Sparklines and Interactive Chart Testing</h1>
             
             <div class="card">
-                <h2>Interactive Test</h2>
                 <label>Chart Type:</label>
                 <select id="chartType">
                     <option value="sparkline">Sparkline</option>

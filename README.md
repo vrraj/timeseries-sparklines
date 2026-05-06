@@ -235,6 +235,121 @@ def chart(symbol):
     return Response(svg, mimetype="image/svg+xml")
 ```
 
+### Frontend Integration Pattern
+
+**Recommended Architecture:**
+
+1. **Sparkline Polling (Real-time Updates)**
+   - Poll sparkline endpoint every N seconds (configurable, e.g., 60s)
+   - Update inline sparkline SVGs in the DOM
+   - Minimal bandwidth - only SVG strings
+
+2. **Chart on Click (On-Demand)**
+   - User clicks sparkline → opens modal/overlay
+   - Fetch full chart with selected period (5D, 1M, 3M, 6M, 1Y)
+   - Auto-slices data based on period (no manual filtering needed)
+
+**JavaScript Example:**
+
+```javascript
+// Poll sparklines every 60 seconds (configurable)
+const POLL_INTERVAL_MS = 60000;
+
+async function pollSparklines() {
+  const symbols = ['AAPL', 'NVDA', 'TSLA', 'COIN', 'MSFT'];
+  
+  for (const symbol of symbols) {
+    try {
+      const response = await fetch('/sparkline-raw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          data: sparklineData[symbol],
+          color_by_open: true  // optional: color segments by open price
+        })
+      });
+      
+      if (response.ok) {
+        const svg = await response.text();
+        const container = document.getElementById(`sparkline-${symbol}`);
+        if (container) container.innerHTML = svg;
+      }
+    } catch (error) {
+      console.error(`Failed to update sparkline for ${symbol}:`, error);
+    }
+  }
+}
+
+// Start polling
+setInterval(pollSparklines, POLL_INTERVAL_MS);
+pollSparklines(); // Initial load
+
+// Show chart on sparkline click
+async function showChart(symbol, period = '1M') {
+  const modal = document.getElementById('chart-modal');
+  const modalTitle = document.getElementById('chart-symbol');
+  
+  modalTitle.textContent = symbol;
+  modal.classList.remove('hidden');
+  
+  try {
+    const response = await fetch('/chart-raw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        data: chartData[symbol],  // Full historical data
+        period: period,           // 5D, 1M, 3M, 6M, 1Y
+        title: `${symbol} Price History`,
+        color_by_open: true       // optional: color segments by open price
+      })
+    });
+    
+    if (response.ok) {
+      const svg = await response.text();
+      document.getElementById('chart-container').innerHTML = svg;
+    }
+  } catch (error) {
+    console.error('Failed to load chart:', error);
+  }
+}
+
+// Close modal
+function closeChart() {
+  document.getElementById('chart-modal').classList.add('hidden');
+}
+```
+
+**HTML Structure:**
+
+```html
+<!-- Sparkline table row -->
+<tr>
+  <td>AAPL</td>
+  <td>
+    <div id="sparkline-AAPL" onclick="showChart('AAPL')"></div>
+  </td>
+  <td>150.25</td>
+</tr>
+
+<!-- Chart modal -->
+<div id="chart-modal" class="modal hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span id="chart-symbol"></span>
+      <button onclick="closeChart()">×</button>
+    </div>
+    <div class="tabs">
+      <button onclick="showChart('AAPL', '5D')">5D</button>
+      <button onclick="showChart('AAPL', '1M')" class="active">1M</button>
+      <button onclick="showChart('AAPL', '3M')">3M</button>
+      <button onclick="showChart('AAPL', '6M')">6M</button>
+      <button onclick="showChart('AAPL', '1Y')">1Y</button>
+    </div>
+    <div id="chart-container"></div>
+  </div>
+</div>
+```
+
 ## License
 
 MIT License - see LICENSE file for details.

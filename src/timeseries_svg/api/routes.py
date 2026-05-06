@@ -128,7 +128,7 @@ def create_app() -> FastAPI:
                 button {{ background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 500; }}
                 button:hover {{ background: #2563eb; }}
                 .result {{ margin-top: 16px; }}
-                #result-container {{ margin-top: 24px; }}
+                #result-container {{ margin-top: 24px; padding: 20px; background: #f1f5f9; border-radius: 8px; border: 1px solid #e2e8f0; min-height: 100px; }}
             </style>
         </head>
         <body>

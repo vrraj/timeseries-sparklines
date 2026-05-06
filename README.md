@@ -28,11 +28,30 @@ Because the output is lightweight SVG text, the tool response can be cached, str
 
 **[Quick Start →](#install)**
 
+## Why this exists
+
+Applications and Agentic systems often need lightweight time-series visualizations without pulling chart logic into the frontend or orchestration layer. Traditional frontend charting libraries can increase bundle size, require browser-side initialization, and add complexity when all you need is a small, deterministic trend visualization.
+
+> `timeseries-sparklines` gives you a **server-side rendering engine** that produces deterministic SVG markup. The browser simply displays the returned SVG - **NO** chart initialization, **NO** canvas lifecycle management, and **NO** frontend chart runtime required.
+
+This becomes especially useful in:
+- **Agentic systems** where orchestration layers need a backend charting tool
+- **SSR applications** where HTML is generated on the server
+- **Dense dashboards** where many sparklines are rendered on the same page
+- **Real-time watchlists** where charts update frequently
+- **Generated reports, notebooks, and HTML views** where SVG can be embedded directly
+
+Typical flow:
+
+```text
+Data Source → Backend / Agent Tool Call → timeseries-sparklines → SVG → UI / Report / Browser / Agent Response
+```
+
 ## Data Flow
 
 The library is data-agnostic - it doesn't store data. Your application manages the data source.
 
-The frontend simply displays the returned SVG markup. No browser-side chart initialization, canvas lifecycle management, or frontend charting runtime is required.
+The frontend simply displays the returned SVG markup. No browser-side chart initialization, canvas lifecycle management, or frontend chart runtime is required.
 
 ```
 ┌──────────────────────┐
@@ -61,24 +80,6 @@ The frontend simply displays the returned SVG markup. No browser-side chart init
 ```
 
 <center><em>Figure: Server-side SVG rendering architecture for time-series visualization</em></center>
-
-## Why this exists
-
-Modern web applications need lightweight time-series visualizations without the overhead of heavy charting libraries. Frontend charting libraries increase bundle size, require browser-side initialization, and add complexity to the rendering pipeline.
-
-> `timeseries-sparklines` gives you a **server-side rendering engine** that produces deterministic SVG markup. The browser simply displays the returned SVG - **NO** chart initialization, **NO** canvas lifecycle management, and **NO** frontend chart runtime required.
-
-This becomes especially important in:
-- **SSR applications** where HTML is generated on the server
-- **Dense dashboards** where many sparklines are rendered on the same page
-- **Real-time watchlists** where charts update frequently
-- **Agentic systems** where LLMs need to generate or embed visualizations
-
-Typical flow:
-
-```text
-Data Source → Backend → timeseries-sparklines → SVG → Browser Display
-```
 
 ## What you get
 

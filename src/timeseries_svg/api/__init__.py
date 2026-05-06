@@ -21,5 +21,4 @@ __all__ = [
 
 def main():
     """CLI entry point for running the API server."""
-    app = create_app()
-    uvicorn.run(app, host="0.0.0.0", port=9300)
+    uvicorn.run("timeseries_svg.api:create_app", host="0.0.0.0", port=9300, factory=True)

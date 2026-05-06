@@ -171,7 +171,7 @@ class TimeSeriesChartRenderer:
         self,
         values: List[float],
         dates: List[str],
-        period: str,
+        period,
         title: Optional[str]
     ) -> str:
         """Render chart SVG from values and dates."""
@@ -210,7 +210,12 @@ class TimeSeriesChartRenderer:
             y_ticks.append({'value': value, 'y': y})
         
         # X-axis ticks based on period
-        label_rule = self.PERIOD_LABEL_RULES.get(period, self.PERIOD_LABEL_RULES['1M'])
+        from datetime import timedelta
+        # Use default label rule for custom timedelta periods
+        if isinstance(period, timedelta):
+            label_rule = self.PERIOD_LABEL_RULES['1M']
+        else:
+            label_rule = self.PERIOD_LABEL_RULES.get(period, self.PERIOD_LABEL_RULES['1M'])
         x_ticks = []
         interval = max(1, int(label_rule['interval']))
         for idx in range(0, len(dates), interval):

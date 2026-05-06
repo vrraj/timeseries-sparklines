@@ -61,7 +61,7 @@ class SparklineRenderer:
     
     def _render_empty(self) -> str:
         """Render empty sparkline placeholder."""
-        return f'<svg width="{self.width}" height="{self.height}" viewBox="0 0 {self.width} {self.height}" role="img" aria-hidden="true"></svg>'
+        return f'<svg width="100%" height="{self.height}" viewBox="0 0 {self.width} {self.height}" role="img" aria-hidden="true"></svg>'
     
     def _render_svg(self, values: List[float]) -> str:
         """Render sparkline SVG from numeric values."""
@@ -121,6 +121,6 @@ class SparklineRenderer:
             )
         
         return (
-            f'<svg width="{self.width}" height="{self.height}" viewBox="0 0 {self.width} {self.height}" '
+            f'<svg width="100%" height="{self.height}" viewBox="0 0 {self.width} {self.height}" '
             f'role="img" aria-hidden="true">{"".join(svg_parts)}</svg>'
         )

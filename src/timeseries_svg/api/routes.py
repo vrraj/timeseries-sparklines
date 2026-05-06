@@ -1,0 +1,396 @@
+"""FastAPI routes for Timeseries SVG API."""
+
+import json
+from typing import Optional
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse, Response
+
+from ..sparkline import SparklineRenderer
+from ..chart import TimeSeriesChartRenderer
+from .. import __version__
+from .models import (
+    SparklineRequest,
+    ChartRequest,
+    SVGResponse,
+    HealthResponse,
+)
+
+
+def create_app() -> FastAPI:
+    """Create FastAPI application."""
+    app = FastAPI(
+        title="Timeseries SVG",
+        description="General-purpose time series SVG plotting API",
+        version=__version__,
+    )
+    
+    @app.get("/", response_class=HTMLResponse)
+    async def root():
+        """Serve the API landing page."""
+        return f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Timeseries SVG API</title>
+            <style>
+                body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }}
+                h1 {{ color: #0f172a; }}
+                .endpoint {{ background: #f1f5f9; padding: 16px; border-radius: 8px; margin: 16px 0; }}
+                .method {{ color: #059669; font-weight: bold; }}
+                .path {{ color: #0ea5e9; font-family: monospace; }}
+                code {{ background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }}
+                svg {{ display: block; margin: 16px 0; }}
+            </style>
+        </head>
+        <body>
+            <h1>Timeseries SVG API</h1>
+            <p>General-purpose time series SVG plotting service</p>
+            <p>Version: {__version__}</p>
+            
+            <h2>Endpoints</h2>
+            
+            <div class="endpoint">
+                <span class="method">POST</span> <span class="path">/sparkline</span>
+                <p>Render a sparkline SVG from time series data</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method">POST</span> <span class="path">/chart</span>
+                <p>Render a full time series chart SVG</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method">GET</span> <span class="path">/health</span>
+                <p>Health check endpoint</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method">GET</span> <span class="path">/docs</span>
+                <p>Interactive API documentation (Swagger UI)</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method">GET</span> <span class="path">/test-charts</span>
+                <p>Visual test page with rendered examples</p>
+            </div>
+            
+            <h2>Example Usage</h2>
+            <pre><code>curl -X POST http://localhost:9300/sparkline \\
+  -H "Content-Type: application/json" \\
+  -d '{{"data": [100.0, 102.5, 101.2, 105.0]}}'</code></pre>
+        </body>
+        </html>
+        """
+    
+    @app.get("/test-charts", response_class=HTMLResponse)
+    async def test_page():
+        """Serve a visual test page."""
+        from ..sparkline import SparklineRenderer
+        from ..chart import TimeSeriesChartRenderer
+        
+        # Generate examples
+        sparkline_data = [100.0, 102.5, 101.2, 105.0, 103.8, 107.0]
+        sparkline_renderer = SparklineRenderer()
+        sparkline_svg = sparkline_renderer.render(sparkline_data)
+        
+        chart_data = [
+            {"d": "2024-01-01", "c": 150.0},
+            {"d": "2024-01-02", "c": 152.5},
+            {"d": "2024-01-03", "c": 151.0},
+            {"d": "2024-01-04", "c": 155.0},
+            {"d": "2024-01-05", "c": 158.0},
+            {"d": "2024-01-08", "c": 156.5},
+            {"d": "2024-01-09", "c": 160.0},
+        ]
+        chart_renderer = TimeSeriesChartRenderer()
+        chart_svg = chart_renderer.render(chart_data, period="5D", title="Sample Chart")
+        
+        sparkline_json = json.dumps(sparkline_data, indent=2)
+        
+        html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Timeseries SVG - Visual Test</title>
+            <style>
+                body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; }}
+                h1 {{ color: #0f172a; }}
+                h2 {{ color: #334155; margin-top: 32px; }}
+                .card {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; margin: 16px 0; }}
+                .grid-two {{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }}
+                @media (max-width: 768px) {{ .grid-two {{ grid-template-columns: 1fr; }} }}
+                svg {{ display: block; margin: 16px 0; }}
+                .back {{ color: #3b82f6; text-decoration: none; }}
+                .back:hover {{ text-decoration: underline; }}
+                textarea {{ width: 100%; min-height: 120px; font-family: monospace; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; margin: 8px 0; }}
+                label {{ display: block; margin: 8px 0 4px; font-weight: 500; }}
+                select, input {{ padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; margin: 8px 0; }}
+                button {{ background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 500; }}
+                button:hover {{ background: #2563eb; }}
+                .result {{ margin-top: 16px; }}
+                #result-container {{ margin-top: 24px; }}
+            </style>
+        </head>
+        <body>
+            <a href="/" class="back">← Back to API</a>
+            <a href="/usage-guide" class="back" style="margin-left: 20px;" target="_blank">Usage Guide</a>
+            <h1>Visual Test Page</h1>
+            
+            <div class="card">
+                <h2>Interactive Test</h2>
+                <label>Chart Type:</label>
+                <select id="chartType">
+                    <option value="sparkline">Sparkline</option>
+                    <option value="chart">Full Chart</option>
+                </select>
+                
+                <label for="dataInput">Data (JSON):</label>
+                <textarea id="dataInput" placeholder='Enter JSON data, e.g.: [100.0, 102.5, 101.2] or [{{"d": "2024-01-01", "c": 150.0}}, ...]'>{sparkline_json}</textarea>
+                
+                <label>
+                    <input type="checkbox" id="colorByOpen"> Color segments by open price (green = above open, red = below open)
+                </label>
+                
+                <div id="chartOptions" style="display: none;">
+                    <label for="period">Period:</label>
+                    <select id="period">
+                        <option value="5D">5D</option>
+                        <option value="1M">1M</option>
+                        <option value="3M">3M</option>
+                        <option value="6M">6M</option>
+                        <option value="1Y">1Y</option>
+                    </select>
+                    
+                    <label for="title">Title (optional):</label>
+                    <input type="text" id="title" placeholder="Chart Title">
+                </div>
+                
+                <button onclick="renderChart()">Render</button>
+                
+                <div id="result-container"></div>
+            </div>
+            
+            <div class="grid-two">
+                <div class="card">
+                    <h2>Sparkline Example</h2>
+                    <p>Data: {sparkline_data}</p>
+                    {sparkline_svg}
+                </div>
+                
+                <div class="card">
+                    <h2>Chart Example</h2>
+                    <p>Period: 5D</p>
+                    {chart_svg}
+                </div>
+            </div>
+            
+            <script>
+                const chartTypeSelect = document.getElementById('chartType');
+                const chartOptions = document.getElementById('chartOptions');
+                
+                chartTypeSelect.addEventListener('change', function() {{
+                    chartOptions.style.display = this.value === 'chart' ? 'block' : 'none';
+                }});
+                
+                async function renderChart() {{
+                    const chartType = document.getElementById('chartType').value;
+                    const dataInput = document.getElementById('dataInput').value;
+                    const resultContainer = document.getElementById('result-container');
+                    const colorByOpen = document.getElementById('colorByOpen').checked;
+                    
+                    let endpoint = chartType === 'sparkline' ? '/sparkline-raw' : '/chart-raw';
+                    let body = {{ data: JSON.parse(dataInput) }};
+                    
+                    if (chartType === 'sparkline' || chartType === 'chart') {{
+                        body.color_by_open = colorByOpen;
+                    }}
+                    
+                    if (chartType === 'chart') {{
+                        body.period = document.getElementById('period').value;
+                        const title = document.getElementById('title').value;
+                        if (title) body.title = title;
+                    }}
+                    
+                    try {{
+                        resultContainer.innerHTML = '<p>Loading...</p>';
+                        const response = await fetch(endpoint, {{
+                            method: 'POST',
+                            headers: {{ 'Content-Type': 'application/json' }},
+                            body: JSON.stringify(body)
+                        }});
+                        
+                        if (response.ok) {{
+                            const svg = await response.text();
+                            resultContainer.innerHTML = '<h3>Result:</h3>' + svg;
+                        }} else {{
+                            const error = await response.text();
+                            resultContainer.innerHTML = '<p style="color: red;">Error: ' + error + '</p>';
+                        }}
+                    }} catch (e) {{
+                        resultContainer.innerHTML = '<p style="color: red;">Error: ' + e.message + '</p>';
+                    }}
+                }}
+            </script>
+        </body>
+        </html>
+        """
+        return html
+    
+    @app.get("/usage-guide", response_class=HTMLResponse)
+    async def usage_guide():
+        """Serve the usage guide markdown."""
+        import os
+        guide_path = os.path.join(os.path.dirname(__file__), "..", "..", "..", "docs", "usage-guide.md")
+        try:
+            with open(guide_path, 'r') as f:
+                content = f.read()
+                # Simple markdown to HTML conversion for basic formatting
+                html = content.replace('```json', '<pre><code>').replace('```python', '<pre><code>').replace('```', '</code></pre>')
+                html = html.replace('##', '<h2>').replace('#', '<h1>')
+                html = html.replace('[← Back to Interactive Test](/test-charts)', '<a href="/test-charts" class="back">← Back to Interactive Test</a>')
+                return f"""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Timeseries SVG - Data Formats</title>
+                    <style>
+                        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }}
+                        h1 {{ color: #0f172a; }}
+                        h2 {{ color: #334155; margin-top: 32px; }}
+                        pre {{ background: #f1f5f9; padding: 16px; border-radius: 8px; overflow-x: auto; }}
+                        code {{ background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }}
+                        .back {{ color: #3b82f6; text-decoration: none; }}
+                        .back:hover {{ text-decoration: underline; }}
+                    </style>
+                </head>
+                <body>{html}</body>
+                </html>
+                """
+        except FileNotFoundError:
+            return "<h1>Usage Guide Not Found</h1><p>docs/usage-guide.md not found</p>"
+    
+    @app.get("/health", response_model=HealthResponse)
+    async def health():
+        """Health check endpoint."""
+        return HealthResponse(status="healthy", version=__version__)
+    
+    @app.post("/sparkline", response_model=SVGResponse)
+    async def render_sparkline(request: SparklineRequest):
+        """Render a sparkline SVG from time series data."""
+        try:
+            normalize_kwargs = {}
+            if request.date_key:
+                normalize_kwargs["date_key"] = request.date_key
+            if request.value_key:
+                normalize_kwargs["value_key"] = request.value_key
+            
+            renderer = SparklineRenderer(
+                width=request.width,
+                height=request.height,
+                stroke_width=request.stroke_width,
+                baseline_color=request.baseline_color,
+                up_color=request.up_color,
+                down_color=request.down_color,
+                show_baseline=request.show_baseline,
+                color_by_open=request.color_by_open,
+            )
+            
+            svg = renderer.render(request.data, **normalize_kwargs)
+            
+            return SVGResponse(success=True, svg=svg)
+            
+        except Exception as e:
+            return SVGResponse(success=False, message=str(e))
+    
+    @app.post("/chart", response_model=SVGResponse)
+    async def render_chart(request: ChartRequest):
+        """Render a full time series chart SVG."""
+        try:
+            normalize_kwargs = {}
+            if request.date_key:
+                normalize_kwargs["date_key"] = request.date_key
+            if request.value_key:
+                normalize_kwargs["value_key"] = request.value_key
+            
+            renderer = TimeSeriesChartRenderer(
+                width=request.width,
+                height=request.height,
+                margin=request.margin,
+                up_color=request.up_color,
+                down_color=request.down_color,
+                grid_color=request.grid_color,
+                axis_color=request.axis_color,
+                label_color=request.label_color,
+                color_by_open=request.color_by_open,
+            )
+            
+            svg = renderer.render(request.data, period=request.period, title=request.title, **normalize_kwargs)
+            
+            return SVGResponse(success=True, svg=svg)
+            
+        except Exception as e:
+            return SVGResponse(success=False, message=str(e))
+    
+    @app.post("/sparkline-raw")
+    async def render_sparkline_raw(request: SparklineRequest):
+        """Render sparkline and return raw SVG (for direct embedding)."""
+        try:
+            normalize_kwargs = {}
+            if request.date_key:
+                normalize_kwargs["date_key"] = request.date_key
+            if request.value_key:
+                normalize_kwargs["value_key"] = request.value_key
+            
+            renderer = SparklineRenderer(
+                width=request.width,
+                height=request.height,
+                stroke_width=request.stroke_width,
+                baseline_color=request.baseline_color,
+                up_color=request.up_color,
+                down_color=request.down_color,
+                show_baseline=request.show_baseline,
+                color_by_open=request.color_by_open,
+            )
+            
+            svg = renderer.render(request.data, **normalize_kwargs)
+            
+            return Response(content=svg, media_type="image/svg+xml")
+            
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
+    
+    @app.post("/chart-raw")
+    async def render_chart_raw(request: ChartRequest):
+        """Render chart and return raw SVG (for direct embedding)."""
+        try:
+            normalize_kwargs = {}
+            if request.date_key:
+                normalize_kwargs["date_key"] = request.date_key
+            if request.value_key:
+                normalize_kwargs["value_key"] = request.value_key
+            
+            renderer = TimeSeriesChartRenderer(
+                width=request.width,
+                height=request.height,
+                margin=request.margin,
+                up_color=request.up_color,
+                down_color=request.down_color,
+                grid_color=request.grid_color,
+                axis_color=request.axis_color,
+                label_color=request.label_color,
+                color_by_open=request.color_by_open,
+            )
+            
+            svg = renderer.render(request.data, period=request.period, title=request.title, **normalize_kwargs)
+            
+            return Response(content=svg, media_type="image/svg+xml")
+            
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
+    
+    @app.exception_handler(Exception)
+    async def global_exception_handler(request: Request, exc: Exception):
+        """Global exception handler."""
+        raise HTTPException(status_code=500, detail=f"{type(exc).__name__}: {str(exc)}")
+    
+    return app

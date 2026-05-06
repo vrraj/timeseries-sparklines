@@ -1,6 +1,42 @@
-# timeseries-svg
+# timeseries-sparklines
 
 A general-purpose Python library for rendering time series data as SVG charts and sparklines. Accepts JSONB data from any source (realtime for sparklines or historical data) and produces clean, interactive SVG visualizations.
+
+## Data Flow
+
+The library is data-agnostic - it doesn't store data. Your application manages the data source.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Your Application                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  1. Backend fetches data from your source                        │
+│     (PostgreSQL, external API, in-memory cache, etc.)             │
+│                                                                   │
+│  2. Backend calls timeseries-sparklines renderer with data        │
+│                                                                   │
+│  3. Renderer returns SVG string                                  │
+│                                                                   │
+│  4. Backend sends SVG to frontend                                │
+│                                                                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Example:**
+```python
+# Your backend
+@app.post("/sparkline-raw")
+async def get_sparkline(request: SparklineRequest):
+    # Step 1: Fetch from YOUR database
+    data = await db.fetch_price_history(symbol="AAPL")
+    
+    # Step 2: Render with timeseries-sparklines
+    svg = renderer.render(data, color_by_open=request.color_by_open)
+    
+    # Step 3: Return SVG
+    return Response(content=svg, media_type="image/svg+xml")
+```
 
 ## Features
 

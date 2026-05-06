@@ -89,7 +89,7 @@ def create_app() -> FastAPI:
         from ..chart import TimeSeriesChartRenderer
         
         # Generate examples
-        sparkline_data = [100.0, 102.5, 101.2, 105.0, 103.8, 107.0]
+        sparkline_data = [100.0, 102.5, 101.2, 105.0, 103.8, 107.0, 103, 100, 90, 95, 99, 105, 106, 100, 110, 115, 117, 118]
         sparkline_renderer = SparklineRenderer()
         sparkline_svg = sparkline_renderer.render(sparkline_data)
         

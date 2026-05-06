@@ -27,12 +27,13 @@ The frontend simply displays the returned SVG markup. No browser-side chart init
 │ timeseries-sparklines│
 │ server-side renderer │
 └──────────┬───────────┘
-           │ SVG string
+           │ SVG string with sparkline/chart data
            ▼
 ┌──────────────────────┐
-│   Browser / UI       │
+│   Browser / UI       │ 
 │ displays SVG markup  │
 └──────────────────────┘
+                Embed raw SVG markup or Extract SVG from JSON      
 ```
 
 **Example:**

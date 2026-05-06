@@ -42,10 +42,38 @@ async def get_sparkline(request: SparklineRequest):
 
 - **Flexible data input**: Accepts multiple JSONB formats (list of dicts, list of lists, dict with date keys, or simple value lists)
 - **Sparkline rendering**: Compact sparkline charts for inline display
-- **Interactive charts**: Full time series charts with hover interactions, tooltips, and axis labels
+- **Interactive charts**: Full time series charts with axis labels and grid lines
 - **Configurable styling**: Customizable colors, dimensions, and formatting
+- **Period-based slicing**: Auto-filters data to trading days (5D=5, 1M=21, 3M=63, 6M=126, 1Y=252)
+- **Segment coloring**: Color segments by open price for sparklines and charts
 - **Zero external dependencies**: Pure Python, no heavy plotting libraries required
 - **SVG output**: Lightweight, scalable vector graphics perfect for web embedding
+
+## Why Use This Library?
+
+**Without timeseries-sparklines, you'd need to:**
+- Write SVG rendering code (calculate coordinates, scaling, paths)
+- Normalize multiple data formats yourself
+- Implement period-based slicing logic
+- Calculate proper margins, axis labels, grid lines
+- Handle date formatting for different periods
+- Implement segment coloring logic
+
+**With timeseries-sparklines:**
+```python
+# One line to render
+svg = renderer.render(data, period="1M", color_by_open=True)
+```
+
+**Value Proposition:**
+- **Data normalization**: Accepts 6+ formats automatically - no preprocessing
+- **Scaling/coordinates**: Calculates proper x/y positions and SVG paths
+- **Period slicing**: Auto-filters to trading days based on period selection
+- **Styling**: Configurable colors, dimensions, margins, and labels
+- **Segment coloring**: Color by open price automatically for trend visualization
+- **Zero dependencies**: Pure Python - no heavy charting libraries like matplotlib/plotly
+
+It's a rendering engine - you provide raw data, it gives you production-ready SVG. Focus on your application logic, not SVG math.
 
 ## Installation
 

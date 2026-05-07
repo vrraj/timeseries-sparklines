@@ -65,7 +65,6 @@ Because the output is lightweight SVG text, it can be cached, streamed, embedded
 - **Zero external dependencies** - Pure Python, no heavy plotting libraries required
 - **Test UI** - Interactive test page for rendering behavior and parameter tuning
 
-
 ## Install
 
 ```bash
@@ -203,8 +202,6 @@ Open:
 ```text
 http://localhost:9300/test-charts
 ```
-
-
 
 ## Why Server-Side SVG?
 
@@ -409,9 +406,9 @@ async def sparkline_api(symbol: str, period: str = "5D"):
     return Response(content=svg, media_type="image/svg+xml")
 ```
 
-## Frontend Integration Pattern for sparklines
+## Frontend Integration Patterns
 
-For frequently refreshed sparklines, server-side SVG rendering works best when updates are periodic, cacheable, and backed by server-side caching rather than sub-second or tick-level.
+For frequently refreshed sparklines, server-side SVG rendering works best when updates are periodic, cacheable, and backed by server-side caching rather than sub-second.
 
 For high-frequency streaming views, a hybrid approach is usually more efficient:
 

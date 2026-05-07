@@ -6,11 +6,9 @@
 
 
 
-Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
+Need backend-rendered **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts**?
 
->`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **SVG charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - **no** chart initialization, **no** canvas lifecycle management, and **no** frontend chart runtime required.
-
-It is designed for SSR-first applications, periodically refreshed sparklines, dashboards, and Agentic systems where many lightweight charts need to be rendered **without** shipping a frontend charting library.
+>`timeseries-sparklines` turns time-series data into deterministic SVG markup for SSR applications, dashboards, APIs, and Agentic workflows - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required.
 
 ```
 pip install timeseries-sparklines

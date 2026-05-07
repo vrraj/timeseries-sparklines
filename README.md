@@ -155,9 +155,9 @@ svg = renderer.render(data, period="5D", title="AAPL Price History")
 print(svg)  # Returns SVG string
 ```
 
-**With custom y-axis label:**
+**With custom y-axis label and offset:**
 ```python
-renderer = TimeSeriesChartRenderer(width=760, height=320, y_axis_label="$")
+renderer = TimeSeriesChartRenderer(width=760, height=320, y_axis_label="$", y_axis_offset=0.1)
 svg = renderer.render(data, period="5D", title="AAPL Price History")
 ```
 
@@ -180,11 +180,23 @@ svg = renderer.render(data, period="1Y", title="Temperature by Month")
 print(svg)  # Returns SVG string
 ```
 
-**With custom y-axis label:**
+**With custom y-axis label and offset:**
 ```python
-renderer = BarChartRenderer(width=760, height=320, y_axis_label="°F")
+renderer = BarChartRenderer(width=760, height=320, y_axis_label="°F", y_axis_offset=0.1)
 svg = renderer.render(data, period="1Y", title="Temperature by Month")
 ```
+
+## API Parameters Summary
+
+**SparklineRenderer**: `width`, `height`, `stroke_width`, `baseline_color`, `up_color`, `down_color`, `show_baseline`, `color_by_open`
+
+**TimeSeriesChartRenderer**: `width`, `height`, `margin`, `up_color`, `down_color`, `grid_color`, `axis_color`, `label_color`, `color_by_open`, `y_axis_label`, `y_axis_offset`
+
+**BarChartRenderer**: `width`, `height`, `margin`, `bar_color`, `bar_width_ratio`, `grid_color`, `axis_color`, `label_color`, `color_by_open`, `y_axis_label`, `y_axis_offset`
+
+**Common render() parameters**: `data`, `period`, `title`, `date_key`, `value_key`
+
+For complete parameter details and defaults, see [docs/api-reference.md](https://vrraj.github.io/timeseries-sparklines/api-reference.html).
 
 ## Usage Patterns
 
@@ -232,17 +244,6 @@ The GitHub repository includes a FastAPI-powered **Test UI** for testing renderi
 It acts as an interactive experimentation environment. You can test different data formats, adjust period filters, customize chart styling, and iteratively refine rendering settings using the included UI.
 
 This helps you visualize how different data formats are normalized and how charts are rendered before using the settings in production.
-
-<div style="display: flex; gap: 16px;">
-  <div style="flex: 1;">
-    <p align="center"><em>Sparkline rendering with list of values format</em></p>
-    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" />
-  </div>
-  <div style="flex: 1;">
-    <p align="center"><em>Chart rendering with dict date/value format and period slicing</em></p>
-    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" />
-  </div>
-</div>
 
 Run locally:
 

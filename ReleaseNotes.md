@@ -67,26 +67,45 @@ This is the first public release. The complete API surface is documented in [doc
 
 ## Public API Surface
 
-Stable entry points:
-- `SparklineRenderer(width, height, stroke_width, baseline_color, up_color, down_color, show_baseline, color_by_open)` — Sparkline chart renderer
-- `SparklineRenderer.render(data)` — Render sparkline from data
-- `TimeSeriesChartRenderer(width, height, margin, up_color, down_color, grid_color, axis_color, label_color, color_by_open)` — Time-series chart renderer
-- `TimeSeriesChartRenderer.render(data, period, title, date_key, value_key)` — Render chart with period filtering
-- `BarChartRenderer(width, height, margin, bar_color, bar_width_ratio, grid_color, axis_color, label_color, color_by_open)` — Bar chart renderer
-- `BarChartRenderer.render(data, period, title, date_key, value_key)` — Render bar chart with period filtering
-- `normalize_timeseries_data(data, date_key, value_key)` — Normalize various input formats
-- `extract_values(normalized_data)` — Extract values from normalized data
-- `extract_dates(normalized_data)` — Extract dates from normalized data
+For the complete API reference including all parameters, method signatures, and examples, see [docs/api-reference.md](https://vrraj.github.io/timeseries-sparklines/api-reference.html).
 
-REST API endpoints:
-- `POST /sparkline-raw` — Render sparkline from JSON data
-- `POST /chart-raw` — Render line or bar chart from JSON data (supports chart_type parameter)
-- `GET /test-charts` — Interactive test UI
-- `GET /health` — Health check endpoint
+Key examples:
 
-Stable request models:
-- `SparklineRequest` — Sparkline rendering parameters
-- `ChartRequest` — Chart rendering parameters (period, title, dimensions, styling)
+**Sparkline rendering:**
+```python
+from timeseries_svg import SparklineRenderer
+
+renderer = SparklineRenderer(width=96, height=32)
+svg = renderer.render([100, 102.5, 101.2, 105, 103.8])
+```
+
+**Bar chart with y-axis label:**
+```python
+from timeseries_svg import BarChartRenderer
+
+renderer = BarChartRenderer(width=760, height=320, bar_color="#3b82f6")
+svg = renderer.render(
+    data,
+    period="1M",
+    title="Monthly Revenue",
+    y_axis_label="Revenue ($)",
+    y_axis_offset=0.1
+)
+```
+
+**Line chart with period filtering and y-axis label:**
+```python
+from timeseries_svg import TimeSeriesChartRenderer
+
+renderer = TimeSeriesChartRenderer(width=760, height=320)
+svg = renderer.render(
+    data,
+    period="6M",
+    title="Temperature Trends",
+    y_axis_label="Temperature (°C)",
+    y_axis_offset=0.1
+)
+```
 
 ---
 

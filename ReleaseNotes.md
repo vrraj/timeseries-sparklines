@@ -4,7 +4,7 @@
 
 ### Overview
 
-`timeseries-sparklines` is a lightweight server-side SVG rendering engine for time-series data visualization. Accepts JSONB data from any source (realtime for sparklines or historical data) and produces clean, interactive SVG visualizations for web applications, dashboards, and agentic systems.
+`timeseries-sparklines` is a lightweight server-side SVG rendering engine for time-series data visualization. Accepts JSONB data from any source (periodically refreshed for sparklines or historical data) and produces clean, interactive SVG visualizations for web applications, dashboards, and agentic systems.
 
 This is the first public release. The complete API surface is documented in [docs/api-reference.md](https://vrraj.github.io/timeseries-sparklines/api-reference.html).
 

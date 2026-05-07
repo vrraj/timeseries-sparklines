@@ -15,7 +15,7 @@ description: "A lightweight Python library for rendering time series data as SVG
   </a>
 </p>
 
-A lightweight **Python library for rendering time series data as SVG charts and sparklines**. Accepts JSONB data from any source (realtime for sparklines or historical data) and produces clean, interactive SVG visualizations.
+A lightweight **Python library for rendering time series data as SVG charts and sparklines**. Accepts JSONB data from any source (periodically refreshed for sparklines or historical data) and produces clean, interactive SVG visualizations.
 
 ```
 pip install timeseries-sparklines
@@ -31,7 +31,7 @@ Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to
 
 - **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, dashboards, reports, or generated HTML
 - **SSR and backend-rendered apps**: Return ready-to-display SVG from Python backends, or expose it through an API for other stacks
-- **Realtime dashboards**: Render many compact sparklines from frequently refreshed data
+- **Operational dashboards**: Render many compact sparklines for periodically refreshed data
 - **Chart and BI APIs**: Accept slice parameters like `5D`, `1M`, `6M`, or `1Y` and return SVG for downstream consumers
 - **Reports, notebooks, and internal tools**: Embed small trend visuals directly where HTML or SVG is supported
 

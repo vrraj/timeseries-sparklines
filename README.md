@@ -5,11 +5,11 @@
 
 
 
-Need to add **real-time sparklines** or **slicable time-series charts** to your application, dashboard, or Agentic systems?
+Need to add **sparklines**, **trend lines**, **mini charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
 
->`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **interactive charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - **NO** chart initialization, **NO** canvas lifecycle management, and **NO** frontend chart runtime required.
+>`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **SVG charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - **no** chart initialization, **no** canvas lifecycle management, and **no** frontend chart runtime required.
 
-It is designed for SSR-first applications, real-time sparklines, dashboards, Agentic systems where many lightweight charts need to be rendered **without** shipping a frontend charting library.
+It is designed for SSR-first applications, periodically refreshed sparklines, dashboards, and Agentic systems where many lightweight charts need to be rendered **without** shipping a frontend charting library.
 
 ```
 pip install timeseries-sparklines
@@ -25,7 +25,7 @@ Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to
 
 - **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, dashboards, reports, or generated HTML
 - **SSR and backend-rendered apps**: Return ready-to-display SVG from Python backends, or expose it through an API for other stacks
-- **Operational dashboards**: Render compact sparklines for periodically refreshed data and SSR-style dashboards
+- **Operational dashboards**: Render compact sparklines, trend lines, and mini charts for periodically refreshed data
 - **Chart and BI APIs**: Accept slice parameters like `5D`, `1M`, `6M`, or `1Y` and return SVG for downstream consumers
 - **Reports, notebooks, and internal tools**: Embed small trend visuals directly where HTML or SVG is supported
 
@@ -57,8 +57,8 @@ Because the output is lightweight SVG text, it can be cached, streamed, embedded
 
 - **Python rendering library** for programmatic sparkline and chart generation
 - **Flexible data input** - Accepts 6+ Python/JSON time-series formats automatically
-- **Sparkline rendering** - Compact sparkline charts for inline display
-- **Time series charts** - SVG charts with axis labels, grid lines, and period-based formatting
+- **Sparkline rendering** - Compact sparklines, trend lines, and mini charts for inline display
+- **Time-series charts** - SVG charts with axis labels, grid lines, and period-based formatting
 - **Period-based slicing** - Auto-filters data by time windows (5D, 1W, 2W, 1M, 3M, 6M, 1Y, or custom timedelta)
 - **Segment coloring** - Color segments by open price for trend visualization
 - **REST API server** - FastAPI-powered service for remote rendering
@@ -128,14 +128,14 @@ data = [
 
 renderer = TimeSeriesChartRenderer(width=760, height=320)
 svg = renderer.render(data, period="5D", title="AAPL Price History")
-print(svg)  # Returns interactive SVG string
+print(svg)  # Returns SVG string
 ```
 
 ## Usage Patterns
 
 ### Direct Python Library Usage
 Use the renderers directly in your Python code for programmatic SVG generation. Ideal for:
-- Batch processing of time-series data
+- Batch rendering of time-series data
 - Report generation
 - Static site generation
 - Data pipelines
@@ -155,7 +155,7 @@ chart_svg = chart_renderer.render(data, period="1M", title="Price History")
 ### REST API Server Usage
 Run the included FastAPI server for remote rendering. Ideal for:
 - Microservices architecture
-- Multi-application environments
+- Multi-application environments that need shared SVG rendering
 - Remote deployments
 - Service-oriented integration
 

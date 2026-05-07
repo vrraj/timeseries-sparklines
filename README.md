@@ -38,7 +38,7 @@ The library acts as a server-side rendering harness that transforms time-series 
 
 The harness handles normalization, period-based slicing, coordinate calculation, SVG path generation, and styling - returning production-ready SVG markup that can be embedded anywhere.
 
-### Harness for Charts: Timeseries & Sparklines
+## Harness for Charts: Timeseries & Sparklines
 
 Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` acts as a server-side rendering harness for transforming retrieved or computed time-series data into lightweight SVG charts and sparklines.
 
@@ -75,6 +75,71 @@ async def get_sparkline(request: SparklineRequest):
 
     # Step 3: Return SVG
     return Response(content=svg, media_type="image/svg+xml")
+```
+
+## Install
+
+```bash
+pip install timeseries-sparklines
+```
+
+Or install with REST API server:
+
+```bash
+pip install "timeseries-sparklines[api]"
+```
+
+Links:
+
+- **PyPI:** https://pypi.org/project/timeseries-sparklines/
+- **GitHub:** https://github.com/vrraj/timeseries-sparklines
+- **API Documentation:** https://vrraj.github.io/timeseries-sparklines/
+
+## Quick Start
+
+### Option A: Use directly in Python
+
+*For Python applications (most common)*
+
+```bash
+pip install timeseries-sparklines
+```
+
+### Sparkline Example
+
+```python
+from timeseries_sparklines import SparklineRenderer
+
+# Input data can be in various formats
+data = [
+    {"d": "2024-01-01", "c": 100.0},
+    {"d": "2024-01-02", "c": 102.5},
+    {"d": "2024-01-03", "c": 101.2},
+    {"d": "2024-01-04", "c": 105.0},
+]
+
+renderer = SparklineRenderer(width=96, height=32)
+svg = renderer.render(data)
+print(svg)  # Returns SVG string
+```
+
+### Time Series Chart Example
+
+```python
+from timeseries_sparklines import TimeSeriesChartRenderer
+
+# Historical price data
+data = [
+    {"d": "2024-01-01", "c": 150.0},
+    {"d": "2024-01-02", "c": 152.5},
+    {"d": "2024-01-03", "c": 151.0},
+    {"d": "2024-01-04", "c": 155.0},
+    {"d": "2024-01-05", "c": 158.0},
+]
+
+renderer = TimeSeriesChartRenderer(width=760, height=320)
+svg = renderer.render(data, period="5D", title="AAPL Price History")
+print(svg)  # Returns interactive SVG string
 ```
 
 ## Usage Patterns
@@ -201,71 +266,6 @@ Your backend can expose chart views instead of raw chart logic. For example:
 
 ```http
 GET /chart/AAPL?period=6M&theme=dark
-```
-
-## Install
-
-```bash
-pip install timeseries-sparklines
-```
-
-Or install with REST API server:
-
-```bash
-pip install "timeseries-sparklines[api]"
-```
-
-Links:
-
-- **PyPI:** https://pypi.org/project/timeseries-sparklines/
-- **GitHub:** https://github.com/vrraj/timeseries-sparklines
-- **API Documentation:** https://vrraj.github.io/timeseries-sparklines/
-
-## Quick Start
-
-### Option A: Use directly in Python
-
-*For Python applications (most common)*
-
-```bash
-pip install timeseries-sparklines
-```
-
-### Sparkline Example
-
-```python
-from timeseries_sparklines import SparklineRenderer
-
-# Input data can be in various formats
-data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
-    {"d": "2024-01-04", "c": 105.0},
-]
-
-renderer = SparklineRenderer(width=96, height=32)
-svg = renderer.render(data)
-print(svg)  # Returns SVG string
-```
-
-### Time Series Chart Example
-
-```python
-from timeseries_sparklines import TimeSeriesChartRenderer
-
-# Historical price data
-data = [
-    {"d": "2024-01-01", "c": 150.0},
-    {"d": "2024-01-02", "c": 152.5},
-    {"d": "2024-01-03", "c": 151.0},
-    {"d": "2024-01-04", "c": 155.0},
-    {"d": "2024-01-05", "c": 158.0},
-]
-
-renderer = TimeSeriesChartRenderer(width=760, height=320)
-svg = renderer.render(data, period="5D", title="AAPL Price History")
-print(svg)  # Returns interactive SVG string
 ```
 
 ## Data Input Formats

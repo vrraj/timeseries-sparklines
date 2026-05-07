@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "timeseries-svg"
+name = "timeseries-sparklines"
 version = "0.1.0"
 description = "General-purpose time series SVG plotting library for JSONB data"
 readme = "README.md"
@@ -42,9 +42,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/timeseries-svg"
-Repository = "https://github.com/yourusername/timeseries-svg"
-Documentation = "https://github.com/yourusername/timeseries-svg#readme"
+Homepage = "https://github.com/vrraj/timeseries-sparklines"
+Repository = "https://github.com/vrraj/timeseries-sparklines"
+Documentation = "https://github.com/vrraj/timeseries-sparklines#readme"
 
 [project.scripts]
 timeseries-server = "timeseries_svg.api:main"

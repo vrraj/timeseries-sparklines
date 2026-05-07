@@ -1,6 +1,6 @@
 # timeseries-sparklines
 
-[![PyPI - Version](https://img.shields.io/pypi/v/timeseries-svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/timeseries-svg/)
+[![PyPI - Version](https://img.shields.io/pypi/v/timeseries-sparklines?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/timeseries-sparklines/)
 [![GitHub Release](https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github)](https://github.com/vrraj/timeseries-sparklines/releases)
 
 
@@ -214,7 +214,7 @@ pip install "timeseries-sparklines[api]"
 
 Links:
 
-- **PyPI:** https://pypi.org/project/timeseries-svg/
+- **PyPI:** https://pypi.org/project/timeseries-sparklines/
 - **GitHub:** https://github.com/vrraj/timeseries-sparklines
 - **API Documentation:** https://vrraj.github.io/timeseries-sparklines/
 
@@ -554,6 +554,20 @@ setInterval(async () => {
    - User clicks sparkline → opens modal/overlay
    - Fetch full chart with selected period (5D, 1M, 3M, 6M, 1Y)
    - Auto-slices data based on period (no manual filtering needed)
+
+**Best Practice: Prevent Layout Shifts**
+
+When injecting SVG via `innerHTML`, define a `min-height` on your container div that matches your renderer height to prevent layout shifts:
+
+```css
+.sparkline-container {
+  min-height: 64px; /* Matches SparklineRenderer height */
+}
+
+.chart-container {
+  min-height: 320px; /* Matches TimeSeriesChartRenderer height */
+}
+```
 
 **JavaScript Example:**
 

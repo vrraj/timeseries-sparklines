@@ -1,12 +1,12 @@
 ---
 layout: default
 title: "Usage Guide | Timeseries SVG"
-description: "Data input formats and usage examples for timeseries-svg library."
+description: "Data input formats and usage examples for timeseries-sparklines library."
 ---
 
-# Data Input Formats
+# Usage Guide
 
-The timeseries-svg library automatically normalizes various input formats. Use the format that best matches your data source.
+The timeseries-sparklines library automatically normalizes various input formats. Use the format that best matches your data source.
 
 ## List of Dicts (Standard Format)
 

@@ -2,7 +2,7 @@
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>Data Input Formats</title>
+            <title>Usage Guide</title>
             <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -139,11 +139,11 @@
         </head>
         <body class="vscode-body vscode-light">
             <hr>
-<h2 id="layout-defaulttitle-usage-guide--timeseries-svgdescription-data-input-formats-and-usage-examples-for-timeseries-svg-library">layout: default
+<h2 id="layout-defaulttitle-usage-guide--timeseries-svgdescription-data-input-formats-and-usage-examples-for-timeseries-sparklines-library">layout: default
 title: &quot;Usage Guide | Timeseries SVG&quot;
-description: &quot;Data input formats and usage examples for timeseries-svg library.&quot;</h2>
-<h1 id="data-input-formats">Data Input Formats</h1>
-<p>The timeseries-svg library automatically normalizes various input formats. Use the format that best matches your data source.</p>
+description: &quot;Data input formats and usage examples for timeseries-sparklines library.&quot;</h2>
+<h1 id="usage-guide">Usage Guide</h1>
+<p>The timeseries-sparklines library automatically normalizes various input formats. Use the format that best matches your data source.</p>
 <h2 id="list-of-dicts-standard-format">List of Dicts (Standard Format)</h2>
 <p>Recommended for most use cases. Uses <code>d</code> for date and <code>c</code> for close/value.</p>
 <pre><code class="language-json"><span class="hljs-punctuation">[</span>
@@ -198,8 +198,8 @@ description: &quot;Data input formats and usage examples for timeseries-svg libr
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <h2 id="chart-examples-by-period">Chart Examples by Period</h2>
-<p>Chart data should match actual trading days per period:</p>
-<h3 id="5d-5-trading-days">5D (5 Trading Days)</h3>
+<p>Chart data is filtered by time window from the most recent data point:</p>
+<h3 id="5d-5-calendar-days">5D (5 Calendar Days)</h3>
 <pre><code class="language-json"><span class="hljs-punctuation">[</span>
   <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;d&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-01-08&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;c&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">160</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;d&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-01-09&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;c&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">148.5</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
@@ -208,7 +208,7 @@ description: &quot;Data input formats and usage examples for timeseries-svg libr
   <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;d&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-01-12&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;c&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">146.0</span><span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">]</span>
 </code></pre>
-<h3 id="1m-actual-calendar-month---21-trading-days">1M (Actual Calendar Month - ~21 Trading Days)</h3>
+<h3 id="1m-30-calendar-days">1M (30 Calendar Days)</h3>
 <pre><code class="language-json"><span class="hljs-punctuation">[</span>
   <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;d&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-01-02&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;c&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">160</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;d&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-01-03&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;c&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">148.5</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>

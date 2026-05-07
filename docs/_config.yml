@@ -27,7 +27,7 @@ defaults:
       path: "deployment.md"
     values:
       title: "Deployment Guide | Timeseries SVG"
-      description: "Installation and deployment instructions for timeseries-svg package."
+      description: "Installation and deployment instructions for timeseries-sparklines package."
 
 # --- Theme Configuration ---
 theme: jekyll-theme-cayman

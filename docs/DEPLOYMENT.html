@@ -138,8 +138,12 @@
         
         </head>
         <body class="vscode-body vscode-light">
-            <h1 id="deployment-guide">Deployment Guide</h1>
-<p>This guide explains how to deploy the timeseries-svg package on other machines.</p>
+            <hr>
+<h2 id="layout-defaulttitle-deployment-guide--timeseries-svgdescription-installation-and-deployment-instructions-for-timeseries-sparklines-package">layout: default
+title: &quot;Deployment Guide | Timeseries SVG&quot;
+description: &quot;Installation and deployment instructions for timeseries-sparklines package.&quot;</h2>
+<h1 id="deployment-guide">Deployment Guide</h1>
+<p>This guide explains how to deploy the timeseries-sparklines package on other machines.</p>
 <h2 id="package-files">Package Files</h2>
 <p>After building, the following distribution files are created in the <code>dist/</code> directory:</p>
 <ul>
@@ -176,7 +180,7 @@ scp dist/timeseries_svg-0.1.0-py3-none-any.whl user@target-machine:/path/to/depl
 </ol>
 <h3 id="option-3-install-from-git-repository-if-available">Option 3: Install from Git Repository (if available)</h3>
 <p>If you have a git repository:</p>
-<pre><code class="language-bash">pip install git+https://github.com/yourusername/timeseries-svg.git
+<pre><code class="language-bash">pip install git+https://github.com/vrraj/timeseries-sparklines.git
 </code></pre>
 <h2 id="installation-with-api-dependencies">Installation with API Dependencies</h2>
 <p>If you want to use the FastAPI server, install with API dependencies:</p>

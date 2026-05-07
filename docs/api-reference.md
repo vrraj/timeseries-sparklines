@@ -1,10 +1,14 @@
+---
+layout: default
+title: "API Reference | Timeseries SVG"
+description: "Complete API documentation for SparklineRenderer, TimeSeriesChartRenderer, and data utilities."
+---
+
 # API Reference
 
-Reference for programmatic usage, rendering parameters, and data normalization.
+This document provides the complete API reference for the timeseries-sparklines library, including class constructors, method signatures, parameter details, and common usage patterns.
 
-This document provides the complete API reference for the timeseries-svg library, including class constructors, method signatures, parameter details, and common usage patterns.
-
-> **New here?** Start with the project overview on the home page: **[timeseries-svg docs home](https://vrraj.github.io/timeseries-sparklines/)**.
+> **New here?** Start with the project overview on the home page: **[timeseries-sparklines docs home](https://vrraj.github.io/timeseries-sparklines/)**.
 >
 > **Source + releases:** GitHub repo and PyPI package are linked from the home page.
 

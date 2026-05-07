@@ -93,19 +93,42 @@ def create_app() -> FastAPI:
         sparkline_renderer = SparklineRenderer(width=200, height=64)
         sparkline_svg = sparkline_renderer.render(sparkline_data)
         
-        chart_data = [
-            {"d": "2024-01-01", "c": 150.0},
-            {"d": "2024-01-02", "c": 152.5},
-            {"d": "2024-01-03", "c": 151.0},
-            {"d": "2024-01-04", "c": 155.0},
-            {"d": "2024-01-05", "c": 158.0},
-            {"d": "2024-01-08", "c": 156.5},
-            {"d": "2024-01-09", "c": 160.0},
+        # Chart data with dates for period filtering
+        chart_data_with_dates = [
+            {"d": "2024-01-01", "c": 100.0},
+            {"d": "2024-01-02", "c": 102.5},
+            {"d": "2024-01-03", "c": 101.2},
+            {"d": "2024-01-04", "c": 105.0},
+            {"d": "2024-01-05", "c": 103.8},
+            {"d": "2024-01-08", "c": 107.0},
+            {"d": "2024-01-09", "c": 103.0},
+            {"d": "2024-01-10", "c": 100.0},
+            {"d": "2024-01-11", "c": 90.0},
+            {"d": "2024-01-12", "c": 95.0},
+            {"d": "2024-01-15", "c": 99.0},
+            {"d": "2024-01-16", "c": 105.0},
+            {"d": "2024-01-17", "c": 106.0},
+            {"d": "2024-01-18", "c": 100.0},
+            {"d": "2024-01-19", "c": 110.0},
+            {"d": "2024-01-22", "c": 105.0},
+            {"d": "2024-01-23", "c": 95.0},
+            {"d": "2024-01-24", "c": 117.0},
+            {"d": "2024-01-25", "c": 118.0},
+            {"d": "2024-01-26", "c": 120.0},
+            {"d": "2024-01-29", "c": 128.0},
+            {"d": "2024-01-30", "c": 130.0},
+            {"d": "2024-01-31", "c": 120.0},
+            {"d": "2024-02-01", "c": 117.0},
+            {"d": "2024-02-02", "c": 118.0},
+            {"d": "2024-02-05", "c": 116.0},
+            {"d": "2024-02-06", "c": 125.0},
+            {"d": "2024-02-07", "c": 130.0},
+            {"d": "2024-02-08", "c": 134.0},
         ]
         chart_renderer = TimeSeriesChartRenderer()
-        chart_svg = chart_renderer.render(chart_data, period="5D", title="Sample Chart")
+        chart_svg = chart_renderer.render(chart_data_with_dates, period="5D", title="Sample Chart")
         
-        sparkline_json = json.dumps(sparkline_data, indent=2)
+        sparkline_json = json.dumps(chart_data_with_dates, indent=2)
         
         html = f"""
         <!DOCTYPE html>
@@ -127,6 +150,8 @@ def create_app() -> FastAPI:
                 select, input {{ padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; margin: 8px 0; }}
                 button {{ background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 500; }}
                 button:hover {{ background: #2563eb; }}
+                .format-pill {{ background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 16px; cursor: pointer; font-size: 13px; font-weight: 500; margin-right: 6px; margin-bottom: 6px; }}
+                .format-pill:hover {{ background: #cbd5e1; }}
                 .result {{ margin-top: 16px; }}
                 #result-container {{ margin-top: 24px; padding: 20px; background: #f1f5f9; border-radius: 8px; border: 1px solid #e2e8f0; min-height: 100px; }}
             </style>
@@ -144,6 +169,12 @@ def create_app() -> FastAPI:
                 </select>
                 
                 <label for="dataInput">Data (JSON):</label>
+                <label style="font-size: 13px; color: #64748b; margin-top: 4px;">Supported Formats:</label>
+                <div style="margin-bottom: 8px;">
+                    <button type="button" class="format-pill" onclick="loadFormat('list_values')">List of values</button>
+                    <button type="button" class="format-pill" onclick="loadFormat('dict_date_value')">Dict with date/value</button>
+                    <button type="button" class="format-pill" onclick="loadFormat('dict_date_close')">Dict with date/close</button>
+                </div>
                 <textarea id="dataInput" placeholder='Enter JSON data, e.g.: [100.0, 102.5, 101.2] or [{{"d": "2024-01-01", "c": 150.0}}, ...]'>{sparkline_json}</textarea>
                 
                 <label>
@@ -196,6 +227,50 @@ def create_app() -> FastAPI:
                 const chartOptions = document.getElementById('chartOptions');
                 const periodSelect = document.getElementById('period');
                 const customPeriodDiv = document.getElementById('customPeriod');
+                
+                // Example data formats
+                const formatExamples = {{
+                    'list_values': [100.0, 102.5, 101.2, 105.0, 103.8, 107.0, 103.0, 100.0, 90.0, 95.0, 99.0, 105.0, 106.0, 100.0, 110.0],
+                    'dict_date_value': [
+                        {{"date": "2024-01-01", "value": 100.0}},
+                        {{"date": "2024-01-02", "value": 102.5}},
+                        {{"date": "2024-01-03", "value": 101.2}},
+                        {{"date": "2024-01-04", "value": 105.0}},
+                        {{"date": "2024-01-05", "value": 103.8}},
+                        {{"date": "2024-01-08", "value": 107.0}},
+                        {{"date": "2024-01-09", "value": 103.0}},
+                        {{"date": "2024-01-10", "value": 100.0}},
+                        {{"date": "2024-01-11", "value": 90.0}},
+                        {{"date": "2024-01-12", "value": 95.0}},
+                        {{"date": "2024-01-15", "value": 99.0}},
+                        {{"date": "2024-01-16", "value": 105.0}},
+                        {{"date": "2024-01-17", "value": 106.0}},
+                        {{"date": "2024-01-18", "value": 100.0}},
+                        {{"date": "2024-01-19", "value": 110.0}}
+                    ],
+                    'dict_date_close': [
+                        {{"d": "2024-01-01", "c": 100.0}},
+                        {{"d": "2024-01-02", "c": 102.5}},
+                        {{"d": "2024-01-03", "c": 101.2}},
+                        {{"d": "2024-01-04", "c": 105.0}},
+                        {{"d": "2024-01-05", "c": 103.8}},
+                        {{"d": "2024-01-08", "c": 107.0}},
+                        {{"d": "2024-01-09", "c": 103.0}},
+                        {{"d": "2024-01-10", "c": 100.0}},
+                        {{"d": "2024-01-11", "c": 90.0}},
+                        {{"d": "2024-01-12", "c": 95.0}},
+                        {{"d": "2024-01-15", "c": 99.0}},
+                        {{"d": "2024-01-16", "c": 105.0}},
+                        {{"d": "2024-01-17", "c": 106.0}},
+                        {{"d": "2024-01-18", "c": 100.0}},
+                        {{"d": "2024-01-19", "c": 110.0}}
+                    ]
+                }};
+                
+                function loadFormat(format) {{
+                    const dataInput = document.getElementById('dataInput');
+                    dataInput.value = JSON.stringify(formatExamples[format], null, 2);
+                }}
                 
                 chartTypeSelect.addEventListener('change', function() {{
                     chartOptions.style.display = this.value === 'chart' ? 'block' : 'none';

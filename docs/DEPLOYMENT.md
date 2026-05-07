@@ -1,6 +1,12 @@
+---
+layout: default
+title: "Deployment Guide | Timeseries SVG"
+description: "Installation and deployment instructions for timeseries-sparklines package."
+---
+
 # Deployment Guide
 
-This guide explains how to deploy the timeseries-svg package on other machines.
+This guide explains how to deploy the timeseries-sparklines package on other machines.
 
 ## Package Files
 
@@ -39,7 +45,7 @@ After building, the following distribution files are created in the `dist/` dire
 
 If you have a git repository:
 ```bash
-pip install git+https://github.com/yourusername/timeseries-svg.git
+pip install git+https://github.com/vrraj/timeseries-sparklines.git
 ```
 
 ## Installation with API Dependencies

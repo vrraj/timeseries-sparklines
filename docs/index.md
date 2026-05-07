@@ -4,11 +4,11 @@ title: "Timeseries SVG: Time Series Visualization"
 description: "A lightweight Python library for rendering time series data as SVG charts and sparklines. Accepts JSONB data from any source and produces clean, interactive SVG visualizations."
 ---
 
-# timeseries-svg
+# timeseries-sparklines
 
 <p align="left">
-  <a href="https://pypi.org/project/timeseries-svg/">
-    <img src="https://img.shields.io/pypi/v/timeseries-svg?color=blue&logo=pypi&logoColor=white" alt="PyPI - Version">
+  <a href="https://pypi.org/project/timeseries-sparklines/">
+    <img src="https://img.shields.io/pypi/v/timeseries-sparklines?color=blue&logo=pypi&logoColor=white" alt="PyPI - Version">
   </a>
   <a href="https://github.com/vrraj/timeseries-sparklines/releases">
     <img src="https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github" alt="GitHub Release">
@@ -17,11 +17,11 @@ description: "A lightweight Python library for rendering time series data as SVG
 
 A lightweight **Python library for rendering time series data as SVG charts and sparklines**. Accepts JSONB data from any source (realtime for sparklines or historical data) and produces clean, interactive SVG visualizations.
 
-The library is data-agnostic - it doesn't store or fetch data. Your application manages the data source, and timeseries-svg handles the rendering.
+The library is data-agnostic - it doesn't store or fetch data. Your application manages the data source, and timeseries-sparklines handles the rendering.
 
 ## Why this exists
 
-Modern web applications need lightweight time series visualizations without the overhead of heavy charting libraries. **timeseries-svg** provides:
+Modern web applications need lightweight time series visualizations without the overhead of heavy charting libraries. **timeseries-sparklines** provides:
 
 - **Zero external dependencies** - Pure Python, no matplotlib/plotly required
 - **Flexible data input** - Accepts 6+ JSONB formats automatically
@@ -50,7 +50,7 @@ The library is a pure rendering engine - your application manages the data sourc
 │  1. Backend fetches data from your source                        │
 │     (PostgreSQL, external API, in-memory cache, etc.)             │
 │                                                                   │
-│  2. Backend calls timeseries-svg renderer with data              │
+│  2. Backend calls timeseries-sparklines renderer with data              │
 │                                                                   │
 │  3. Renderer returns SVG string                                  │
 │                                                                   │
@@ -67,7 +67,7 @@ async def get_sparkline(request: SparklineRequest):
     # Step 1: Fetch from YOUR database
     data = await db.fetch_price_history(symbol="AAPL")
     
-    # Step 2: Render with timeseries-svg
+    # Step 2: Render with timeseries-sparklines
     svg = renderer.render(data, color_by_open=request.color_by_open)
     
     # Step 3: Return SVG
@@ -88,13 +88,13 @@ async def get_sparkline(request: SparklineRequest):
 ## Install
 
 ```bash
-pip install timeseries-svg
+pip install timeseries-sparklines
 ```
 
 For the REST API server:
 
 ```bash
-pip install "timeseries-svg[api]"
+pip install "timeseries-sparklines[api]"
 ```
 
 ## Quick example
@@ -183,7 +183,7 @@ The package includes a FastAPI-powered REST API server for remote rendering:
 
 ```bash
 # Install with API dependencies
-pip install "timeseries-svg[api]"
+pip install "timeseries-sparklines[api]"
 
 # Run the server
 timeseries-server
@@ -196,7 +196,7 @@ The server starts on `http://0.0.0.0:9300` with endpoints:
 
 ## Value Proposition
 
-**Without timeseries-svg, you'd need to:**
+**Without timeseries-sparklines, you'd need to:**
 - Write SVG rendering code (calculate coordinates, scaling, paths)
 - Normalize multiple data formats yourself
 - Implement period-based slicing logic
@@ -204,7 +204,7 @@ The server starts on `http://0.0.0.0:9300` with endpoints:
 - Handle date formatting for different periods
 - Implement segment coloring logic
 
-**With timeseries-svg:**
+**With timeseries-sparklines:**
 ```python
 # One line to render
 svg = renderer.render(data, period="1M", color_by_open=True)
@@ -214,17 +214,17 @@ It's a rendering engine - you provide raw data, it gives you production-ready SV
 
 ## Summary
 
-**timeseries-svg** is a lightweight, pure Python library for rendering time series data as SVG charts and sparklines.
+**timeseries-sparklines** is a lightweight, pure Python library for rendering time series data as SVG charts and sparklines.
 
 It's designed for applications that need fast, lightweight visualizations without the overhead of heavy charting libraries. The library accepts multiple data formats automatically, handles scaling and coordinate calculations, and produces responsive SVGs that work seamlessly in web applications.
 
-For applications that need more advanced visualizations (interactive tooltips, zooming, etc.), this library can be combined with other charting libraries. For most use cases where simple, clean visualizations are needed, timeseries-svg provides everything required with zero dependencies.
+For applications that need more advanced visualizations (interactive tooltips, zooming, etc.), this library can be combined with other charting libraries. For most use cases where simple, clean visualizations are needed, timeseries-sparklines provides everything required with zero dependencies.
 
 ## Links
 
 - [GitHub Repository](https://github.com/vrraj/timeseries-sparklines)
-- [PyPI Package](https://pypi.org/project/timeseries-svg/)
+- [PyPI Package](https://pypi.org/project/timeseries-sparklines/)
 - [Full README](https://github.com/vrraj/timeseries-sparklines#readme)
 - [API Reference](api-reference.html)
-- [Deployment Guide](deployment.html)
+- [Deployment Guide](DEPLOYMENT.html)
 - [Usage Guide](usage-guide.html)

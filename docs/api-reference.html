@@ -138,11 +138,14 @@
         
         </head>
         <body class="vscode-body vscode-light">
-            <h1 id="api-reference">API Reference</h1>
-<p>Reference for programmatic usage, rendering parameters, and data normalization.</p>
-<p>This document provides the complete API reference for the timeseries-svg library, including class constructors, method signatures, parameter details, and common usage patterns.</p>
+            <hr>
+<h2 id="layout-defaulttitle-api-reference--timeseries-svgdescription-complete-api-documentation-for-sparklinerenderer-timeserieschartrenderer-and-data-utilities">layout: default
+title: &quot;API Reference | Timeseries SVG&quot;
+description: &quot;Complete API documentation for SparklineRenderer, TimeSeriesChartRenderer, and data utilities.&quot;</h2>
+<h1 id="api-reference">API Reference</h1>
+<p>This document provides the complete API reference for the timeseries-sparklines library, including class constructors, method signatures, parameter details, and common usage patterns.</p>
 <blockquote>
-<p><strong>New here?</strong> Start with the project overview on the home page: <strong><a href="https://vrraj.github.io/timeseries-sparklines/">timeseries-svg docs home</a></strong>.</p>
+<p><strong>New here?</strong> Start with the project overview on the home page: <strong><a href="https://vrraj.github.io/timeseries-sparklines/">timeseries-sparklines docs home</a></strong>.</p>
 <p><strong>Source + releases:</strong> GitHub repo and PyPI package are linked from the home page.</p>
 </blockquote>
 <h2 id="table-of-contents">Table of Contents</h2>
@@ -462,37 +465,60 @@ svg = renderer.render(data, color_by_open=<span class="hljs-literal">True</span>
 <tr>
 <th>Period</th>
 <th>Description</th>
-<th>Trading Days</th>
+<th>Time Window</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>5D</code></td>
 <td>Daily labels (weekday)</td>
-<td>5</td>
+<td>5 calendar days</td>
+</tr>
+<tr>
+<td><code>1W</code></td>
+<td>Weekly labels</td>
+<td>7 calendar days</td>
+</tr>
+<tr>
+<td><code>2W</code></td>
+<td>Bi-weekly labels</td>
+<td>14 calendar days</td>
 </tr>
 <tr>
 <td><code>1M</code></td>
 <td>Weekly labels (month day)</td>
-<td>21</td>
+<td>30 calendar days</td>
 </tr>
 <tr>
 <td><code>3M</code></td>
 <td>Every 3 weeks (month day)</td>
-<td>63</td>
+<td>90 calendar days</td>
 </tr>
 <tr>
 <td><code>6M</code></td>
 <td>Monthly labels (month)</td>
-<td>126</td>
+<td>180 calendar days</td>
 </tr>
 <tr>
 <td><code>1Y</code></td>
 <td>Every 2 months (month)</td>
-<td>252</td>
+<td>365 calendar days</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Custom Periods:</strong></p>
+<p>You can also pass a custom <code>timedelta</code> object for any time window:</p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> timedelta
+
+<span class="hljs-comment"># Custom 2-week period</span>
+svg = renderer.render(data, period=timedelta(weeks=<span class="hljs-number">2</span>))
+
+<span class="hljs-comment"># Custom 45-day period</span>
+svg = renderer.render(data, period=timedelta(days=<span class="hljs-number">45</span>))
+
+<span class="hljs-comment"># Custom 3-hour period (for intraday data)</span>
+svg = renderer.render(data, period=timedelta(hours=<span class="hljs-number">3</span>))
+</code></pre>
 <p><strong>Returns:</strong> <code>str</code> - SVG string</p>
 <p><strong>Example:</strong></p>
 <pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> TimeSeriesChartRenderer

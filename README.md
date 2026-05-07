@@ -12,6 +12,10 @@ Need to add **real-time sparklines** or **slicable time-series charts** to your 
 
 It is designed for SSR-first applications, real-time sparklines, dashboards, Agentic systems where many lightweight charts need to be rendered **without** shipping a frontend charting library.
 
+```
+pip install timeseries-sparklines
+```
+
 **[Quick Start →](#install)**
 
 ## Use Cases

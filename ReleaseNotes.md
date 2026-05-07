@@ -4,7 +4,7 @@
 
 ### Overview
 
-`timeseries-sparklines` is a lightweight server-side SVG rendering engine for time-series data visualization. Accepts JSONB data from any source (periodically refreshed for sparklines or historical data) and produces clean, interactive SVG visualizations for web applications, dashboards, and agentic systems.
+`timeseries-sparklines` is a lightweight server-side SVG rendering engine for sparklines, bar charts, and slicable time-series charts. It accepts time-series data from application-managed sources and returns deterministic SVG markup for SSR applications, dashboards, APIs, reports, notebooks, and agentic workflows.
 
 This is the first public release. The complete API surface is documented in [docs/api-reference.md](https://vrraj.github.io/timeseries-sparklines/api-reference.html).
 
@@ -13,14 +13,14 @@ This is the first public release. The complete API surface is documented in [doc
 ## Core Capabilities
 
 ### Sparkline Rendering
-- `SparklineRenderer` class for compact sparkline chart generation
+- `SparklineRenderer` class for compact sparkline, trend line, and mini chart generation
 - Configurable dimensions, stroke width, and colors
 - Segment coloring by open price for trend visualization
 - Baseline reference line support
 - Responsive SVG output with CSS scaling
 
 ### Chart Rendering
-- `TimeSeriesChartRenderer` class for full time-series charts
+- `TimeSeriesChartRenderer` class for SVG time-series charts
 - `BarChartRenderer` class for vertical bar charts
 - Period-based slicing (5D, 1W, 2W, 1M, 3M, 6M, 1Y, or custom timedelta)
 - Automatic X-axis tick generation based on period
@@ -40,16 +40,16 @@ This is the first public release. The complete API surface is documented in [doc
 
 ### REST Service
 - FastAPI-powered REST API for remote rendering
-- Endpoints for sparkline and chart rendering
-- Interactive test UI for format experimentation
+- Endpoints for sparkline, line chart, and bar chart rendering
+- Interactive test UI for testing data formats, period slicing, SVG output, and chart parameters
 - Period filter support with custom timedelta
 - Pydantic models for type-safe request/response handling
 
 ### System Architecture
 - Pure rendering engine - data-agnostic design
 - Server-side SVG generation (no frontend chart libraries)
-- SSR-first architecture for web applications
-- Agentic system integration for AI workflows
+- SSR-friendly architecture for backend-rendered applications
+- Backend rendering harness pattern for agentic workflows
 - REST service or in-process usage patterns
 
 ---
@@ -122,13 +122,13 @@ svg = renderer.render(
 
 This release establishes the 0.1.0 API contract for `timeseries-sparklines`.
 
-The focus of this release is server-side SVG rendering for time-series data visualization in SSR applications, dashboards, and agentic systems. The library is designed as a pure rendering engine that accepts normalized time-series data and returns production-ready SVG markup.
+The focus of this release is server-side SVG rendering for sparklines, bar charts, and slicable time-series charts in SSR applications, dashboards, APIs, and agentic workflows. The library is designed as a rendering engine that accepts application-provided time-series data and returns SVG markup.
 
 Key design decisions:
 - Data-agnostic: Does not fetch, store, or poll data
-- Server-side rendering: No frontend chart libraries required
+- Server-side rendering: Browser displays returned SVG without a frontend chart runtime
 - Flexible input: Auto-normalizes 6+ JSONB formats
-- Period-based filtering: Time windows for historical data
-- Responsive SVG: CSS-scalable vector graphics
+- Period-based filtering: Time windows for slicable charts
+- SVG output: Embeddable vector markup for web pages, reports, notebooks, and generated HTML
 
 Backward compatibility will be maintained within the 0.1.x series.

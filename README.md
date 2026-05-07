@@ -68,7 +68,7 @@ Because the output is lightweight SVG text, it can be cached, streamed, embedded
 **Example:**
 ```python
 # Your backend
-@app.post("/sparkline-raw")
+@app.post("/api/sparkline")
 async def get_sparkline(request: SparklineRequest):
     # Step 1: Fetch from YOUR database
     data = await db.fetch_price_history(symbol="AAPL")
@@ -317,7 +317,7 @@ data = {
 ```python
 renderer = SparklineRenderer(
     width=96,              # SVG width in pixels
-    height=24,             # SVG height in pixels
+    height=32,             # SVG height in pixels
     stroke_width=1.8,      # Line stroke width
     baseline_color="rgba(148,163,184,0.35)",  # Baseline color
     up_color="#12b76a",    # Upward trend color

@@ -6,7 +6,7 @@
 
 
 
-Need to add **sparklines**, **trend lines**, **mini charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
+Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
 
 >`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **SVG charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - **no** chart initialization, **no** canvas lifecycle management, and **no** frontend chart runtime required.
 
@@ -59,6 +59,7 @@ Because the output is lightweight SVG text, it can be cached, streamed, embedded
 - **Python rendering library** for programmatic sparkline and chart generation
 - **Flexible data input** - Accepts 6+ Python/JSON time-series formats automatically
 - **Sparkline rendering** - Compact sparklines, trend lines, and mini charts for inline display
+- **Bar charts** - Vertical bar charts for time-series data with configurable bar width and colors
 - **Time-series charts** - SVG charts with axis labels, grid lines, and period-based formatting
 - **Period-based slicing** - Auto-filters data by time windows (5D, 1W, 2W, 1M, 3M, 6M, 1Y, or custom timedelta)
 - **Segment coloring** - Color segments by open price for trend visualization
@@ -128,6 +129,25 @@ data = [
 
 renderer = TimeSeriesChartRenderer(width=760, height=320)
 svg = renderer.render(data, period="5D", title="AAPL Price History")
+print(svg)  # Returns SVG string
+```
+
+### Bar Chart Example
+
+```python
+from timeseries_svg import BarChartRenderer
+
+# Temperature data by month
+data = [
+    {"d": "2024-01-01", "c": 65.0},
+    {"d": "2024-02-01", "c": 68.0},
+    {"d": "2024-03-01", "c": 72.0},
+    {"d": "2024-04-01", "c": 75.0},
+    {"d": "2024-05-01", "c": 80.0},
+]
+
+renderer = BarChartRenderer(width=760, height=320)
+svg = renderer.render(data, period="1Y", title="Temperature by Month")
 print(svg)  # Returns SVG string
 ```
 

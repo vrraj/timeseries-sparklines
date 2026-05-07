@@ -21,10 +21,12 @@ This is the first public release. The complete API surface is documented in [doc
 
 ### Chart Rendering
 - `TimeSeriesChartRenderer` class for full time-series charts
+- `BarChartRenderer` class for vertical bar charts
 - Period-based slicing (5D, 1W, 2W, 1M, 3M, 6M, 1Y, or custom timedelta)
 - Automatic X-axis tick generation based on period
 - Configurable styling (colors, margins, grid lines, axis labels)
 - Chart title support with adjustable positioning
+- Configurable bar width and colors for bar charts
 
 ### Data Normalization
 - Accepts 6+ input formats automatically
@@ -70,13 +72,15 @@ Stable entry points:
 - `SparklineRenderer.render(data)` — Render sparkline from data
 - `TimeSeriesChartRenderer(width, height, margin, up_color, down_color, grid_color, axis_color, label_color, color_by_open)` — Time-series chart renderer
 - `TimeSeriesChartRenderer.render(data, period, title, date_key, value_key)` — Render chart with period filtering
+- `BarChartRenderer(width, height, margin, bar_color, bar_width_ratio, grid_color, axis_color, label_color, color_by_open)` — Bar chart renderer
+- `BarChartRenderer.render(data, period, title, date_key, value_key)` — Render bar chart with period filtering
 - `normalize_timeseries_data(data, date_key, value_key)` — Normalize various input formats
 - `extract_values(normalized_data)` — Extract values from normalized data
 - `extract_dates(normalized_data)` — Extract dates from normalized data
 
 REST API endpoints:
 - `POST /sparkline-raw` — Render sparkline from JSON data
-- `POST /chart-raw` — Render chart from JSON data
+- `POST /chart-raw` — Render line or bar chart from JSON data (supports chart_type parameter)
 - `GET /test-charts` — Interactive test UI
 - `GET /health` — Health check endpoint
 

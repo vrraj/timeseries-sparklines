@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Timeseries SVG: Time Series Visualization"
-description: "A lightweight Python library for rendering time series data as SVG charts and sparklines. Accepts JSONB data from any source and produces clean, interactive SVG visualizations."
+description: "Server-side SVG rendering harness for sparklines, trend lines, mini charts, and slicable time-series charts for dashboards, SSR applications, and Agentic workflows."
 ---
 
 # timeseries-sparklines
@@ -15,7 +15,9 @@ description: "A lightweight Python library for rendering time series data as SVG
   </a>
 </p>
 
-A lightweight **Python library for rendering time series data as SVG charts and sparklines**. Accepts JSONB data from any source (periodically refreshed for sparklines or historical data) and produces clean, interactive SVG visualizations.
+Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
+
+`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **SVG charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required.
 
 ```
 pip install timeseries-sparklines
@@ -23,7 +25,7 @@ pip install timeseries-sparklines
 
 Includes an **Interactive Test UI** for testing data formats, period slicing, SVG output, and chart parameters.
 
-The library is data-agnostic - it doesn't store or fetch data. Your application manages the data source, and timeseries-sparklines handles the rendering.
+The library is data-agnostic - it does not fetch, store, or poll data. Your application manages the data source, and `timeseries-sparklines` handles normalization, slicing, coordinate calculation, and SVG rendering.
 
 ## Use Cases
 
@@ -31,7 +33,7 @@ Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to
 
 - **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, dashboards, reports, or generated HTML
 - **SSR and backend-rendered apps**: Return ready-to-display SVG from Python backends, or expose it through an API for other stacks
-- **Operational dashboards**: Render many compact sparklines for periodically refreshed data
+- **Operational dashboards**: Render compact sparklines, trend lines, and mini charts for periodically refreshed data
 - **Chart and BI APIs**: Accept slice parameters like `5D`, `1M`, `6M`, or `1Y` and return SVG for downstream consumers
 - **Reports, notebooks, and internal tools**: Embed small trend visuals directly where HTML or SVG is supported
 
@@ -50,53 +52,37 @@ Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to
 
 ## System Architecture
 
-The library acts as a server-side rendering harness that transforms time-series data into SVG visualizations. It is designed for applications, APIs, and agentic workflows that need lightweight charts without shipping frontend charting libraries.
-
-**Architecture overview:**
+The library acts as a server-side rendering harness that transforms time-series data into lightweight SVG visualizations for applications, APIs, dashboards, SSR workflows, and Agentic systems.
 
 ![Timeseries & Sparklines Harness](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/harness-timeseries-and-sparklines.png)
 
-<center><em>System architecture showing data flow from sources through the rendering harness to consumers (web applications, dashboards, agentic systems, reports, notebooks, and chat interfaces).</em></center>
+<center><em>System architecture showing data flow from sources through the rendering harness to downstream consumers.</em></center>
 
-The harness handles normalization, period-based slicing, coordinate calculation, SVG path generation, and styling - returning production-ready SVG markup that can be embedded anywhere.
+The harness handles normalization, slicing, coordinate calculation, and SVG generation - returning production-ready SVG markup.
 
 ## Harness for Charts: Timeseries & Sparklines
 
-Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` acts as a server-side rendering harness for transforming retrieved or computed time-series data into lightweight SVG charts and sparklines.
+`timeseries-sparklines` can act as a backend rendering harness inside Agentic workflows, APIs, dashboards, and SSR applications.
 
-A typical Agentic workflow:
+A typical workflow:
 
-1. Call a data retrieval tool to fetch raw time-series data from a database, API, cache, or vector-backed workflow in JSON, JSONB, or another supported format.
-2. Call `timeseries-sparklines` as a backend rendering tool with the period parameter (`5D`, `1M`, `6M`, `1Y`, or custom timedelta) - the library handles the slicing internally.
-3. Embed the returned SVG into a dashboard, generated HTML view, report, notebook, or chat interface.
+1. Retrieve time-series data from a database, API, cache, or tool
+2. Render a sparkline or chart with a selected period (`5D`, `1M`, `6M`, `1Y`, etc.)
+3. Return SVG for embedding into dashboards, reports, notebooks, or chat interfaces
 
-Because the output is lightweight SVG text, the tool response can be cached, streamed, embedded, and rendered natively anywhere SVG/HTML is supported. Since SVG is text-based markup, it can also be passed through LLM workflows as lightweight visual context when needed.
-
-**Example:**
-```python
-# Your backend
-@app.post("/sparkline-raw")
-async def get_sparkline(request: SparklineRequest):
-    # Step 1: Fetch from YOUR database
-    data = await db.fetch_price_history(symbol="AAPL")
-
-    # Step 2: Render with timeseries-sparklines
-    svg = renderer.render(data, color_by_open=request.color_by_open)
-
-    # Step 3: Return SVG
-    return Response(content=svg, media_type="image/svg+xml")
-```
+Because the output is lightweight SVG text, it can be cached, streamed, embedded, and passed through LLM workflows when needed.
 
 ## What you get
 
-- **Sparkline rendering** - Compact sparkline charts for inline display
-- **Interactive charts** - Full time series charts with axis labels and grid lines
+- **Sparkline rendering** - Compact sparklines, trend lines, and mini charts for inline display
+- **Bar charts** - Vertical bar charts for time-series data with configurable bar width and colors
+- **Time-series charts** - SVG charts with axis labels, grid lines, and period-based formatting
 - **Configurable styling** - Customizable colors, dimensions, and formatting
-- **Data normalization** - Accepts 6+ formats automatically - no preprocessing
+- **Data normalization** - Accepts multiple input formats automatically
 - **Period slicing** - Auto-filters to trading days based on period selection
-- **Segment coloring** - Color by open price automatically for trend visualization
-- **REST API server** - FastAPI-powered service for remote rendering
-- **Zero dependencies** - Pure Python - no heavy charting libraries
+- **Segment coloring** - Optional color-by-open rendering for trend visualization
+- **REST API server** - FastAPI-powered rendering service
+- **Zero frontend chart runtime** - Browser displays returned SVG directly
 
 ## Install
 
@@ -144,7 +130,25 @@ data = [
 
 renderer = TimeSeriesChartRenderer(width=760, height=320)
 svg = renderer.render(data, period="5D", title="AAPL Price History")
-print(svg)  # Returns interactive SVG string
+print(svg)  # Returns SVG string
+```
+
+### Bar Chart Example
+
+```python
+from timeseries_svg import BarChartRenderer
+
+data = [
+    {"d": "2024-01-01", "c": 65.0},
+    {"d": "2024-02-01", "c": 68.0},
+    {"d": "2024-03-01", "c": 72.0},
+    {"d": "2024-04-01", "c": 75.0},
+    {"d": "2024-05-01", "c": 80.0},
+]
+
+renderer = BarChartRenderer(width=760, height=320)
+svg = renderer.render(data, period="1Y", title="Temperature by Month")
+print(svg)  # Returns SVG string
 ```
 
 ## Data Input Formats
@@ -207,6 +211,25 @@ The server starts on `http://0.0.0.0:9300` with endpoints:
 - `POST /chart-raw` - Render chart from JSON data
 - `GET /health` - Health check endpoint
 
+## Frontend Integration Pattern
+
+For frequently refreshed sparklines, server-side SVG rendering works best when updates are periodic, cacheable, and backed by server-side caching rather than sub-second or tick-level.
+
+For high-frequency streaming views, a hybrid approach is usually more efficient:
+
+- Use `timeseries-sparklines` for the initial sparkline render or SSR response
+- Batch multiple sparklines server-side when rendering many charts on one page
+- Cache rendered SVGs or source data on the backend when multiple users request the same view
+- Use WebSockets or incremental frontend updates for live changes
+- Pause polling when browser tabs are inactive and refresh the full sparkline on wake-up or focus
+
+This pattern works best when:
+
+- Update frequency is moderate, such as 30-60 seconds for sparklines
+- Many similar charts can share cached data or rendered SVG output
+- Multiple sparklines can be batched into a single backend response
+- The frontend mainly displays SVG and does not need heavy chart interaction
+
 ## Value Proposition
 
 **Without timeseries-sparklines, you'd need to:**
@@ -227,11 +250,11 @@ It's a rendering engine - you provide raw data, it gives you production-ready SV
 
 ## Summary
 
-**timeseries-sparklines** is a lightweight, pure Python library for rendering time series data as SVG charts and sparklines.
+**timeseries-sparklines** is a lightweight server-side SVG rendering engine for sparklines, trend lines, mini charts, and slicable time-series charts.
 
-It's designed for applications that need fast, lightweight visualizations without the overhead of heavy charting libraries. The library accepts multiple data formats automatically, handles scaling and coordinate calculations, and produces responsive SVGs that work seamlessly in web applications.
+It is designed for SSR-first applications, periodically refreshed dashboards, APIs, and Agentic systems that need lightweight visualizations without shipping heavy frontend charting libraries.
 
-For applications that need more advanced visualizations (interactive tooltips, zooming, etc.), this library can be combined with other charting libraries. For most use cases where simple, clean visualizations are needed, timeseries-sparklines provides everything required with zero dependencies.
+The library accepts multiple data formats automatically, handles normalization and coordinate calculations, and produces deterministic SVG markup that can be embedded directly into dashboards, reports, notebooks, generated HTML, and chat interfaces.
 
 ## Links
 

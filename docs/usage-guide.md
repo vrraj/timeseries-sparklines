@@ -87,6 +87,42 @@ Common format for database JSONB storage - the library extracts the array automa
 }
 ```
 
+## Chart Types
+
+### Line Charts
+
+Use `TimeSeriesChartRenderer` for traditional line charts with axes and grid lines:
+
+```python
+from timeseries_svg import TimeSeriesChartRenderer
+
+renderer = TimeSeriesChartRenderer(width=760, height=320)
+svg = renderer.render(data, period="5D", title="Price History")
+```
+
+### Bar Charts
+
+Use `BarChartRenderer` for vertical bar charts:
+
+```python
+from timeseries_svg import BarChartRenderer
+
+renderer = BarChartRenderer(width=760, height=320)
+svg = renderer.render(data, period="1M", title="Temperature by Month")
+```
+
+API usage (specify `chart_type: "bar"`):
+
+```http
+POST /chart-raw
+{
+  "data": [...],
+  "chart_type": "bar",
+  "period": "1M",
+  "title": "Temperature by Month"
+}
+```
+
 ## Chart Examples by Period
 
 Chart data is filtered by time window from the most recent data point:

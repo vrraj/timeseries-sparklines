@@ -14,18 +14,6 @@ Need to add **real-time sparklines** or **slicable time-series charts** to your 
 
 It is designed for SSR-first applications, dashboards, watchlists, Agentic systems, and real-time monitoring interfaces where many lightweight charts need to be rendered without shipping a frontend charting library.
 
-### Harness for Charts: Timeseries & Sparklines
-
-Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` acts as a server-side rendering harness for transforming retrieved or computed time-series data into lightweight SVG charts and sparklines.
-
-A typical Agentic workflow:
-
-1. Call a data retrieval tool to fetch raw time-series data from a database, API, cache, or vector-backed workflow in JSON, JSONB, or another supported format.
-2. Call `timeseries-sparklines` as a backend rendering tool with the period parameter (`5D`, `1M`, `6M`, `1Y`, or custom timedelta) - the library handles the slicing internally.
-3. Embed the returned SVG into a dashboard, generated HTML view, report, notebook, or chat interface.
-
-Because the output is lightweight SVG text, the tool response can be cached, streamed, embedded, and rendered natively anywhere SVG/HTML is supported. Since SVG is text-based markup, it can also be passed through LLM workflows as lightweight visual context when needed.
-
 **[Quick Start →](#install)**
 
 ## Why this exists
@@ -58,6 +46,18 @@ The library acts as a server-side rendering harness that transforms time-series 
 <center><em>System architecture showing data flow from sources through the rendering harness to consumers (web applications, dashboards, agentic systems, reports, notebooks, and chat interfaces).</em></center>
 
 The harness handles normalization, period-based slicing, coordinate calculation, SVG path generation, and styling - returning production-ready SVG markup that can be embedded anywhere.
+
+### Harness for Charts: Timeseries & Sparklines
+
+Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` acts as a server-side rendering harness for transforming retrieved or computed time-series data into lightweight SVG charts and sparklines.
+
+A typical Agentic workflow:
+
+1. Call a data retrieval tool to fetch raw time-series data from a database, API, cache, or vector-backed workflow in JSON, JSONB, or another supported format.
+2. Call `timeseries-sparklines` as a backend rendering tool with the period parameter (`5D`, `1M`, `6M`, `1Y`, or custom timedelta) - the library handles the slicing internally.
+3. Embed the returned SVG into a dashboard, generated HTML view, report, notebook, or chat interface.
+
+Because the output is lightweight SVG text, the tool response can be cached, streamed, embedded, and rendered natively anywhere SVG/HTML is supported. Since SVG is text-based markup, it can also be passed through LLM workflows as lightweight visual context when needed.
 
 ## What you get
 

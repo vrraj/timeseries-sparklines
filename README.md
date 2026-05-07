@@ -21,6 +21,12 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 ## Preview
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
+</p>
+
+<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart in side an LLM response.</em></p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" width="30%" />
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/bar-chart-with-list-of-dicts.png" width="30%" />
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" width="30%" />

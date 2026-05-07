@@ -24,6 +24,8 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
 </p>
 
+<hr>
+
 <p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
 
 <p align="center">
@@ -32,7 +34,7 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" width="30%" />
 </p>
 
-### Trading Dashboard Preview
+<hr>
 
 <p align="center"><em>Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.</em></p>
 

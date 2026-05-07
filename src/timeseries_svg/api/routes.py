@@ -181,25 +181,30 @@ def create_app() -> FastAPI:
                 </label>
                 
                 <div id="chartOptions" style="display: none;">
-                    <label for="period">Period:</label>
-                    <select id="period">
-                        <option value="5D">5D (5 days)</option>
-                        <option value="1W">1W (1 week)</option>
-                        <option value="2W">2W (2 weeks)</option>
-                        <option value="1M">1M (30 days)</option>
-                        <option value="3M">3M (90 days)</option>
-                        <option value="6M">6M (180 days)</option>
-                        <option value="1Y">1Y (365 days)</option>
-                        <option value="custom">Custom (specify below)</option>
-                    </select>
+                    <div style="display: flex; gap: 16px; margin-bottom: 8px;">
+                        <div style="flex: 1;">
+                            <label for="period">Period:</label>
+                            <select id="period">
+                                <option value="5D">5D (5 days)</option>
+                                <option value="1W">1W (1 week)</option>
+                                <option value="2W">2W (2 weeks)</option>
+                                <option value="1M">1M (30 days)</option>
+                                <option value="3M">3M (90 days)</option>
+                                <option value="6M">6M (180 days)</option>
+                                <option value="1Y">1Y (365 days)</option>
+                                <option value="custom">Custom (specify below)</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="title">Title (optional):</label>
+                            <input type="text" id="title" placeholder="Chart Title" style="width: 100%;">
+                        </div>
+                    </div>
                     
-                    <div id="customPeriod" style="display: none; margin-top: 8px;">
+                    <div id="customPeriod" style="display: none;">
                         <label for="customDays">Custom Period (days):</label>
                         <input type="number" id="customDays" placeholder="Enter number of days" min="1">
                     </div>
-                    
-                    <label for="title">Title (optional):</label>
-                    <input type="text" id="title" placeholder="Chart Title">
                 </div>
                 
                 <button onclick="renderChart()">Render</button>

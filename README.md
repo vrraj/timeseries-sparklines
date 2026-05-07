@@ -118,6 +118,38 @@ Links:
 pip install timeseries-sparklines
 ```
 
+### Complete Example
+
+```python
+from timeseries_svg import SparklineRenderer, TimeSeriesChartRenderer, BarChartRenderer
+
+# Sample data
+data = [
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-02-01", "v": 102.5},
+    {"d": "2024-03-01", "v": 101.2},
+    {"d": "2024-04-01", "v": 105.0},
+    {"d": "2024-05-01", "v": 103.8},
+]
+
+# Sparkline
+sparkline_renderer = SparklineRenderer(width=96, height=32)
+sparkline_svg = sparkline_renderer.render(data)
+print(sparkline_svg)
+
+# Bar chart with y-axis label
+bar_renderer = BarChartRenderer(y_axis_label="Value", y_axis_offset=0.1)
+bar_svg = bar_renderer.render(data, period="6M", title="Monthly Values")
+print(bar_svg)
+
+# Line chart with y-axis label
+chart_renderer = TimeSeriesChartRenderer(y_axis_label="Value", y_axis_offset=0.1)
+chart_svg = chart_renderer.render(data, period="6M", title="Value Trend")
+print(chart_svg)
+```
+
+For a complete test script, see [examples/test_chart.py](https://github.com/vrraj/timeseries-sparklines/blob/main/examples/test_chart.py).
+
 ### Sparkline Example
 
 ```python

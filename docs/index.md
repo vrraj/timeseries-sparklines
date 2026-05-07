@@ -19,7 +19,7 @@ Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or
 
 `timeseries-sparklines` is a lightweight server-side SVG rendering engine for **sparklines**, **bar charts**, and **SVG time-series charts** that can be sliced by days, weeks, months, years, or custom time windows.
 
-It produces deterministic SVG markup that the browser can simply display - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required. Your backend, API, or Agentic workflow provides the data; the library handles normalization, slicing, coordinate calculation, and SVG rendering.
+It produces deterministic SVG markup that the browser can simply display - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required.
 
 ```
 pip install timeseries-sparklines
@@ -47,7 +47,7 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to turn time-series data into lightweight SVG charts without adding frontend charting dependencies.
 
-- **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, dashboards, reports, or generated HTML
+- **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, reports, dashboards, or generated HTML
 - **SSR and backend-rendered apps**: Return ready-to-display SVG from Python backends, or expose it through an API for other stacks
 - **Operational dashboards**: Render compact sparklines, trend lines, and mini charts for periodically refreshed data
 - **Chart and BI APIs**: Accept slice parameters like `5D`, `1M`, `6M`, or `1Y` and return SVG for downstream consumers
@@ -74,19 +74,17 @@ The library acts as a server-side rendering harness that transforms time-series 
 
 <center><em>System architecture showing data flow from sources through the rendering harness to downstream consumers.</em></center>
 
-The harness handles normalization, slicing, coordinate calculation, and SVG generation - returning production-ready SVG markup.
+The harness handles normalization, slicing, coordinate calculation, and SVG generation.
 
-## Harness for Charts: Timeseries & Sparklines
+## Backend Rendering Harness
 
-`timeseries-sparklines` can act as a backend rendering harness inside Agentic workflows, APIs, dashboards, and SSR applications.
+`timeseries-sparklines` can be used as a backend rendering harness inside APIs, dashboards, SSR applications, and Agentic workflows.
 
-A typical workflow:
+Typical flow:
 
 1. Retrieve time-series data from a database, API, cache, or tool
-2. Render a sparkline or chart with a selected period (`5D`, `1M`, `6M`, `1Y`, etc.)
-3. Return SVG for embedding into dashboards, reports, notebooks, or chat interfaces
-
-Because the output is lightweight SVG text, it can be cached, streamed, embedded, and passed through LLM workflows when needed.
+2. Render a sparkline, bar chart, or time-series chart with a selected period
+3. Return SVG for embedding into dashboards, reports, notebooks, generated HTML, or chat interfaces
 
 ## What you get
 
@@ -274,15 +272,13 @@ This pattern works best when:
 svg = renderer.render(data, period="1M", color_by_open=True)
 ```
 
-It's a rendering engine - you provide raw data, it gives you production-ready SVG. Focus on your application logic, not SVG math.
+You provide the time-series data; the library handles SVG rendering and coordinate calculations.
 
 ## Summary
 
-**timeseries-sparklines** is a lightweight server-side SVG rendering engine for sparklines, trend lines, mini charts, and slicable time-series charts.
+**timeseries-sparklines** is a lightweight server-side SVG rendering engine for sparklines, bar charts, and slicable time-series charts.
 
-It is designed for SSR-first applications, periodically refreshed dashboards, APIs, and Agentic systems that need lightweight visualizations without shipping heavy frontend charting libraries.
-
-The library accepts multiple data formats automatically, handles normalization and coordinate calculations, and produces deterministic SVG markup that can be embedded directly into dashboards, reports, notebooks, generated HTML, and chat interfaces.
+It is designed for dashboards, SSR applications, APIs, reports, and Agentic workflows that need lightweight SVG visualizations without shipping frontend charting libraries.
 
 ## Links
 

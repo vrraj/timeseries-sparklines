@@ -115,7 +115,7 @@ pip install "timeseries-sparklines[api]"
 ### Sparkline Example
 
 ```python
-from timeseries_sparklines import SparklineRenderer
+from timeseries_svg import SparklineRenderer
 
 data = [
     {"d": "2024-01-01", "c": 100.0},
@@ -132,7 +132,7 @@ print(svg)  # Returns SVG string
 ### Chart Example
 
 ```python
-from timeseries_sparklines import TimeSeriesChartRenderer
+from timeseries_svg import TimeSeriesChartRenderer
 
 data = [
     {"d": "2024-01-01", "c": 150.0},

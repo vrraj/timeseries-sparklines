@@ -97,7 +97,7 @@ pip install timeseries-sparklines
 ### Sparkline Example
 
 ```python
-from timeseries_sparklines import SparklineRenderer
+from timeseries_svg import SparklineRenderer
 
 # Input data can be in various formats
 data = [
@@ -115,7 +115,7 @@ print(svg)  # Returns SVG string
 ### Time Series Chart Example
 
 ```python
-from timeseries_sparklines import TimeSeriesChartRenderer
+from timeseries_svg import TimeSeriesChartRenderer
 
 # Historical price data
 data = [
@@ -141,7 +141,7 @@ Use the renderers directly in your Python code for programmatic SVG generation. 
 - Data pipelines
 
 ```python
-from timeseries_sparklines import SparklineRenderer, TimeSeriesChartRenderer
+from timeseries_svg import SparklineRenderer, TimeSeriesChartRenderer
 
 # Sparkline
 sparkline_renderer = SparklineRenderer(width=200, height=64)
@@ -346,7 +346,7 @@ renderer.render(data, period="1M")  # Use 1M label formatting
 Use the data normalization utilities directly if needed:
 
 ```python
-from timeseries_sparklines import normalize_timeseries_data, extract_values, extract_dates
+from timeseries_svg import normalize_timeseries_data, extract_values, extract_dates
 
 normalized = normalize_timeseries_data(data)
 values = extract_values(normalized)
@@ -361,7 +361,7 @@ dates = extract_dates(normalized)
 
 ```python
 from fastapi import FastAPI, Response
-from timeseries_sparklines import SparklineRenderer
+from timeseries_svg import SparklineRenderer
 
 app = FastAPI()
 renderer = SparklineRenderer()
@@ -378,7 +378,7 @@ async def get_sparkline(symbol: str):
 
 ```python
 from flask import Flask, Response
-from timeseries_sparklines import TimeSeriesChartRenderer
+from timeseries_svg import TimeSeriesChartRenderer
 
 app = Flask(__name__)
 renderer = TimeSeriesChartRenderer()

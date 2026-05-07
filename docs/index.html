@@ -151,7 +151,7 @@ description: &quot;A lightweight Python library for rendering time series data a
     <img src="https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github" alt="GitHub Release">
   </a>
 </p>
-<p>A lightweight <strong>Python library for rendering time series data as SVG charts and sparklines</strong>. Accepts JSONB data from any source (realtime for sparklines or historical data) and produces clean, interactive SVG visualizations.</p>
+<p>A lightweight <strong>Python library for rendering time series data as SVG charts and sparklines</strong>. Accepts JSONB data from any source (periodically refreshed for sparklines or historical data) and produces clean, interactive SVG visualizations.</p>
 <p>The library is data-agnostic - it doesn't store or fetch data. Your application manages the data source, and timeseries-sparklines handles the rendering.</p>
 <h2 id="why-this-exists">Why this exists</h2>
 <p>Modern web applications need lightweight time series visualizations without the overhead of heavy charting libraries. <strong>timeseries-sparklines</strong> provides:</p>
@@ -166,7 +166,7 @@ description: &quot;A lightweight Python library for rendering time series data a
 <h2 id="primary-use-cases">Primary use cases</h2>
 <ul>
 <li><strong>Financial dashboards</strong> - Stock price sparklines and historical charts</li>
-<li><strong>IoT monitoring</strong> - Real-time sensor data visualization</li>
+<li><strong>IoT monitoring</strong> - Sensor data visualization for periodically refreshed metrics</li>
 <li><strong>Analytics platforms</strong> - Time series metrics and trends</li>
 <li><strong>Trading applications</strong> - Price history and technical indicators</li>
 <li><strong>Any web application</strong> - Lightweight SVG charts without heavy dependencies</li>

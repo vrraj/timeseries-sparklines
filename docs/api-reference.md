@@ -76,6 +76,7 @@ class TimeSeriesChartRenderer:
         tooltip_border: str = "rgba(148,163,184,0.45)",
         color_by_open: bool = False,
         y_axis_label: Optional[str] = None,
+        y_axis_offset: float = 0.1,
     )
 ```
 
@@ -95,6 +96,7 @@ class TimeSeriesChartRenderer:
 | `tooltip_border` | `str` | "rgba(148,163,184,0.45)" | Tooltip border color |
 | `color_by_open` | `bool` | False | If True, color segments based on open price (first point) |
 | `y_axis_label` | `str` | None | Optional label for y-axis (e.g., '°C', '°F', '$') |
+| `y_axis_offset` | `float` | 0.1 | Y-axis offset as fraction of range (default 0.1 = 10%) |
 
 ### `BarChartRenderer`
 
@@ -116,6 +118,7 @@ class BarChartRenderer:
         up_color: str = "#16a34a",
         down_color: str = "#dc2626",
         y_axis_label: Optional[str] = None,
+        y_axis_offset: float = 0.1,
     )
 ```
 
@@ -135,6 +138,7 @@ class BarChartRenderer:
 | `up_color` | `str` | "#16a34a" | Color for bars above open price |
 | `down_color` | `str` | "#dc2626" | Color for bars below open price |
 | `y_axis_label` | `str` | None | Optional label for y-axis (e.g., '°C', '°F', '$') |
+| `y_axis_offset` | `float` | 0.1 | Y-axis offset as fraction of range (default 0.1 = 10%) |
 
 **render() method:** Same signature as TimeSeriesChartRenderer
 

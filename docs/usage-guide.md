@@ -100,9 +100,9 @@ renderer = TimeSeriesChartRenderer(width=760, height=320)
 svg = renderer.render(data, period="5D", title="Price History")
 ```
 
-**With custom y-axis label:**
+**With custom y-axis label and offset:**
 ```python
-renderer = TimeSeriesChartRenderer(width=760, height=320, y_axis_label="$")
+renderer = TimeSeriesChartRenderer(width=760, height=320, y_axis_label="$", y_axis_offset=0.1)
 svg = renderer.render(data, period="5D", title="Price History")
 ```
 
@@ -117,9 +117,9 @@ renderer = BarChartRenderer(width=760, height=320)
 svg = renderer.render(data, period="1M", title="Temperature by Month")
 ```
 
-**With custom y-axis label:**
+**With custom y-axis label and offset:**
 ```python
-renderer = BarChartRenderer(width=760, height=320, y_axis_label="°F")
+renderer = BarChartRenderer(width=760, height=320, y_axis_label="°F", y_axis_offset=0.1)
 svg = renderer.render(data, period="1M", title="Temperature by Month")
 ```
 

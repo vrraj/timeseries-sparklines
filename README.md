@@ -18,11 +18,13 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 ## Rendered Examples
 
+<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart inside an LLM response.</em></p>
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
 </p>
 
-<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart in side an LLM response.</em></p>
+<p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" width="30%" />
@@ -30,17 +32,14 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" width="30%" />
 </p>
 
-
-<p align="center"><em>**Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.**</em></p>
-
 ### Trading Dashboard Preview
+
+<p align="center"><em>Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.</em></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-sparklines.png" width="48%" />
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-charts.png" width="48%" />
 </p>
-
-<p align="center"><em>**Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.**</em></p>
 
 **[Quick Start →](#install)**
 
@@ -60,9 +59,9 @@ The library acts as a server-side rendering harness that transforms time-series 
 
 **Architecture overview:**
 
-![Timeseries & Sparklines Harness](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/harness-timeseries-and-sparklines.png)
-
 <center><em>System architecture showing data flow from sources through the rendering harness to downstream consumers.</em></center>
+
+![Timeseries & Sparklines Harness](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/harness-timeseries-and-sparklines.png)
 
 The harness handles normalization, slicing, coordinate calculation, and SVG generation - returning production-ready SVG markup.
 
@@ -236,12 +235,12 @@ This helps you visualize how different data formats are normalized and how chart
 
 <div style="display: flex; gap: 16px;">
   <div style="flex: 1;">
-    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" />
     <p align="center"><em>Sparkline rendering with list of values format</em></p>
+    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" />
   </div>
   <div style="flex: 1;">
-    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" />
     <p align="center"><em>Chart rendering with dict date/value format and period slicing</em></p>
+    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" />
   </div>
 </div>
 

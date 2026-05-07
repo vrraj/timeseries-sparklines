@@ -17,7 +17,9 @@ description: "Server-side SVG rendering harness for sparklines, trend lines, min
 
 Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
 
-`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **SVG charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required.
+`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **sparklines**, **bar charts**, and **SVG time-series charts** that can be sliced by days, weeks, months, years, or custom time windows.
+
+It produces deterministic SVG markup that the browser can simply display - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required. Your backend, API, or Agentic workflow provides the data; the library handles normalization, slicing, coordinate calculation, and SVG rendering.
 
 ```
 pip install timeseries-sparklines
@@ -25,15 +27,21 @@ pip install timeseries-sparklines
 
 Includes an **Interactive Test UI** for testing data formats, period slicing, SVG output, and chart parameters.
 
-The library is data-agnostic - it does not fetch, store, or poll data. Your application manages the data source, and `timeseries-sparklines` handles normalization, slicing, coordinate calculation, and SVG rendering.
-
 ## Preview
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
 </p>
 
-<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart in side an LLM response.</em></p>
+<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart inside an LLM response.</em></p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/bar-chart-with-list-of-dicts.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" width="30%" />
+</p>
+
+<p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
 
 ## Use Cases
 
@@ -54,7 +62,7 @@ Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to
   </div>
   <div style="flex: 1;">
     <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-charts.png" />
-    <p align="center"><em>Interactive charts with period slicing</em></p>
+    <p align="center"><em>SVG charts with period slicing</em></p>
   </div>
 </div>
 

@@ -226,7 +226,16 @@ class TimeSeriesChartRenderer:
         else:
             label_rule = self.PERIOD_LABEL_RULES.get(period, self.PERIOD_LABEL_RULES['1M'])
         x_ticks = []
-        interval = max(1, int(label_rule['interval']))
+        # Adaptive interval: show more labels for fewer data points
+        base_interval = max(1, int(label_rule['interval']))
+        num_points = len(dates)
+        # Show labels more frequently for fewer data points
+        if num_points <= 12:
+            interval = 1  # Show all labels for monthly data
+        elif num_points <= 30:
+            interval = max(1, num_points // 6)  # Show ~6 labels
+        else:
+            interval = base_interval
         for idx in range(0, len(dates), interval):
             x_ticks.append({
                 'index': idx,

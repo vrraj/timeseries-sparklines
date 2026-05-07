@@ -366,18 +366,6 @@ dates = extract_dates(normalized)
 ```
 
 
-## Additional AI / Agentic Integration Notes
-
-`timeseries-sparklines` can also be used as a backend rendering utility inside AI pipelines and agent systems.
-
-An orchestration layer or LLM can:
-
-- Retrieve time-series data
-- Compute or transform metrics
-- Call the renderer
-- Embed SVG output directly into dashboards, reports, chats, generated HTML, or monitoring interfaces
-
-Because the output is deterministic SVG markup, charts can be streamed, cached, embedded, and composed without frontend chart dependencies.
 
 ## Integration with Web Frameworks
 

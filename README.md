@@ -16,7 +16,7 @@ pip install timeseries-sparklines
 
 Includes an **Interactive Test UI** for testing data formats, period slicing, SVG output, and chart parameters.
 
-## Preview
+## Rendered Examples
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
@@ -31,16 +31,16 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 </p>
 
 
-<p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
+<p align="center"><em>**Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.**</em></p>
 
-### Example Application Preview
+### Trading Dashboard Preview
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-sparklines.png" width="48%" />
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-charts.png" width="48%" />
 </p>
 
-<p align="center"><em>Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.</em></p>
+<p align="center"><em>**Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.**</em></p>
 
 **[Quick Start →](#install)**
 

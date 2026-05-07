@@ -218,27 +218,6 @@ Open:
 http://localhost:9300/test-charts
 ```
 
-### Web Framework Integration
-Integrate directly into FastAPI, Flask, Django, or any Python web framework. Ideal for:
-- SSR applications
-- API-driven dashboards
-- Real-time watchlists
-- Custom chart endpoints
-
-```python
-# FastAPI
-from fastapi import FastAPI, Response
-from timeseries_sparklines import SparklineRenderer
-
-app = FastAPI()
-renderer = SparklineRenderer()
-
-@app.get("/sparkline/{symbol}")
-async def get_sparkline(symbol: str):
-    data = await fetch_price_data(symbol)
-    svg = renderer.render(data)
-    return Response(content=svg, media_type="image/svg+xml")
-```
 
 ### Backend Tool Harness for AI / Agentic Systems
 Use as a backend rendering tool inside AI pipelines and agent systems. Ideal for:

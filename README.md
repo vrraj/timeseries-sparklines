@@ -4,7 +4,6 @@
 [![GitHub Release](https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github)](https://github.com/vrraj/timeseries-sparklines/releases)
 
 
-> The package includes a FastAPI-powered **Interactive Test UI** for testing rendering behavior, inspecting SVG output, and tuning chart parameters. Run `timeseries-server` and visit `http://localhost:9300/test-charts`.
 
 Need to add **real-time sparklines** or **slicable time-series charts** to your application, dashboard, or Agentic systems?
 
@@ -15,6 +14,8 @@ It is designed for SSR-first applications, real-time sparklines, dashboards, Age
 ```
 pip install timeseries-sparklines
 ```
+
+Includes an **Interactive Test UI** for testing data formats, period slicing, SVG output, and chart parameters.
 
 **[Quick Start →](#install)**
 
@@ -398,14 +399,6 @@ values = extract_values(normalized)
 dates = extract_dates(normalized)
 ```
 
-## Use Cases
-
-- **Financial dashboards**: Stock price sparklines and historical charts
-- **AI and agentic systems**: Generate embeddable SVG visualizations from retrieved or computed time-series data
-- **Analytics platforms**: Time series metrics and trends
-- **Trading applications**: Price history and technical indicators
-- **Web and SSR applications**: Lightweight SVG charts without heavy frontend chart dependencies
-- **IoT monitoring**: Real-time sensor data visualization
 
 ## Additional AI / Agentic Integration Notes
 

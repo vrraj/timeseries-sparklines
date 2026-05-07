@@ -18,7 +18,7 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 ## Rendered Examples
 
-<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart inside an LLM response.</em></p>
+<p align="center"><strong>Example: an Agentic workflow returning a server-rendered SVG chart inside an LLM response.</strong></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
@@ -26,7 +26,7 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 <hr>
 
-<p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
+<p align="center"><strong>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</strong></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" width="30%" />
@@ -36,7 +36,7 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 <hr>
 
-<p align="center"><em>Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.</em></p>
+<p align="center"><strong>Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.</strong></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-sparklines.png" width="48%" />

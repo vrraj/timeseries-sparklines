@@ -197,6 +197,30 @@ description: &quot;Data input formats and usage examples for timeseries-sparklin
   <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+<h2 id="chart-types">Chart Types</h2>
+<h3 id="line-charts">Line Charts</h3>
+<p>Use <code>TimeSeriesChartRenderer</code> for traditional line charts with axes and grid lines:</p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> TimeSeriesChartRenderer
+
+renderer = TimeSeriesChartRenderer(width=<span class="hljs-number">760</span>, height=<span class="hljs-number">320</span>)
+svg = renderer.render(data, period=<span class="hljs-string">&quot;5D&quot;</span>, title=<span class="hljs-string">&quot;Price History&quot;</span>)
+</code></pre>
+<h3 id="bar-charts">Bar Charts</h3>
+<p>Use <code>BarChartRenderer</code> for vertical bar charts:</p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> timeseries_svg <span class="hljs-keyword">import</span> BarChartRenderer
+
+renderer = BarChartRenderer(width=<span class="hljs-number">760</span>, height=<span class="hljs-number">320</span>)
+svg = renderer.render(data, period=<span class="hljs-string">&quot;1M&quot;</span>, title=<span class="hljs-string">&quot;Temperature by Month&quot;</span>)
+</code></pre>
+<p>API usage (specify <code>chart_type: &quot;bar&quot;</code>):</p>
+<pre><code class="language-http">POST /chart-raw
+{
+  &quot;data&quot;: [...],
+  &quot;chart_type&quot;: &quot;bar&quot;,
+  &quot;period&quot;: &quot;1M&quot;,
+  &quot;title&quot;: &quot;Temperature by Month&quot;
+}
+</code></pre>
 <h2 id="chart-examples-by-period">Chart Examples by Period</h2>
 <p>Chart data is filtered by time window from the most recent data point:</p>
 <h3 id="5d-5-calendar-days">5D (5 Calendar Days)</h3>

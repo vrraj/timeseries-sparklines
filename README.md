@@ -18,7 +18,15 @@ pip install timeseries-sparklines
 
 Includes an **Interactive Test UI** for testing data formats, period slicing, SVG output, and chart parameters.
 
-![Interactive Test UI - Bar Chart](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/bar-chart-with-list-of-dicts.png)
+## Preview
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/bar-chart-with-list-of-dicts.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" width="30%" />
+</p>
+
+<p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
 
 **[Quick Start →](#install)**
 

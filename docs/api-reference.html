@@ -18,7 +18,8 @@
 }
 
 </style>
-            
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -250,6 +251,7 @@ description: &quot;Complete API documentation for SparklineRenderer, TimeSeriesC
         tooltip_bg: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#ffffff&quot;</span>,
         tooltip_border: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;rgba(148,163,184,0.45)&quot;</span>,
         color_by_open: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">False</span>,
+        y_axis_label: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
     </span>)
 </code></pre>
 <p><strong>Parameters:</strong></p>
@@ -329,8 +331,119 @@ description: &quot;Complete API documentation for SparklineRenderer, TimeSeriesC
 <td>False</td>
 <td>If True, color segments based on open price (first point)</td>
 </tr>
+<tr>
+<td><code>y_axis_label</code></td>
+<td><code>str</code></td>
+<td>None</td>
+<td>Optional label for y-axis (e.g., '°C', '°F', '$')</td>
+</tr>
 </tbody>
 </table>
+<h3 id="barchartrenderer"><code>BarChartRenderer</code></h3>
+<p>Render time series bar chart SVGs with axis labels and grid lines.</p>
+<pre><code class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BarChartRenderer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">
+        self,
+        width: <span class="hljs-built_in">int</span> = <span class="hljs-number">760</span>,
+        height: <span class="hljs-built_in">int</span> = <span class="hljs-number">320</span>,
+        margin: <span class="hljs-type">Optional</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>]] = <span class="hljs-literal">None</span>,
+        bar_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#3b82f6&quot;</span>,
+        bar_width_ratio: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.7</span>,
+        grid_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;rgba(148,163,184,0.35)&quot;</span>,
+        axis_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#94a3b8&quot;</span>,
+        label_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#64748b&quot;</span>,
+        color_by_open: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">False</span>,
+        up_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#16a34a&quot;</span>,
+        down_color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;#dc2626&quot;</span>,
+        y_axis_label: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    </span>)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td><code>int</code></td>
+<td>760</td>
+<td>SVG width in pixels</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>int</code></td>
+<td>320</td>
+<td>SVG height in pixels</td>
+</tr>
+<tr>
+<td><code>margin</code></td>
+<td><code>Dict[str, int]</code></td>
+<td>{top: 16, right: 20, bottom: 44, left: 58}</td>
+<td>Chart margins</td>
+</tr>
+<tr>
+<td><code>bar_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#3b82f6&quot;</td>
+<td>Default bar color</td>
+</tr>
+<tr>
+<td><code>bar_width_ratio</code></td>
+<td><code>float</code></td>
+<td>0.7</td>
+<td>Ratio of bar width to available space (0-1)</td>
+</tr>
+<tr>
+<td><code>grid_color</code></td>
+<td><code>str</code></td>
+<td>&quot;rgba(148,163,184,0.35)&quot;</td>
+<td>Grid line color</td>
+</tr>
+<tr>
+<td><code>axis_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#94a3b8&quot;</td>
+<td>Axis line color</td>
+</tr>
+<tr>
+<td><code>label_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#64748b&quot;</td>
+<td>Axis label color</td>
+</tr>
+<tr>
+<td><code>color_by_open</code></td>
+<td><code>bool</code></td>
+<td>False</td>
+<td>If True, color bars based on open price (first point)</td>
+</tr>
+<tr>
+<td><code>up_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#16a34a&quot;</td>
+<td>Color for bars above open price</td>
+</tr>
+<tr>
+<td><code>down_color</code></td>
+<td><code>str</code></td>
+<td>&quot;#dc2626&quot;</td>
+<td>Color for bars below open price</td>
+</tr>
+<tr>
+<td><code>y_axis_label</code></td>
+<td><code>str</code></td>
+<td>None</td>
+<td>Optional label for y-axis (e.g., '°C', '°F', '$')</td>
+</tr>
+</tbody>
+</table>
+<p><strong>render() method:</strong> Same signature as TimeSeriesChartRenderer</p>
 <hr>
 <h2 id="sparkline-renderer-api">Sparkline Renderer API</h2>
 <h3 id="render"><code>render()</code></h3>
@@ -796,7 +909,7 @@ renderer = TimeSeriesChartRenderer()
 <li>✅ <strong>Stable</strong>: Guaranteed interface, won't change</li>
 </ul>
 
-            
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
             
         </body>
         </html>

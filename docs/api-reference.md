@@ -75,6 +75,7 @@ class TimeSeriesChartRenderer:
         tooltip_bg: str = "#ffffff",
         tooltip_border: str = "rgba(148,163,184,0.45)",
         color_by_open: bool = False,
+        y_axis_label: Optional[str] = None,
     )
 ```
 
@@ -93,6 +94,49 @@ class TimeSeriesChartRenderer:
 | `tooltip_bg` | `str` | "#ffffff" | Tooltip background color |
 | `tooltip_border` | `str` | "rgba(148,163,184,0.45)" | Tooltip border color |
 | `color_by_open` | `bool` | False | If True, color segments based on open price (first point) |
+| `y_axis_label` | `str` | None | Optional label for y-axis (e.g., '°C', '°F', '$') |
+
+### `BarChartRenderer`
+
+Render time series bar chart SVGs with axis labels and grid lines.
+
+```python
+class BarChartRenderer:
+    def __init__(
+        self,
+        width: int = 760,
+        height: int = 320,
+        margin: Optional[Dict[str, int]] = None,
+        bar_color: str = "#3b82f6",
+        bar_width_ratio: float = 0.7,
+        grid_color: str = "rgba(148,163,184,0.35)",
+        axis_color: str = "#94a3b8",
+        label_color: str = "#64748b",
+        color_by_open: bool = False,
+        up_color: str = "#16a34a",
+        down_color: str = "#dc2626",
+        y_axis_label: Optional[str] = None,
+    )
+```
+
+**Parameters:**
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `width` | `int` | 760 | SVG width in pixels |
+| `height` | `int` | 320 | SVG height in pixels |
+| `margin` | `Dict[str, int]` | {top: 16, right: 20, bottom: 44, left: 58} | Chart margins |
+| `bar_color` | `str` | "#3b82f6" | Default bar color |
+| `bar_width_ratio` | `float` | 0.7 | Ratio of bar width to available space (0-1) |
+| `grid_color` | `str` | "rgba(148,163,184,0.35)" | Grid line color |
+| `axis_color` | `str` | "#94a3b8" | Axis line color |
+| `label_color` | `str` | "#64748b" | Axis label color |
+| `color_by_open` | `bool` | False | If True, color bars based on open price (first point) |
+| `up_color` | `str` | "#16a34a" | Color for bars above open price |
+| `down_color` | `str` | "#dc2626" | Color for bars below open price |
+| `y_axis_label` | `str` | None | Optional label for y-axis (e.g., '°C', '°F', '$') |
+
+**render() method:** Same signature as TimeSeriesChartRenderer
 
 ---
 

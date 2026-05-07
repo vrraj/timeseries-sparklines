@@ -41,6 +41,7 @@ class ChartRequest(BaseModel):
     value_key: Optional[str] = Field(None, description="Custom value key for dict format")
     bar_color: Optional[str] = Field(None, description="Bar color (for bar charts)")
     bar_width_ratio: Optional[float] = Field(None, description="Bar width ratio (0-1) for bar charts")
+    y_axis_label: Optional[str] = Field(None, description="Y-axis label (e.g., '°C', '°F', '$')")
 
 
 class SVGResponse(BaseModel):

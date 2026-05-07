@@ -100,6 +100,12 @@ renderer = TimeSeriesChartRenderer(width=760, height=320)
 svg = renderer.render(data, period="5D", title="Price History")
 ```
 
+**With custom y-axis label:**
+```python
+renderer = TimeSeriesChartRenderer(width=760, height=320, y_axis_label="$")
+svg = renderer.render(data, period="5D", title="Price History")
+```
+
 ### Bar Charts
 
 Use `BarChartRenderer` for vertical bar charts:
@@ -108,6 +114,12 @@ Use `BarChartRenderer` for vertical bar charts:
 from timeseries_svg import BarChartRenderer
 
 renderer = BarChartRenderer(width=760, height=320)
+svg = renderer.render(data, period="1M", title="Temperature by Month")
+```
+
+**With custom y-axis label:**
+```python
+renderer = BarChartRenderer(width=760, height=320, y_axis_label="°F")
 svg = renderer.render(data, period="1M", title="Temperature by Month")
 ```
 

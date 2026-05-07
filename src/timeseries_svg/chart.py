@@ -29,10 +29,11 @@ class TimeSeriesChartRenderer:
         tooltip_bg: str = "#ffffff",
         tooltip_border: str = "rgba(148,163,184,0.45)",
         color_by_open: bool = False,
+        y_axis_label: Optional[str] = None,
     ):
         """
         Initialize chart renderer.
-        
+
         Args:
             width: SVG width in pixels
             height: SVG height in pixels
@@ -45,6 +46,7 @@ class TimeSeriesChartRenderer:
             tooltip_bg: Tooltip background color
             tooltip_border: Tooltip border color
             color_by_open: If True, color segments based on open price (first point)
+            y_axis_label: Optional label for y-axis (e.g., '°C', '°F', '$')
         """
         self.width = width
         self.height = height
@@ -57,6 +59,7 @@ class TimeSeriesChartRenderer:
         self.tooltip_bg = tooltip_bg
         self.tooltip_border = tooltip_border
         self.color_by_open = color_by_open
+        self.y_axis_label = y_axis_label
         
         self.plot_width = width - self.margin['left'] - self.margin['right']
         self.plot_height = height - self.margin['top'] - self.margin['bottom']
@@ -253,10 +256,15 @@ class TimeSeriesChartRenderer:
                 f'x2="{self.width - self.margin["right"]:.2f}" y2="{tick["y"]:.2f}" '
                 f'stroke="{self.grid_color}" stroke-width="1"></line>'
             )
+            # Position label: $ on left, others on right
+            if self.y_axis_label == "$":
+                label_text = f'${self._format_value(tick["value"])}'
+            else:
+                label_text = f'{self._format_value(tick["value"])}{self.y_axis_label or ""}'
             svg_parts.append(
                 f'<text x="{self.margin["left"] - 8:.2f}" y="{tick["y"] + 4:.2f}" '
                 f'text-anchor="end" fill="{self.label_color}" font-size="11">'
-                f'{self._format_value(tick["value"])}</text>'
+                f'{label_text}</text>'
             )
         
         # X-axis labels
@@ -336,5 +344,5 @@ class TimeSeriesChartRenderer:
         return mapping.get(key, '%b %d')
     
     def _format_value(self, value: float) -> str:
-        """Format numeric value as currency/number."""
-        return f"${value:.2f}"
+        """Format numeric value as number (currency symbol handled by y_axis_label)."""
+        return f"{value:.2f}"

@@ -201,6 +201,13 @@ def create_app() -> FastAPI:
                             <input type="text" id="title" placeholder="Chart Title" style="width: 100%;">
                         </div>
                     </div>
+
+                    <div style="display: flex; gap: 16px; margin-bottom: 8px;">
+                        <div style="flex: 1;">
+                            <label for="yAxisLabel">Y-axis Label (optional):</label>
+                            <input type="text" id="yAxisLabel" placeholder="e.g., °C, °F, $" style="width: 100%;">
+                        </div>
+                    </div>
                     
                     <div id="customPeriod" style="display: none;">
                         <label for="customDays">Custom Period (days):</label>
@@ -282,6 +289,8 @@ def create_app() -> FastAPI:
                         }}
                         const title = document.getElementById('title').value;
                         if (title) body.title = title;
+                        const yAxisLabel = document.getElementById('yAxisLabel').value;
+                        if (yAxisLabel) body.y_axis_label = yAxisLabel;
                     }}
                     
                     try {{
@@ -458,6 +467,7 @@ def create_app() -> FastAPI:
                     color_by_open=request.color_by_open,
                     up_color=request.up_color,
                     down_color=request.down_color,
+                    y_axis_label=request.y_axis_label,
                 )
             else:  # default to line chart
                 renderer = TimeSeriesChartRenderer(
@@ -470,6 +480,7 @@ def create_app() -> FastAPI:
                     axis_color=request.axis_color,
                     label_color=request.label_color,
                     color_by_open=request.color_by_open,
+                    y_axis_label=request.y_axis_label,
                 )
 
             # Handle custom period_days

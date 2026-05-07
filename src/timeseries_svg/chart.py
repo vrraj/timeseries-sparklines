@@ -300,7 +300,7 @@ class TimeSeriesChartRenderer:
         
         # Title if provided
         if title:
-            svg_parts.insert(0, f'<text x="{self.width / 2:.2f}" y="27" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="600">{title}</text>')
+            svg_parts.insert(0, f'<text x="{self.width / 2:.2f}" y="12" text-anchor="middle" fill="#0f172a" font-size="16" font-weight="600">{title}</text>')
         
         return (
             f'<svg width="100%" height="{self.height}" viewBox="0 0 {self.width} {self.height}" '

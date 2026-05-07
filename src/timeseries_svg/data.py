@@ -84,7 +84,19 @@ def _extract_date(item: Dict[str, Any], key: str, date_format: Optional[str]) ->
 
 def _extract_value(item: Dict[str, Any], key: str) -> Optional[float]:
     """Extract and normalize value from dict item."""
-    return _parse_value(item.get(key))
+    value = item.get(key)
+    # Auto-detect common aliases if key not found
+    if value is None:
+        # Try 'v' (value) if looking for 'c' (close)
+        if key == "c":
+            value = item.get("v")
+        # Try 'c' (close) if looking for 'v' (value)
+        elif key == "v":
+            value = item.get("c")
+        # Try 'value' for both
+        if value is None:
+            value = item.get("value")
+    return _parse_value(value)
 
 
 def _parse_date(value: Any, date_format: Optional[str]) -> Optional[str]:

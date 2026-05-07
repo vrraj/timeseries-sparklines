@@ -14,9 +14,9 @@ Need to add **real-time sparklines** or **slicable time-series charts** to your 
 
 It is designed for SSR-first applications, dashboards, watchlists, Agentic systems, and real-time monitoring interfaces where many lightweight charts need to be rendered without shipping a frontend charting library.
 
-### Backend Tool Harness for Agentic Visualization
+### Harness for Charts: Timeseries & Sparklines
 
-Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` can act as a backend tool harness that agents or orchestration layers call to turn retrieved or computed time-series data into embeddable SVG markup.
+Modern AI and Agentic systems often need to communicate trends, not just text. `timeseries-sparklines` acts as a server-side rendering harness for transforming retrieved or computed time-series data into lightweight SVG charts and sparklines.
 
 A typical Agentic workflow:
 
@@ -49,37 +49,24 @@ Data Source → Backend / Agent Tool Call → timeseries-sparklines → SVG → 
 
 ## Data Flow
 
-The library is data-agnostic - it doesn't store data. Your application manages the data source.
+The library is data-agnostic - it does not fetch, store, or poll data. Your application, API layer, or Agentic workflow manages the data source and calls `timeseries-sparklines` as the rendering harness.
 
-The frontend simply displays the returned SVG markup. No browser-side chart initialization, canvas lifecycle management, or frontend chart runtime is required.
+Typical flow:
 
-```
-┌──────────────────────┐
-│   Data Source        │
-│ DB / API / Cache     │
-└──────────┬───────────┘
-           │ raw time-series data (JSON, JSONB)
-           ▼
-┌──────────────────────┐
-│   Your Backend       │
-│ fetch + prepare data │
-└──────────┬───────────┘
-           │ normalized input (list of dicts with 'date' and 'value' keys). OR (list of values)
-           ▼
-┌──────────────────────┐
-│ timeseries-sparklines│
-│ server-side renderer │
-└──────────┬───────────┘
-           │ SVG string with sparkline/chart data (or JSON with SVG)
-           ▼
-┌─────────────────────────────────┐
-│   Browser / UI / Agentic Systems│ 
-│   displays SVG markup           │
-└─────────────────────────────────┘
-                Embed raw SVG markup or Extract SVG from JSON      
+```text
+Data Sources → timeseries-sparklines Harness → SVG Response → Consumers
 ```
 
-<center><em>Figure: Server-side SVG rendering architecture for time-series visualization</em></center>
+Where:
+
+- **Data Sources**: Database, external APIs, caches, or internal systems
+- **timeseries-sparklines Harness**: normalization, slicing, scaling, SVG path geometry, coordinate calculation, and SVG wrapping
+- **SVG Response**: raw SVG text or JSON payload containing SVG markup
+- **Consumers**: Agentic systems, web applications, dashboards, reports, notebooks, or chat interfaces
+
+The frontend simply renders the returned SVG markup - no browser-side chart initialization, canvas lifecycle management, or frontend chart runtime required.
+
+<center><em>Figure: Harness for Charts: Timeseries & Sparklines — The server-side engine for Agentic Workflows and SSR visualization.</em></center>
 
 ## What you get
 
@@ -396,15 +383,15 @@ dates = extract_dates(normalized)
 ## Use Cases
 
 - **Financial dashboards**: Stock price sparklines and historical charts
-- **IoT monitoring**: Real-time sensor data visualization
+- **AI and agentic systems**: Generate embeddable SVG visualizations from retrieved or computed time-series data
 - **Analytics platforms**: Time series metrics and trends
 - **Trading applications**: Price history and technical indicators
-- **Any web application**: Lightweight SVG charts without heavy dependencies
-- **AI and agentic systems**: Generate embeddable SVG visualizations from retrieved or computed time-series data
+- **Web and SSR applications**: Lightweight SVG charts without heavy frontend chart dependencies
+- **IoT monitoring**: Real-time sensor data visualization
 
-## AI / Agentic System Integration
+## Additional AI / Agentic Integration Notes
 
-`timeseries-sparklines` can also be used as a visualization utility inside AI pipelines and agent systems.
+`timeseries-sparklines` can also be used as a backend rendering utility inside AI pipelines and agent systems.
 
 An orchestration layer or LLM can:
 

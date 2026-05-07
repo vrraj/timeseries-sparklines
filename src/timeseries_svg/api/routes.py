@@ -169,11 +169,10 @@ def create_app() -> FastAPI:
                 </select>
                 
                 <label for="dataInput">Data (JSON):</label>
-                <label style="font-size: 13px; color: #64748b; margin-top: 4px;">Supported Formats:</label>
-                <div style="margin-bottom: 8px;">
+                <div style="margin-bottom: 8px; display: flex; align-items: center;">
+                    <label style="font-size: 13px; color: #64748b; margin-right: 8px; margin-bottom: 0;">Supported Formats:</label>
                     <button type="button" class="format-pill" onclick="loadFormat('list_values')">List of values</button>
                     <button type="button" class="format-pill" onclick="loadFormat('dict_date_value')">Dict with date/value</button>
-                    <button type="button" class="format-pill" onclick="loadFormat('dict_date_close')">Dict with date/close</button>
                 </div>
                 <textarea id="dataInput" placeholder='Enter JSON data, e.g.: [100.0, 102.5, 101.2] or [{{"d": "2024-01-01", "c": 150.0}}, ...]'>{sparkline_json}</textarea>
                 
@@ -232,38 +231,21 @@ def create_app() -> FastAPI:
                 const formatExamples = {{
                     'list_values': [100.0, 102.5, 101.2, 105.0, 103.8, 107.0, 103.0, 100.0, 90.0, 95.0, 99.0, 105.0, 106.0, 100.0, 110.0],
                     'dict_date_value': [
-                        {{"date": "2024-01-01", "value": 100.0}},
-                        {{"date": "2024-01-02", "value": 102.5}},
-                        {{"date": "2024-01-03", "value": 101.2}},
-                        {{"date": "2024-01-04", "value": 105.0}},
-                        {{"date": "2024-01-05", "value": 103.8}},
-                        {{"date": "2024-01-08", "value": 107.0}},
-                        {{"date": "2024-01-09", "value": 103.0}},
-                        {{"date": "2024-01-10", "value": 100.0}},
-                        {{"date": "2024-01-11", "value": 90.0}},
-                        {{"date": "2024-01-12", "value": 95.0}},
-                        {{"date": "2024-01-15", "value": 99.0}},
-                        {{"date": "2024-01-16", "value": 105.0}},
-                        {{"date": "2024-01-17", "value": 106.0}},
-                        {{"date": "2024-01-18", "value": 100.0}},
-                        {{"date": "2024-01-19", "value": 110.0}}
-                    ],
-                    'dict_date_close': [
-                        {{"d": "2024-01-01", "c": 100.0}},
-                        {{"d": "2024-01-02", "c": 102.5}},
-                        {{"d": "2024-01-03", "c": 101.2}},
-                        {{"d": "2024-01-04", "c": 105.0}},
-                        {{"d": "2024-01-05", "c": 103.8}},
-                        {{"d": "2024-01-08", "c": 107.0}},
-                        {{"d": "2024-01-09", "c": 103.0}},
-                        {{"d": "2024-01-10", "c": 100.0}},
-                        {{"d": "2024-01-11", "c": 90.0}},
-                        {{"d": "2024-01-12", "c": 95.0}},
-                        {{"d": "2024-01-15", "c": 99.0}},
-                        {{"d": "2024-01-16", "c": 105.0}},
-                        {{"d": "2024-01-17", "c": 106.0}},
-                        {{"d": "2024-01-18", "c": 100.0}},
-                        {{"d": "2024-01-19", "c": 110.0}}
+                        {{"d": "2024-01-01", "v": 100.0}},
+                        {{"d": "2024-01-02", "v": 102.5}},
+                        {{"d": "2024-01-03", "v": 101.2}},
+                        {{"d": "2024-01-04", "v": 105.0}},
+                        {{"d": "2024-01-05", "v": 103.8}},
+                        {{"d": "2024-01-08", "v": 107.0}},
+                        {{"d": "2024-01-09", "v": 103.0}},
+                        {{"d": "2024-01-10", "v": 100.0}},
+                        {{"d": "2024-01-11", "v": 90.0}},
+                        {{"d": "2024-01-12", "v": 95.0}},
+                        {{"d": "2024-01-15", "v": 99.0}},
+                        {{"d": "2024-01-16", "v": 105.0}},
+                        {{"d": "2024-01-17", "v": 106.0}},
+                        {{"d": "2024-01-18", "v": 100.0}},
+                        {{"d": "2024-01-19", "v": 110.0}}
                     ]
                 }};
                 

@@ -4,13 +4,11 @@
 [![GitHub Release](https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github)](https://github.com/vrraj/timeseries-sparklines/releases)
 
 
-
-> **Interactive Test UI:**  
-> The package includes a FastAPI-powered **Test UI** for testing rendering behavior, inspecting SVG output, and tuning chart parameters. Run `timeseries-server` and visit `http://localhost:9300/test-charts`.
+> The package includes a FastAPI-powered **Interactive Test UI** for testing rendering behavior, inspecting SVG output, and tuning chart parameters. Run `timeseries-server` and visit `http://localhost:9300/test-charts`.
 
 Need to add **real-time sparklines** or **slicable time-series charts** to your application, dashboard, or Agentic systems?
 
->>`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **interactive charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - **NO** chart initialization, **NO** canvas lifecycle management, and **NO** frontend chart runtime required.
+>`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **dense time-series sparklines** and **interactive charts** that can be sliced by days, weeks, months, years, or custom time windows. It produces deterministic SVG markup that the browser can simply display - **NO** chart initialization, **NO** canvas lifecycle management, and **NO** frontend chart runtime required.
 
 It is designed for SSR-first applications, real-time sparklines, dashboards, Agentic systems where many lightweight charts need to be rendered **without** shipping a frontend charting library.
 

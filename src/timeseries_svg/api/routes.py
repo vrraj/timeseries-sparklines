@@ -212,20 +212,6 @@ def create_app() -> FastAPI:
                 <div id="result-container"></div>
             </div>
             
-            <div class="grid-two">
-                <div class="card">
-                    <h2>Sparkline Example</h2>
-                    <p>Data: {sparkline_data}</p>
-                    {sparkline_svg}
-                </div>
-                
-                <div class="card">
-                    <h2>Chart Example</h2>
-                    <p>Period: 5D</p>
-                    {chart_svg}
-                </div>
-            </div>
-            
             <script>
                 const chartTypeSelect = document.getElementById('chartType');
                 const chartOptions = document.getElementById('chartOptions');
@@ -234,7 +220,7 @@ def create_app() -> FastAPI:
                 
                 // Example data formats
                 const formatExamples = {{
-                    'list_values': [100.0, 102.5, 101.2, 105.0, 103.8, 107.0, 103.0, 100.0, 90.0, 95.0, 99.0, 105.0, 106.0, 100.0, 110.0],
+                    'list_values': [100, 102.5, 101.2, 105, 119, 103.8, 107, 103, 100, 90, 95, 99, 105, 106, 100, 110, 120, 125, 114, 122, 130],
                     'dict_date_value': [
                         {{"d": "2024-01-01", "v": 100.0}},
                         {{"d": "2024-01-02", "v": 102.5}},

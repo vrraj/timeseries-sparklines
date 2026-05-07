@@ -38,26 +38,30 @@ Modern web applications need lightweight time series visualizations without the 
 - **Trading applications** - Price history and technical indicators
 - **Any web application** - Lightweight SVG charts without heavy dependencies
 
-## Data Flow
+**Example from a trading application:**
 
-The library is a pure rendering engine - your application manages the data source:
+<div style="display: flex; gap: 16px;">
+  <div style="flex: 1;">
+    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-sparklines.png" />
+    <p align="center"><em>Dense sparklines for watchlist display</em></p>
+  </div>
+  <div style="flex: 1;">
+    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-charts.png" />
+    <p align="center"><em>Interactive charts with period slicing</em></p>
+  </div>
+</div>
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Your Application                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│  1. Backend fetches data from your source                        │
-│     (PostgreSQL, external API, in-memory cache, etc.)             │
-│                                                                   │
-│  2. Backend calls timeseries-sparklines renderer with data              │
-│                                                                   │
-│  3. Renderer returns SVG string                                  │
-│                                                                   │
-│  4. Backend sends SVG to frontend                                │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
-```
+## System Architecture
+
+The library acts as a server-side rendering harness that transforms time-series data into SVG visualizations. It is designed for applications, APIs, and agentic workflows that need lightweight charts without shipping frontend charting libraries.
+
+**Architecture overview:**
+
+![Timeseries & Sparklines Harness](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/harness-timeseries-and-sparklines.png)
+
+<center><em>System architecture showing data flow from sources through the rendering harness to consumers (web applications, dashboards, agentic systems, reports, notebooks, and chat interfaces).</em></center>
+
+The harness handles normalization, period-based slicing, coordinate calculation, SVG path generation, and styling - returning production-ready SVG markup that can be embedded anywhere.
 
 **Example:**
 ```python
@@ -66,10 +70,10 @@ The library is a pure rendering engine - your application manages the data sourc
 async def get_sparkline(request: SparklineRequest):
     # Step 1: Fetch from YOUR database
     data = await db.fetch_price_history(symbol="AAPL")
-    
+
     # Step 2: Render with timeseries-sparklines
     svg = renderer.render(data, color_by_open=request.color_by_open)
-    
+
     # Step 3: Return SVG
     return Response(content=svg, media_type="image/svg+xml")
 ```

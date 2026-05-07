@@ -47,26 +47,17 @@ Typical flow:
 Data Source → Backend / Agent Tool Call → timeseries-sparklines → SVG → UI / Report / Browser / Agent Response
 ```
 
-## Data Flow
+## System Architecture
 
-The library is data-agnostic - it does not fetch, store, or poll data. Your application, API layer, or Agentic workflow manages the data source and calls `timeseries-sparklines` as the rendering harness.
+The library acts as a server-side rendering harness that transforms time-series data into SVG visualizations. It is designed for applications, APIs, and agentic workflows that need lightweight charts without shipping frontend charting libraries.
 
-Typical flow:
+**Architecture overview:**
 
-```text
-Data Sources → timeseries-sparklines Harness → SVG Response → Consumers
-```
+![Timeseries & Sparklines Harness](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/harness-timeseries-and-sparklines.png)
 
-Where:
+<center><em>System architecture showing data flow from sources through the rendering harness to consumers (web applications, dashboards, agentic systems, reports, notebooks, and chat interfaces).</em></center>
 
-- **Data Sources**: Database, external APIs, caches, or internal systems
-- **timeseries-sparklines Harness**: normalization, slicing, scaling, SVG path geometry, coordinate calculation, and SVG wrapping
-- **SVG Response**: raw SVG text or JSON payload containing SVG markup
-- **Consumers**: Agentic systems, web applications, dashboards, reports, notebooks, or chat interfaces
-
-The frontend simply renders the returned SVG markup - no browser-side chart initialization, canvas lifecycle management, or frontend chart runtime required.
-
-<center><em>Figure: Harness for Charts: Timeseries & Sparklines — The server-side engine for Agentic Workflows and SSR visualization.</em></center>
+The harness handles normalization, period-based slicing, coordinate calculation, SVG path generation, and styling - returning production-ready SVG markup that can be embedded anywhere.
 
 ## What you get
 
@@ -133,6 +124,40 @@ The server starts on `http://0.0.0.0:9300` with endpoints:
 - `POST /chart-raw` - Render chart from JSON data
 - `GET /test-charts` - Interactive test UI
 - `GET /health` - Health check
+
+## Interactive Test UI
+
+The GitHub repository includes a FastAPI-powered **Test UI** for testing rendering behavior, inspecting SVG output, and tuning chart parameters.
+
+It acts as an interactive experimentation environment. You can test different data formats, adjust period filters, customize chart styling, and iteratively refine rendering settings using the included UI.
+
+This helps you visualize how different data formats are normalized and how charts are rendered before using the settings in production.
+
+<div style="display: flex; gap: 16px;">
+  <div style="flex: 1;">
+    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" />
+    <p align="center"><em>Sparkline rendering with list of values format</em></p>
+  </div>
+  <div style="flex: 1;">
+    <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" />
+    <p align="center"><em>Chart rendering with dict date/value format and period slicing</em></p>
+  </div>
+</div>
+
+Run locally:
+
+```bash
+git clone https://github.com/vrraj/timeseries-sparklines.git
+cd timeseries-sparklines
+pip install "timeseries-sparklines[api]"
+timeseries-server
+```
+
+Open:
+
+```text
+http://localhost:9300/test-charts
+```
 
 ### Web Framework Integration
 Integrate directly into FastAPI, Flask, Django, or any Python web framework. Ideal for:

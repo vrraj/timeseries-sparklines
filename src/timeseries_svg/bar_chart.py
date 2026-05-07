@@ -183,7 +183,8 @@ class BarChartRenderer:
 
         # Coordinate functions
         def x_for_index(idx: int) -> float:
-            return self.margin['left'] + (idx / denominator) * self.plot_width
+            # Add half bar slot offset to center bars in their slots
+            return self.margin['left'] + ((idx + 0.5) / denominator) * self.plot_width
 
         def y_for_price(price: float) -> float:
             normalized = (price - min_val) / range_val

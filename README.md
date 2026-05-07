@@ -112,10 +112,10 @@ from timeseries_svg import SparklineRenderer
 
 # Input data can be in various formats
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
-    {"d": "2024-01-04", "c": 105.0},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
+    {"d": "2024-01-03", "v": 101.2},
+    {"d": "2024-01-04", "v": 105.0},
 ]
 
 renderer = SparklineRenderer(width=96, height=32)
@@ -130,11 +130,11 @@ from timeseries_svg import TimeSeriesChartRenderer
 
 # Historical price data
 data = [
-    {"d": "2024-01-01", "c": 150.0},
-    {"d": "2024-01-02", "c": 152.5},
-    {"d": "2024-01-03", "c": 151.0},
-    {"d": "2024-01-04", "c": 155.0},
-    {"d": "2024-01-05", "c": 158.0},
+    {"d": "2024-01-01", "v": 150.0},
+    {"d": "2024-01-02", "v": 152.5},
+    {"d": "2024-01-03", "v": 151.0},
+    {"d": "2024-01-04", "v": 155.0},
+    {"d": "2024-01-05", "v": 158.0},
 ]
 
 renderer = TimeSeriesChartRenderer(width=760, height=320)
@@ -155,11 +155,11 @@ from timeseries_svg import BarChartRenderer
 
 # Temperature data by month
 data = [
-    {"d": "2024-01-01", "c": 65.0},
-    {"d": "2024-02-01", "c": 68.0},
-    {"d": "2024-03-01", "c": 72.0},
-    {"d": "2024-04-01", "c": 75.0},
-    {"d": "2024-05-01", "c": 80.0},
+    {"d": "2024-01-01", "v": 65.0},
+    {"d": "2024-02-01", "v": 68.0},
+    {"d": "2024-03-01", "v": 72.0},
+    {"d": "2024-04-01", "v": 75.0},
+    {"d": "2024-05-01", "v": 80.0},
 ]
 
 renderer = BarChartRenderer(width=760, height=320)
@@ -270,14 +270,14 @@ This would fetch data for AAPL, render it with the specified period, and return 
 The library automatically normalizes various input formats. Use the format that best matches your data source:
 
 ### List of Dicts (Standard Format)
-Recommended for most use cases. Uses `d` for date and `c` for close/value.
+Recommended for most use cases. Uses `d` for date and `v` for value.
 
 ```python
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
-    {"d": "2024-01-04", "c": 105.0},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
+    {"d": "2024-01-03", "v": 101.2},
+    {"d": "2024-01-04", "v": 105.0},
 ]
 ```
 
@@ -328,8 +328,8 @@ Common format for database JSONB storage:
 ```python
 data = {
     "history": [
-        {"d": "2024-01-01", "c": 100.0},
-        {"d": "2024-01-02", "c": 102.5},
+        {"d": "2024-01-01", "v": 100.0},
+        {"d": "2024-01-02", "v": 102.5},
     ]
 }
 

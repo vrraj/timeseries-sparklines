@@ -170,9 +170,9 @@ renderer = SparklineRenderer(width=96, height=32)
 
 # Basic usage
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
+    {"d": "2024-01-03", "v": 101.2},
 ]
 svg = renderer.render(data)
 
@@ -256,9 +256,9 @@ renderer = TimeSeriesChartRenderer(width=760, height=320)
 
 # Basic usage
 data = [
-    {"d": "2024-01-01", "c": 150.0},
-    {"d": "2024-01-02", "c": 152.5},
-    {"d": "2024-01-03", "c": 151.0},
+    {"d": "2024-01-01", "v": 150.0},
+    {"d": "2024-01-02", "v": 152.5},
+    {"d": "2024-01-03", "v": 151.0},
 ]
 svg = renderer.render(data, period="1M", title="AAPL Price History")
 
@@ -278,14 +278,14 @@ Normalize various JSONB input formats into a standard time series structure.
 def normalize_timeseries_data(
     data: Any,
     date_key: str = "d",
-    value_key: str = "c",
+    value_key: str = "v",
     date_format: Optional[str] = None
 ) -> List[Dict[str, Any]]
 ```
 
 **Supported Input Formats:**
 
-1. **List of dicts:** `[{"d": "2024-01-01", "c": 100.0}, ...]`
+1. **List of dicts:** `[{"d": "2024-01-01", "v": 100.0}, ...]`
 2. **List of lists:** `[["2024-01-01", 100.0], ...]`
 3. **Dict with date keys:** `{"2024-01-01": 100.0, ...}`
 4. **List of values:** `[100.0, 101.0, ...]` (dates auto-generated)
@@ -307,7 +307,7 @@ def normalize_timeseries_data(
 from timeseries_svg import normalize_timeseries_data
 
 # List of dicts
-data = [{"d": "2024-01-01", "c": 100.0}]
+data = [{"d": "2024-01-01", "v": 100.0}]
 normalized = normalize_timeseries_data(data)
 # Returns: [{"date": "2024-01-01", "value": 100.0}]
 
@@ -340,7 +340,7 @@ def extract_values(normalized_data: List[Dict[str, Any]]) -> List[float]
 ```python
 from timeseries_svg import normalize_timeseries_data, extract_values
 
-data = [{"d": "2024-01-01", "c": 100.0}, {"d": "2024-01-02", "c": 102.5}]
+data = [{"d": "2024-01-01", "v": 100.0}, {"d": "2024-01-02", "v": 102.5}]
 normalized = normalize_timeseries_data(data)
 values = extract_values(normalized)
 # Returns: [100.0, 102.5]
@@ -359,7 +359,7 @@ def extract_dates(normalized_data: List[Dict[str, Any]]) -> List[str]
 ```python
 from timeseries_svg import normalize_timeseries_data, extract_dates
 
-data = [{"d": "2024-01-01", "c": 100.0}, {"d": "2024-01-02", "c": 102.5}]
+data = [{"d": "2024-01-01", "v": 100.0}, {"d": "2024-01-02", "v": 102.5}]
 normalized = normalize_timeseries_data(data)
 dates = extract_dates(normalized)
 # Returns: ["2024-01-01", "2024-01-02"]
@@ -376,9 +376,9 @@ from timeseries_svg import SparklineRenderer
 
 renderer = SparklineRenderer(width=96, height=32)
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
+    {"d": "2024-01-03", "v": 101.2},
 ]
 svg = renderer.render(data)
 ```

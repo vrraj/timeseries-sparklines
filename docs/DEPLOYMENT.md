@@ -79,9 +79,9 @@ from timeseries_svg import SparklineRenderer, TimeSeriesChartRenderer
 
 # Sparkline example
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
+    {"d": "2024-01-03", "v": 101.2},
 ]
 
 renderer = SparklineRenderer(width=96, height=32)

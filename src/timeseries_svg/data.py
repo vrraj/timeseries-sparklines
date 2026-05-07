@@ -7,14 +7,14 @@ from datetime import datetime
 def normalize_timeseries_data(
     data: Any,
     date_key: str = "d",
-    value_key: str = "c",
+    value_key: str = "v",
     date_format: Optional[str] = None
 ) -> List[Dict[str, Any]]:
     """
     Normalize various JSONB input formats into a standard time series structure.
-    
+
     Supports multiple input formats:
-    - List of dicts: [{"d": "2024-01-01", "c": 100.0}, ...]
+    - List of dicts: [{"d": "2024-01-01", "v": 100.0}, ...]
     - List of lists: [["2024-01-01", 100.0], ...]
     - Dict with date keys: {"2024-01-01": 100.0, ...}
     - List of values (dates auto-generated): [100.0, 101.0, ...]
@@ -22,7 +22,7 @@ def normalize_timeseries_data(
     Args:
         data: Input data in various formats
         date_key: Key name for date in dict format (default: "d")
-        value_key: Key name for value in dict format (default: "c")
+        value_key: Key name for value in dict format (default: "v")
         date_format: Optional strftime format for date parsing
     
     Returns:

@@ -104,10 +104,10 @@ pip install "timeseries-sparklines[api]"
 from timeseries_svg import SparklineRenderer
 
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
-    {"d": "2024-01-03", "c": 101.2},
-    {"d": "2024-01-04", "c": 105.0},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
+    {"d": "2024-01-03", "v": 101.2},
+    {"d": "2024-01-04", "v": 105.0},
 ]
 
 renderer = SparklineRenderer(width=96, height=32)
@@ -121,11 +121,11 @@ print(svg)  # Returns SVG string
 from timeseries_svg import TimeSeriesChartRenderer
 
 data = [
-    {"d": "2024-01-01", "c": 150.0},
-    {"d": "2024-01-02", "c": 152.5},
-    {"d": "2024-01-03", "c": 151.0},
-    {"d": "2024-01-04", "c": 155.0},
-    {"d": "2024-01-05", "c": 158.0},
+    {"d": "2024-01-01", "v": 150.0},
+    {"d": "2024-01-02", "v": 152.5},
+    {"d": "2024-01-03", "v": 151.0},
+    {"d": "2024-01-04", "v": 155.0},
+    {"d": "2024-01-05", "v": 158.0},
 ]
 
 renderer = TimeSeriesChartRenderer(width=760, height=320)
@@ -145,11 +145,11 @@ svg = renderer.render(data, period="5D", title="AAPL Price History")
 from timeseries_svg import BarChartRenderer
 
 data = [
-    {"d": "2024-01-01", "c": 65.0},
-    {"d": "2024-02-01", "c": 68.0},
-    {"d": "2024-03-01", "c": 72.0},
-    {"d": "2024-04-01", "c": 75.0},
-    {"d": "2024-05-01", "c": 80.0},
+    {"d": "2024-01-01", "v": 65.0},
+    {"d": "2024-02-01", "v": 68.0},
+    {"d": "2024-03-01", "v": 72.0},
+    {"d": "2024-04-01", "v": 75.0},
+    {"d": "2024-05-01", "v": 80.0},
 ]
 
 renderer = BarChartRenderer(width=760, height=320)
@@ -170,8 +170,8 @@ The library automatically normalizes various input formats:
 ### List of Dicts (Standard)
 ```python
 data = [
-    {"d": "2024-01-01", "c": 100.0},
-    {"d": "2024-01-02", "c": 102.5},
+    {"d": "2024-01-01", "v": 100.0},
+    {"d": "2024-01-02", "v": 102.5},
 ]
 ```
 

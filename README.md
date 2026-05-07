@@ -20,13 +20,13 @@ pip install timeseries-sparklines
 
 ## Use Cases
 
-Applications and Agentic systems that need small, deterministic time-series visuals without pushing chart logic into the frontend or orchestration layer.
+Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to turn time-series data into lightweight SVG charts without adding frontend charting dependencies.
 
-- **Agentic systems** where orchestration layers need a backend charting tool
-- **SSR applications** where HTML is generated on the server
-- **Dense dashboards** where many sparklines are rendered on the same page
-- **Real-time watchlists** where charts update frequently
-- **Generated reports, notebooks, and HTML views** where SVG can be embedded directly
+- **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, dashboards, reports, or generated HTML
+- **SSR and backend-rendered apps**: Return ready-to-display SVG from Python backends, or expose it through an API for other stacks
+- **Realtime dashboards**: Render many compact sparklines from frequently refreshed data
+- **Chart and BI APIs**: Accept slice parameters like `5D`, `1M`, `6M`, or `1Y` and return SVG for downstream consumers
+- **Reports, notebooks, and internal tools**: Embed small trend visuals directly where HTML or SVG is supported
 
 ## System Architecture
 

@@ -25,7 +25,7 @@ Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to
 
 - **Agentic workflows**: Generate SVG charts from tool results and embed them in chat, dashboards, reports, or generated HTML
 - **SSR and backend-rendered apps**: Return ready-to-display SVG from Python backends, or expose it through an API for other stacks
-- **Realtime dashboards**: Render many compact sparklines from frequently refreshed data
+- **Operational dashboards**: Render compact sparklines for periodically refreshed data and SSR-style dashboards
 - **Chart and BI APIs**: Accept slice parameters like `5D`, `1M`, `6M`, or `1Y` and return SVG for downstream consumers
 - **Reports, notebooks, and internal tools**: Embed small trend visuals directly where HTML or SVG is supported
 
@@ -409,19 +409,66 @@ async def sparkline_api(symbol: str, period: str = "5D"):
     return Response(content=svg, media_type="image/svg+xml")
 ```
 
-## Frontend Integration Pattern
+## Frontend Integration Pattern for sparklines
+
+For frequently refreshed sparklines, server-side SVG rendering works best when updates are periodic, cacheable, and backed by server-side caching rather than sub-second or tick-level.
+
+For high-frequency streaming views, a hybrid approach is usually more efficient:
+
+- Use `timeseries-sparklines` for the initial sparkline render or SSR response
+- Batch multiple sparklines server-side when rendering many charts on one page, such as 50 symbols in a watchlist
+- Cache rendered SVGs or source data on the backend when multiple users request the same view
+- Use WebSockets or incremental frontend updates for live changes
+- Pause polling when browser tabs are inactive and refresh the full sparkline on wake-up or focus
+
+This pattern works best when:
+
+- Update frequency is moderate, such as 30-60 seconds for sparklines
+- Many similar charts can share cached data or rendered SVG output
+- Multiple sparklines can be batched into a single backend response
+- The frontend mainly displays SVG and does not need heavy chart interaction
 
 Recommended pattern:
 
-1. **Render sparklines from backend data**
+1. **Render charts or sparklines from backend data**
    - Your backend fetches or receives the latest time-series data
    - `timeseries-sparklines` renders the SVG
    - The frontend replaces the SVG markup in the target container
 
-2. **Render full charts on demand**
-   - User clicks a sparkline or selects a period
+2. **Render larger charts on demand**
+   - User selects a symbol, metric, chart, or period
    - Frontend requests a chart with a period such as `5D`, `1M`, `3M`, `6M`, or `1Y`
    - The backend returns a sliced SVG chart
+
+**Example: Batch multiple sparklines in one request**
+
+```javascript
+// Batch fetch multiple sparklines
+async function fetchSparklines(symbols) {
+  const response = await fetch('/api/sparklines', {
+    method: 'POST',
+    body: JSON.stringify({ symbols, period: '5D' })
+  });
+  const data = await response.json();
+  // data.svgs = { 'AAPL': '<svg>...', 'GOOGL': '<svg>...' }
+  Object.entries(data.svgs).forEach(([symbol, svg]) => {
+    document.getElementById(`sparkline-${symbol}`).innerHTML = svg;
+  });
+}
+
+// Poll with visibility API to pause when tab is inactive
+let pollInterval;
+function startPolling(symbols) {
+  pollInterval = setInterval(() => {
+    if (!document.hidden) {
+      fetchSparklines(symbols);
+    }
+  }, 30000); // 30 seconds
+}
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) fetchSparklines(symbols); // Refresh on wake-up
+});
+```
 
 Best practice: set a minimum height on the target container to avoid layout shifts when SVG is injected.
 

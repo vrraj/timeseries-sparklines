@@ -1,5 +1,6 @@
 # timeseries-sparklines
 
+[![CI](https://github.com/vrraj/timeseries-sparklines/actions/workflows/ci.yml/badge.svg)](https://github.com/vrraj/timeseries-sparklines/actions)
 [![PyPI - Version](https://img.shields.io/pypi/v/timeseries-sparklines?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/timeseries-sparklines/)
 [![GitHub Release](https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github)](https://github.com/vrraj/timeseries-sparklines/releases)
 

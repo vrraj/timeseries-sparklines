@@ -219,19 +219,6 @@ http://localhost:9300/test-charts
 ```
 
 
-### Backend Tool Harness for AI / Agentic Systems
-Use as a backend rendering tool inside AI pipelines and agent systems. Ideal for:
-- LLM-generated visualizations
-- Agentic dashboard updates
-- Computed metric display
-- Embedded chart generation
-
-```python
-# In an AI / agentic tool pipeline
-data = agent.retrieve_time_series(symbol="AAPL", period="6M")
-svg = renderer.render(data, period="6M", title="AAPL 6M History")
-agent.embed_in_dashboard(svg)
-```
 
 ## Why Server-Side SVG?
 

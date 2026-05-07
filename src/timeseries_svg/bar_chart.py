@@ -30,6 +30,7 @@ class BarChartRenderer:
         up_color: str = "#16a34a",
         down_color: str = "#dc2626",
         y_axis_label: Optional[str] = None,
+        y_axis_offset: float = 0.1,
     ):
         """
         Initialize bar chart renderer.
@@ -47,6 +48,7 @@ class BarChartRenderer:
             up_color: Color for bars above open price
             down_color: Color for bars below open price
             y_axis_label: Optional label for y-axis (e.g., '°C', '°F', '$')
+            y_axis_offset: Offset for y-axis minimum as fraction of range (default 0.1 = 10%)
         """
         self.width = width
         self.height = height
@@ -60,6 +62,7 @@ class BarChartRenderer:
         self.up_color = up_color
         self.down_color = down_color
         self.y_axis_label = y_axis_label
+        self.y_axis_offset = y_axis_offset
 
         self.plot_width = width - self.margin['left'] - self.margin['right']
         self.plot_height = height - self.margin['top'] - self.margin['bottom']
@@ -178,10 +181,13 @@ class BarChartRenderer:
         title: Optional[str]
     ) -> str:
         """Render bar chart SVG from values and dates."""
-        # Calculate scaling
+        # Calculate scaling with offset for y-axis breathing room
         min_val = min(values)
         max_val = max(values)
         range_val = max(0.000001, max_val - min_val)
+        offset = range_val * self.y_axis_offset
+        min_val = min_val - offset
+        range_val = range_val + offset
         denominator = max(1, len(values))
 
         # Coordinate functions

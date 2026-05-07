@@ -42,6 +42,7 @@ class ChartRequest(BaseModel):
     bar_color: Optional[str] = Field(None, description="Bar color (for bar charts)")
     bar_width_ratio: Optional[float] = Field(None, description="Bar width ratio (0-1) for bar charts")
     y_axis_label: Optional[str] = Field(None, description="Y-axis label (e.g., '°C', '°F', '$')")
+    y_axis_offset: Optional[float] = Field(None, description="Y-axis offset as fraction of range (default 0.1 = 10%)")
 
 
 class SVGResponse(BaseModel):

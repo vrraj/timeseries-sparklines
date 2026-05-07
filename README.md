@@ -37,9 +37,9 @@ The library acts as a server-side rendering harness that transforms time-series 
 
 ![Timeseries & Sparklines Harness](https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/harness-timeseries-and-sparklines.png)
 
-<center><em>System architecture showing data flow from sources through the rendering harness to consumers (web applications, dashboards, agentic systems, reports, notebooks, and chat interfaces).</em></center>
+<center><em>System architecture showing data flow from sources through the rendering harness to downstream consumers.</em></center>
 
-The harness handles normalization, period-based slicing, coordinate calculation, SVG path generation, and styling - returning production-ready SVG markup that can be embedded anywhere.
+The harness handles normalization, slicing, coordinate calculation, and SVG generation - returning production-ready SVG markup.
 
 ## Harness for Charts: Timeseries & Sparklines
 
@@ -65,20 +65,6 @@ Because the output is lightweight SVG text, it can be cached, streamed, embedded
 - **Zero external dependencies** - Pure Python, no heavy plotting libraries required
 - **Test UI** - Interactive test page for rendering behavior and parameter tuning
 
-**Example:**
-```python
-# Your backend
-@app.post("/api/sparkline")
-async def get_sparkline(request: SparklineRequest):
-    # Step 1: Fetch from YOUR database
-    data = await db.fetch_price_history(symbol="AAPL")
-
-    # Step 2: Render with timeseries-sparklines
-    svg = renderer.render(data, color_by_open=request.color_by_open)
-
-    # Step 3: Return SVG
-    return Response(content=svg, media_type="image/svg+xml")
-```
 
 ## Install
 

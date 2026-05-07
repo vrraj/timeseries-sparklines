@@ -22,8 +22,9 @@ class SparklineRequest(BaseModel):
 
 class ChartRequest(BaseModel):
     """Request model for chart rendering."""
-    
+
     data: Any = Field(..., description="Time series data in any supported format")
+    chart_type: str = Field("line", description="Chart type: 'line' or 'bar'")
     period: str = Field("1M", description="Time period for label formatting (5D, 1W, 2W, 1M, 3M, 6M, 1Y)")
     period_days: Optional[int] = Field(None, description="Custom period in days (overrides period)")
     title: Optional[str] = Field(None, description="Chart title")
@@ -38,6 +39,8 @@ class ChartRequest(BaseModel):
     color_by_open: bool = Field(False, description="Color segments based on open price (first point)")
     date_key: Optional[str] = Field(None, description="Custom date key for dict format")
     value_key: Optional[str] = Field(None, description="Custom value key for dict format")
+    bar_color: Optional[str] = Field(None, description="Bar color (for bar charts)")
+    bar_width_ratio: Optional[float] = Field(None, description="Bar width ratio (0-1) for bar charts")
 
 
 class SVGResponse(BaseModel):

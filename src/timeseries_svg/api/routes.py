@@ -1,12 +1,12 @@
 """FastAPI routes for Timeseries SVG API."""
 
 import json
-from typing import Optional
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, Response
 
 from ..sparkline import SparklineRenderer
 from ..chart import TimeSeriesChartRenderer
+from ..bar_chart import BarChartRenderer
 from .. import __version__
 from .models import (
     SparklineRequest,
@@ -165,7 +165,8 @@ def create_app() -> FastAPI:
                 <label>Chart Type:</label>
                 <select id="chartType">
                     <option value="sparkline">Sparkline</option>
-                    <option value="chart">Full Chart</option>
+                    <option value="chart">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
                 </select>
                 
                 <label for="dataInput">Data (JSON):</label>
@@ -246,7 +247,7 @@ def create_app() -> FastAPI:
                 }}
                 
                 chartTypeSelect.addEventListener('change', function() {{
-                    chartOptions.style.display = this.value === 'chart' ? 'block' : 'none';
+                    chartOptions.style.display = (this.value === 'chart' || this.value === 'bar') ? 'block' : 'none';
                 }});
                 
                 periodSelect.addEventListener('change', function() {{
@@ -258,15 +259,16 @@ def create_app() -> FastAPI:
                     const dataInput = document.getElementById('dataInput').value;
                     const resultContainer = document.getElementById('result-container');
                     const colorByOpen = document.getElementById('colorByOpen').checked;
-                    
+
                     let endpoint = chartType === 'sparkline' ? '/sparkline-raw' : '/chart-raw';
                     let body = {{ data: JSON.parse(dataInput) }};
-                    
-                    if (chartType === 'sparkline' || chartType === 'chart') {{
+
+                    if (chartType === 'sparkline' || chartType === 'chart' || chartType === 'bar') {{
                         body.color_by_open = colorByOpen;
                     }}
-                    
-                    if (chartType === 'chart') {{
+
+                    if (chartType === 'chart' || chartType === 'bar') {{
+                        body.chart_type = chartType;
                         const periodValue = document.getElementById('period').value;
                         if (periodValue === 'custom') {{
                             const customDays = parseInt(document.getElementById('customDays').value);
@@ -435,34 +437,50 @@ def create_app() -> FastAPI:
         """Render chart and return raw SVG (for direct embedding)."""
         try:
             from datetime import timedelta
-            
+
             normalize_kwargs = {}
             if request.date_key:
                 normalize_kwargs["date_key"] = request.date_key
             if request.value_key:
                 normalize_kwargs["value_key"] = request.value_key
-            
-            renderer = TimeSeriesChartRenderer(
-                width=request.width,
-                height=request.height,
-                margin=request.margin,
-                up_color=request.up_color,
-                down_color=request.down_color,
-                grid_color=request.grid_color,
-                axis_color=request.axis_color,
-                label_color=request.label_color,
-                color_by_open=request.color_by_open,
-            )
-            
+
+            # Route to appropriate renderer based on chart_type
+            if request.chart_type == "bar":
+                renderer = BarChartRenderer(
+                    width=request.width,
+                    height=request.height,
+                    margin=request.margin,
+                    bar_color=request.bar_color or "#3b82f6",
+                    bar_width_ratio=request.bar_width_ratio or 0.7,
+                    grid_color=request.grid_color,
+                    axis_color=request.axis_color,
+                    label_color=request.label_color,
+                    color_by_open=request.color_by_open,
+                    up_color=request.up_color,
+                    down_color=request.down_color,
+                )
+            else:  # default to line chart
+                renderer = TimeSeriesChartRenderer(
+                    width=request.width,
+                    height=request.height,
+                    margin=request.margin,
+                    up_color=request.up_color,
+                    down_color=request.down_color,
+                    grid_color=request.grid_color,
+                    axis_color=request.axis_color,
+                    label_color=request.label_color,
+                    color_by_open=request.color_by_open,
+                )
+
             # Handle custom period_days
             period = request.period
             if request.period_days:
                 period = timedelta(days=request.period_days)
-            
+
             svg = renderer.render(request.data, period=period, title=request.title, **normalize_kwargs)
-            
+
             return Response(content=svg, media_type="image/svg+xml")
-            
+
         except Exception as e:
             raise HTTPException(status_code=400, detail=str(e))
     

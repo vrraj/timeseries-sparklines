@@ -207,7 +207,12 @@ renderer = TimeSeriesChartRenderer(width=<span class="hljs-number">760</span>, h
 svg = renderer.render(data, period=<span class="hljs-string">&quot;5D&quot;</span>, title=<span class="hljs-string">&quot;Price History&quot;</span>)
 </code></pre>
 <p><strong>With custom y-axis label and offset:</strong></p>
-<pre><code class="language-python">renderer = TimeSeriesChartRenderer(width=<span class="hljs-number">760</span>, height=<span class="hljs-number">320</span>, y_axis_label=<span class="hljs-string">&quot;$&quot;</span>, y_axis_offset=<span class="hljs-number">0.1</span>)
+<pre><code class="language-python">renderer = TimeSeriesChartRenderer(
+    width=<span class="hljs-number">760</span>,
+    height=<span class="hljs-number">320</span>,
+    y_axis_label=<span class="hljs-string">&quot;$&quot;</span>,
+    y_axis_offset=<span class="hljs-number">0.1</span>
+)
 svg = renderer.render(data, period=<span class="hljs-string">&quot;5D&quot;</span>, title=<span class="hljs-string">&quot;Price History&quot;</span>)
 </code></pre>
 <h3 id="bar-charts">Bar Charts</h3>
@@ -218,7 +223,12 @@ renderer = BarChartRenderer(width=<span class="hljs-number">760</span>, height=<
 svg = renderer.render(data, period=<span class="hljs-string">&quot;1M&quot;</span>, title=<span class="hljs-string">&quot;Temperature by Month&quot;</span>)
 </code></pre>
 <p><strong>With custom y-axis label and offset:</strong></p>
-<pre><code class="language-python">renderer = BarChartRenderer(width=<span class="hljs-number">760</span>, height=<span class="hljs-number">320</span>, y_axis_label=<span class="hljs-string">&quot;°F&quot;</span>, y_axis_offset=<span class="hljs-number">0.1</span>)
+<pre><code class="language-python">renderer = BarChartRenderer(
+    width=<span class="hljs-number">760</span>,
+    height=<span class="hljs-number">320</span>,
+    y_axis_label=<span class="hljs-string">&quot;°F&quot;</span>,
+    y_axis_offset=<span class="hljs-number">0.1</span>
+)
 svg = renderer.render(data, period=<span class="hljs-string">&quot;1M&quot;</span>, title=<span class="hljs-string">&quot;Temperature by Month&quot;</span>)
 </code></pre>
 <p>API usage (specify <code>chart_type: &quot;bar&quot;</code>):</p>

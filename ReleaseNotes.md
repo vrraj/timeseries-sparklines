@@ -83,28 +83,27 @@ svg = renderer.render([100, 102.5, 101.2, 105, 103.8])
 ```python
 from timeseries_svg import BarChartRenderer
 
-renderer = BarChartRenderer(width=760, height=320, bar_color="#3b82f6")
-svg = renderer.render(
-    data,
-    period="1M",
-    title="Monthly Revenue",
+renderer = BarChartRenderer(
+    width=760,
+    height=320,
+    bar_color="#3b82f6",
     y_axis_label="Revenue ($)",
     y_axis_offset=0.1
 )
+svg = renderer.render(data, period="1M", title="Monthly Revenue")
 ```
 
 **Line chart with period filtering and y-axis label:**
 ```python
 from timeseries_svg import TimeSeriesChartRenderer
 
-renderer = TimeSeriesChartRenderer(width=760, height=320)
-svg = renderer.render(
-    data,
-    period="6M",
-    title="Temperature Trends",
+renderer = TimeSeriesChartRenderer(
+    width=760,
+    height=320,
     y_axis_label="Temperature (°C)",
     y_axis_offset=0.1
 )
+svg = renderer.render(data, period="6M", title="Temperature Trends")
 ```
 
 ---

@@ -157,7 +157,12 @@ print(svg)  # Returns SVG string
 
 **With custom y-axis label and offset:**
 ```python
-renderer = TimeSeriesChartRenderer(width=760, height=320, y_axis_label="$", y_axis_offset=0.1)
+renderer = TimeSeriesChartRenderer(
+    width=760,
+    height=320,
+    y_axis_label="$",
+    y_axis_offset=0.1
+)
 svg = renderer.render(data, period="5D", title="AAPL Price History")
 ```
 
@@ -182,7 +187,12 @@ print(svg)  # Returns SVG string
 
 **With custom y-axis label and offset:**
 ```python
-renderer = BarChartRenderer(width=760, height=320, y_axis_label="°F", y_axis_offset=0.1)
+renderer = BarChartRenderer(
+    width=760,
+    height=320,
+    y_axis_label="°F",
+    y_axis_offset=0.1
+)
 svg = renderer.render(data, period="1Y", title="Temperature by Month")
 ```
 

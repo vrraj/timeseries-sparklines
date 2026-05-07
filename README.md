@@ -32,7 +32,17 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/chart-with-dict-date-value.png" width="30%" />
 </p>
 
+
 <p align="center"><em>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</em></p>
+
+### Example Application Preview
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-sparklines.png" width="48%" />
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/trading-app-charts.png" width="48%" />
+</p>
+
+<p align="center"><em>Example: backend-rendered sparklines and slicable SVG charts inside a trading dashboard.</em></p>
 
 **[Quick Start →](#install)**
 

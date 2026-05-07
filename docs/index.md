@@ -27,6 +27,14 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 The library is data-agnostic - it does not fetch, store, or poll data. Your application manages the data source, and `timeseries-sparklines` handles normalization, slicing, coordinate calculation, and SVG rendering.
 
+## Preview
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/tool-harness-for-chart-in-llm-response.png" width="88%" />
+</p>
+
+<p align="center"><em>Example: an Agentic workflow returning a server-rendered SVG chart in side an LLM response.</em></p>
+
 ## Use Cases
 
 Use `timeseries-sparklines` when your backend, API, or Agentic workflow needs to turn time-series data into lightweight SVG charts without adding frontend charting dependencies.

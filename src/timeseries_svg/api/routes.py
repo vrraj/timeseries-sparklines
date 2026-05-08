@@ -159,7 +159,7 @@ def create_app() -> FastAPI:
         <body>
             <a href="/" class="back">← Back to API</a>
             <a href="/usage-guide" class="back" style="margin-left: 20px;" target="_blank">Usage Guide</a>
-            <h1>Sparklines and Interactive Chart Testing</h1>
+            <h2>Sparklines and Charts - API Testing</h2>
             
             <div class="card">
                 <label>Chart Type:</label>
@@ -190,7 +190,7 @@ def create_app() -> FastAPI:
                                 <option value="1W">1W (1 week)</option>
                                 <option value="2W">2W (2 weeks)</option>
                                 <option value="1M">1M (30 days)</option>
-                                <option value="3M">3M (90 days)</option>
+                                <option value="3M" selected>3M (90 days)</option>
                                 <option value="6M">6M (180 days)</option>
                                 <option value="1Y">1Y (365 days)</option>
                                 <option value="custom">Custom (specify below)</option>

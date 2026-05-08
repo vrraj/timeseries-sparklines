@@ -286,5 +286,6 @@ It is designed for dashboards, SSR applications, APIs, reports, and Agentic work
 - [PyPI Package](https://pypi.org/project/timeseries-sparklines/)
 - [Full README](https://github.com/vrraj/timeseries-sparklines#readme)
 - [API Reference](api-reference.html)
+- [Story on Medium](https://medium.com/@vr.rajkumar99/a-tool-harness-for-delivering-charts-and-sparklines-inside-llm-workflows-395774dcdc59)
 - [Deployment Guide](DEPLOYMENT.html)
 - [Usage Guide](usage-guide.html)

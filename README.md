@@ -26,7 +26,7 @@ Includes an **Interactive Test UI** for testing data formats, period slicing, SV
 
 <hr>
 
-<p align="center"><strong>Sparklines, bar charts, and slicable SVG time-series charts rendered server-side.</strong></p>
+<p align="center"><strong>Sparklines, bar charts, and sliceable SVG time-series charts rendered server-side.</strong></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vrraj/timeseries-sparklines/main/images/sparklines-with-list-of-values.png" width="30%" />
@@ -294,6 +294,8 @@ Run locally:
 ```bash
 git clone https://github.com/vrraj/timeseries-sparklines.git
 cd timeseries-sparklines
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install "timeseries-sparklines[api]"
 timeseries-server
 ```

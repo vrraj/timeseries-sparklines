@@ -1,10 +1,10 @@
 ---
 layout: default
-title: "A Server-Side SVG Harness for Agentic Workflows and Trading Dashboards"
-description: "Render deterministic sparklines, trend charts, bar charts, and sliceable time-series visualizations directly from backend workflows."
+title: "Timeseries SVG: A Chart & Sparkline Rendering Harness"
+description: "Server-side SVG rendering for deterministic sparklines, trend charts, bar charts, and sliceable time-series visualizations from backend workflows."
 ---
 
-# A Server-Side SVG Harness for Agentic Workflows and Trading Dashboards
+# Timeseries SVG: A Chart & Sparkline Rendering Harness
 
 <p align="left">
   <a href="https://pypi.org/project/timeseries-sparklines/">
@@ -18,7 +18,7 @@ description: "Render deterministic sparklines, trend charts, bar charts, and sli
   </a>
 </p>
 
-Render deterministic **sparklines**, **trend charts**, **bar charts**, and **sliceable time-series visualizations** directly from backend workflows — for trading dashboards, SSR applications, reports, APIs, and LLM/Agentic systems.
+Server-side SVG rendering for deterministic **sparklines**, **trend charts**, **bar charts**, and **sliceable time-series visualizations** — built for trading dashboards, SSR applications, reports, APIs, and LLM/Agentic workflows.
 
 Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or LLM/Agentic workflows?
 

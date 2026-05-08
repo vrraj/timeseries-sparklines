@@ -1,10 +1,10 @@
 ---
 layout: default
-title: "Timeseries SVG: Time Series Visualization"
-description: "Server-side SVG rendering harness for sparklines, trend lines, mini charts, and slicable time-series charts for dashboards, SSR applications, and Agentic workflows."
+title: "A Server-Side SVG Harness for Agentic Workflows and Trading Dashboards"
+description: "Render deterministic sparklines, trend charts, bar charts, and sliceable time-series visualizations directly from backend workflows."
 ---
 
-# timeseries-sparklines
+# A Server-Side SVG Harness for Agentic Workflows and Trading Dashboards
 
 <p align="left">
   <a href="https://pypi.org/project/timeseries-sparklines/">
@@ -13,11 +13,16 @@ description: "Server-side SVG rendering harness for sparklines, trend lines, min
   <a href="https://github.com/vrraj/timeseries-sparklines/releases">
     <img src="https://img.shields.io/github/v/release/vrraj/timeseries-sparklines?label=github%20release&color=orange&logo=github" alt="GitHub Release">
   </a>
+  <a href="https://github.com/vrraj/timeseries-sparklines/actions/workflows/ci.yml">
+    <img src="https://github.com/vrraj/timeseries-sparklines/actions/workflows/ci.yml/badge.svg" alt="CI Status">
+  </a>
 </p>
 
-Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or Agentic systems?
+Render deterministic **sparklines**, **trend charts**, **bar charts**, and **sliceable time-series visualizations** directly from backend workflows — for trading dashboards, SSR applications, reports, APIs, and LLM/Agentic systems.
 
-`timeseries-sparklines` is a lightweight server-side SVG rendering engine for **sparklines**, **bar charts**, and **SVG time-series charts** that can be sliced by days, weeks, months, years, or custom time windows.
+Need to add **sparklines**, **trend lines**, **mini charts**, **bar charts**, or **slicable time-series charts** to your application, dashboard, or LLM/Agentic workflows?
+
+`timeseries-sparklines` is a lightweight server-side SVG rendering harness for **sparklines**, **bar charts**, and **SVG time-series charts** that can be sliced by days, weeks, months, years, or custom time windows.
 
 It produces deterministic SVG markup that the browser can simply display - no chart initialization, no canvas lifecycle management, and no frontend chart runtime required.
 

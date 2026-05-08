@@ -14,7 +14,7 @@ Need backend-rendered **sparklines**, **trend lines**, **mini charts**, **bar ch
 pip install timeseries-sparklines
 ```
 
-Includes an **Interactive Test UI** for testing data formats, period slicing, SVG output, and chart parameters.
+Includes an **[Interactive API Testing UI](#interactive-api-testing-ui)** for testing data formats, period slicing, SVG output, and chart parameters.
 
 ## Rendered Examples
 
@@ -278,10 +278,10 @@ timeseries-server
 The server starts on `http://0.0.0.0:9300` with endpoints:
 - `POST /sparkline-raw` - Render sparkline from JSON data
 - `POST /chart-raw` - Render chart from JSON data
-- `GET /test-charts` - Interactive test UI
+- `GET /test-charts` - Interactive API Testing UI
 - `GET /health` - Health check
 
-## Interactive Test UI
+## Interactive API Testing UI
 
 The GitHub repository includes a FastAPI-powered **Test UI** for testing rendering behavior, inspecting SVG output, and tuning chart parameters.
 
